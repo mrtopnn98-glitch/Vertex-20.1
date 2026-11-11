@@ -1,0 +1,47 @@
+VERTEX AIM SYSTEM v2 — конфиг-переменные (34 штуки)
+================================================================
+ГДЕ МЕНЯТЬ:
+ 1) config_variables.h — удали старый блок vx_aimbot_* (31 строка из
+    прежней установки Vertex Aim v1) и вставь на его место блок ниже.
+    ПЕРЕМЕННЫЕ СТАРОГО КЛИЕНТА НЕ ТРОГАЙ: ClHookAim, ClHookAimFov,
+    ClVertexAimbot*, VxEsp* — их ещё читают другие файлы клиента.
+ 2) engine/shared/config.cpp — там второй список таких же строк: удали
+    старые vx_aimbot_* и вставь ТЕ ЖЕ новые строки (как делал для aled).
+
+Если старый блок vx_aimbot_* не удалить — ничего не сломается (просто
+будут висеть неиспользуемые переменные), но лучше убрать для чистоты.
+
+MACRO_CONFIG_INT(VxAimEnable, vx_aim_enable, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: master switch")
+MACRO_CONFIG_INT(VxAimDebug, vx_aim_debug, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: debug log (tag vertex-aim)")
+MACRO_CONFIG_INT(VxAimHoldBind, vx_aim_hold_bind, -1, -1, 512, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: aim only while this key is held")
+MACRO_CONFIG_INT(VxAimNoDummy, vx_aim_no_dummy, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ignore dummy (0 = hook and aim dummy too)")
+MACRO_CONFIG_INT(VxAimNoFriends, vx_aim_no_friends, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ignore friends")
+MACRO_CONFIG_INT(VxAimNoTeam, vx_aim_no_team, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ignore own team")
+MACRO_CONFIG_INT(VxAimNoFrozen, vx_aim_no_frozen, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ignore frozen tees")
+MACRO_CONFIG_INT(VxAimHook, vx_aim_hook, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hook aim: enable (works on anyone, dummy included)")
+MACRO_CONFIG_INT(VxAimHookFov, vx_aim_hook_fov, 360, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hook aim FOV degrees (360 = hook anyone around, even behind)")
+MACRO_CONFIG_INT(VxAimHookAuto, vx_aim_hook_auto, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hook aim: auto-hook a target inside the FOV zone")
+MACRO_CONFIG_INT(VxAimHammer, vx_aim_hammer, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hammer aim: enable")
+MACRO_CONFIG_INT(VxAimHammerFov, vx_aim_hammer_fov, 360, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hammer aim FOV degrees (360 = hit behind)")
+MACRO_CONFIG_INT(VxAimHammerAuto, vx_aim_hammer_auto, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex hammer aim: auto swing when a target is in reach")
+MACRO_CONFIG_INT(VxAimGun, vx_aim_gun, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex gun aim: enable")
+MACRO_CONFIG_INT(VxAimGunFov, vx_aim_gun_fov, 180, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex gun aim FOV degrees (zone radius grows with FOV)")
+MACRO_CONFIG_INT(VxAimShotgun, vx_aim_shotgun, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex shotgun aim: enable")
+MACRO_CONFIG_INT(VxAimShotgunFov, vx_aim_shotgun_fov, 180, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex shotgun aim FOV degrees")
+MACRO_CONFIG_INT(VxAimShotgunBounce, vx_aim_shotgun_bounce, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex shotgun: bounce aim (hit the target via wall ricochet)")
+MACRO_CONFIG_INT(VxAimShotgunBounceFov, vx_aim_shotgun_bounce_fov, 360, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex shotgun bounce aim FOV degrees")
+MACRO_CONFIG_INT(VxAimGrenade, vx_aim_grenade, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex grenade aim: enable")
+MACRO_CONFIG_INT(VxAimGrenadeFov, vx_aim_grenade_fov, 180, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex grenade aim FOV degrees")
+MACRO_CONFIG_INT(VxAimLaser, vx_aim_laser, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex laser aim: enable")
+MACRO_CONFIG_INT(VxAimLaserFov, vx_aim_laser_fov, 180, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex laser aim FOV degrees")
+MACRO_CONFIG_INT(VxAimLaserBounce, vx_aim_laser_bounce, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex laser: bounce aim (reflected beam always hits the target)")
+MACRO_CONFIG_INT(VxAimLaserBounceFov, vx_aim_laser_bounce_fov, 360, 1, 360, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex laser bounce aim FOV degrees")
+MACRO_CONFIG_INT(VxAimAutoFire, vx_aim_autofire, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: auto fire gun/shotgun/grenade/laser (OFF by default)")
+MACRO_CONFIG_INT(VxAimDrawFov, vx_aim_draw_fov, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: draw the real FOV capture zones")
+MACRO_CONFIG_INT(VxAimHighlight, vx_aim_highlight, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: highlight the locked target")
+MACRO_CONFIG_INT(VxAimTrajGrenade, vx_aim_traj_grenade, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ESP grenade trajectory with impact point")
+MACRO_CONFIG_INT(VxAimTrajShotgun, vx_aim_traj_shotgun, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ESP shotgun trajectory with bounces")
+MACRO_CONFIG_INT(VxAimTrajLaser, vx_aim_traj_laser, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: ESP laser trajectory with bounces")
+MACRO_CONFIG_COL(VxAimFovColor, vx_aim_fov_color, 0x66AAFFFF, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: FOV zone color")
+MACRO_CONFIG_COL(VxAimHlColor, vx_aim_hl_color, 0x66FF66FF, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: locked target highlight color")
+MACRO_CONFIG_COL(VxAimTrajColor, vx_aim_traj_color, 0x66FF88FF, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Vertex aim: trajectory ESP color")

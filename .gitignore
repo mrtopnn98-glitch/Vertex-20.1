@@ -1,0 +1,11 @@
+build*/
+.vs/
+.idea/
+.cache/
+*.user
+*.suo
+compile_commands.json
+*_bak
+.git_backup_ddnet_*
+*.zip
+*.log

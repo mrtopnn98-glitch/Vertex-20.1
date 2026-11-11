@@ -1,0 +1,180 @@
+﻿		}
+
+		RenderHookCollLine(ScreenRect, &GameClient()->m_aClients[ClientId].m_RenderPrev, &GameClient()->m_aClients[ClientId].m_RenderCur, ClientId);
+		RenderPlayer(ScreenRect, &GameClient()->m_aClients[ClientId].m_RenderPrev, &GameClient()->m_aClients[ClientId].m_RenderCur, &aRenderInfo[ClientId], ClientId);
+	}
+	if(RenderLastId != -1 && IsPlayerInfoAvailable(RenderLastId))
+	{
+		const CGameClient::CClientData *pClientData = &GameClient()->m_aClients[RenderLastId];
+		RenderHookCollLine(ScreenRect, &pClientData->m_RenderPrev, &pClientData->m_RenderCur, RenderLastId);
+		RenderPlayer(ScreenRect, &pClientData->m_RenderPrev, &pClientData->m_RenderCur, &aRenderInfo[RenderLastId], RenderLastId);
+	}
+
+	// === hook-aim FOV cone (only visible when Draw FOV is enabled) ===
+	if(g_Config.m_ClHookAim && g_Config.m_ClVertexAimbotEnableESP && g_Config.m_ClVertexAimbotShowFov && GameClient()->m_Snap.m_LocalClientId >= 0)
+	{
+		const int LocalIdForFov = GameClient()->m_Snap.m_LocalClientId;
+		const vec2 MyPos = GameClient()->m_aClients[LocalIdForFov].m_RenderPos;
+		const vec2 MouseDir = GameClient()->m_Controls.m_aMousePos[g_Config.m_ClDummy];
+		const float MouseLen = length(MouseDir);
+		if(MouseLen > 0.001f)
+		{
+			const vec2 MouseNorm = MouseDir / MouseLen;
+			const float FovDeg = (float)g_Config.m_ClHookAimFov;
+			const float HalfFovRad = FovDeg * 0.5f * 3.14159265f / 180.0f;
+			const float HookLength = GameClient()->m_aTuning[g_Config.m_ClDummy].m_HookLength;
+
+			const float CosA = cosf(HalfFovRad);
+			const float SinA = sinf(HalfFovRad);
+			const vec2 DirL(MouseNorm.x * CosA - MouseNorm.y * SinA,
+			                MouseNorm.x * SinA + MouseNorm.y * CosA);
+			const vec2 DirR(MouseNorm.x * CosA + MouseNorm.y * SinA,
+			               -MouseNorm.x * SinA + MouseNorm.y * CosA);
+
+			// stop at walls (same raytrace the aim itself uses)
+			vec2 EndL = MyPos + DirL * HookLength;
+			vec2 EndR = MyPos + DirR * HookLength;
+			vec2 OutCol, OutBefore;
+			int TeleNr = 0;
+			if(GameClient()->Collision()->IntersectLineTeleHook(MyPos, EndL, &OutCol, &OutBefore, &TeleNr) != 0)
+				EndL = OutBefore;
+			if(GameClient()->Collision()->IntersectLineTeleHook(MyPos, EndR, &OutCol, &OutBefore, &TeleNr) != 0)
+				EndR = OutBefore;
+
+			IGraphics::CLineItem aLines[2] = {
+				IGraphics::CLineItem(MyPos, EndL),
+				IGraphics::CLineItem(MyPos, EndR),
+			};
+
+			Graphics()->TextureClear();
+			Graphics()->LinesBegin();
+			Graphics()->SetColor(0.0f, 0.0f, 0.0f, 0.85f);
+			Graphics()->LinesDraw(aLines, 2);
+			Graphics()->LinesEnd();
+		}
+	}
+	// === end hook-aim FOV cone ===
+
+	// === ESP: box around each visible player, target in green ===
+	if(g_Config.m_ClVertexAimbotEnableESP && g_Config.m_ClVertexAimbotShowBox && LocalClientId >= 0)
+	{
+		const int AimTarget = GameClient()->m_Controls.m_VertexAimTargetId;
+		std::vector<IGraphics::CLineItem> vRedBoxes;
+		std::vector<IGraphics::CLineItem> vGreenBoxes;
+
+		for(int i = 0; i < MAX_CLIENTS; i++)
+		{
+			if(i == LocalClientId) continue;
+			if(!GameClient()->m_aClients[i].m_Active) continue;
+			if(GameClient()->m_aClients[i].m_Spec) continue;
+			if(!IsPlayerInfoAvailable(i)) continue;
+
+			const vec2 P = GameClient()->m_aClients[i].m_RenderPos;
+			const float S = CCharacterCore::PhysicalSize() * 1.0f;
+			const bool IsTarget = (i == AimTarget);
+
+			IGraphics::CLineItem aBox[4] = {
+				IGraphics::CLineItem(P.x - S, P.y - S, P.x + S, P.y - S),
+				IGraphics::CLineItem(P.x + S, P.y - S, P.x + S, P.y + S),
+				IGraphics::CLineItem(P.x + S, P.y + S, P.x - S, P.y + S),
+				IGraphics::CLineItem(P.x - S, P.y + S, P.x - S, P.y - S),
+			};
+			auto &vDest = IsTarget ? vGreenBoxes : vRedBoxes;
+			for(const auto &item : aBox) vDest.push_back(item);
+		}
+
+		Graphics()->TextureClear();
+		if(!vRedBoxes.empty())
+		{
+			Graphics()->LinesBegin();
+			Graphics()->SetColor(1.0f, 0.15f, 0.15f, 0.85f);
+			Graphics()->LinesDraw(vRedBoxes.data(), vRedBoxes.size());
+			Graphics()->LinesEnd();
+		}
+		if(!vGreenBoxes.empty())
+		{
+			Graphics()->LinesBegin();
+			Graphics()->SetColor(0.15f, 1.0f, 0.15f, 1.0f);
+			Graphics()->LinesDraw(vGreenBoxes.data(), vGreenBoxes.size());
+			Graphics()->LinesEnd();
+		}
+	}
+	// === end ESP box ===
+
+	// === ESP: glow around the aim target ===
+	if(g_Config.m_ClVertexAimbotEnableESP && g_Config.m_ClVertexAimbotTargetHighlight && LocalClientId >= 0)
+	{
+		const int AimTarget = GameClient()->m_Controls.m_VertexAimTargetId;
+		if(AimTarget >= 0 && AimTarget < MAX_CLIENTS && AimTarget != LocalClientId)
+		{
+			const vec2 P = GameClient()->m_aClients[AimTarget].m_RenderPos;
+			const float S = CCharacterCore::PhysicalSize() * 0.85f;
+			IGraphics::CFreeformItem aGlow[1] = {
+				IGraphics::CFreeformItem(P.x - S, P.y - S, P.x + S, P.y - S, P.x - S, P.y + S, P.x + S, P.y + S),
+			};
+			Graphics()->TextureClear();
+			Graphics()->QuadsBegin();
+			Graphics()->SetColor(0.2f, 1.0f, 0.2f, 0.22f);
+			Graphics()->QuadsDrawFreeform(aGlow, 1);
+			Graphics()->QuadsEnd();
+		}
+	}
+	// === end ESP glow ===
+
+}
+
+void CPlayers::CreateNinjaTeeRenderInfo()
+{
+	CTeeRenderInfo NinjaTeeRenderInfo;
+	NinjaTeeRenderInfo.m_Size = 64.0f;
+	CSkinDescriptor NinjaSkinDescriptor;
+	NinjaSkinDescriptor.m_Flags |= CSkinDescriptor::FLAG_SIX;
+	str_copy(NinjaSkinDescriptor.m_aSkinName, "x_ninja");
+	m_pNinjaTeeRenderInfo = GameClient()->CreateManagedTeeRenderInfo(NinjaTeeRenderInfo, NinjaSkinDescriptor);
+}
+
+void CPlayers::CreateSpectatorTeeRenderInfo()
+{
+	CTeeRenderInfo SpectatorTeeRenderInfo;
+	SpectatorTeeRenderInfo.m_Size = 64.0f;
+	CSkinDescriptor SpectatorSkinDescriptor;
+	SpectatorSkinDescriptor.m_Flags |= CSkinDescriptor::FLAG_SIX;
+	str_copy(SpectatorSkinDescriptor.m_aSkinName, "x_spec");
+	m_pSpectatorTeeRenderInfo = GameClient()->CreateManagedTeeRenderInfo(SpectatorTeeRenderInfo, SpectatorSkinDescriptor);
+}
+
+void CPlayers::OnInit()
+{
+	m_WeaponEmoteQuadContainerIndex = Graphics()->CreateQuadContainer(false);
+
+	Graphics()->SetColor(1.f, 1.f, 1.f, 1.f);
+
+	for(int i = 0; i < NUM_WEAPONS; ++i)
+	{
+		float ScaleX, ScaleY;
+		Graphics()->GetSpriteScale(g_pData->m_Weapons.m_aId[i].m_pSpriteBody, ScaleX, ScaleY);
+		Graphics()->QuadsSetSubset(0, 0, 1, 1);
+		Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, g_pData->m_Weapons.m_aId[i].m_VisualSize * ScaleX, g_pData->m_Weapons.m_aId[i].m_VisualSize * ScaleY);
+		Graphics()->QuadsSetSubset(0, 1, 1, 0);
+		Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, g_pData->m_Weapons.m_aId[i].m_VisualSize * ScaleX, g_pData->m_Weapons.m_aId[i].m_VisualSize * ScaleY);
+	}
+	float ScaleX, ScaleY;
+
+	// at the end the hand
+	Graphics()->QuadsSetSubset(0, 0, 1, 1);
+	Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, 20.f);
+	Graphics()->QuadsSetSubset(0, 0, 1, 1);
+	Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, 20.f);
+
+	Graphics()->QuadsSetSubset(0, 0, 1, 1);
+	Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, -12.f, -8.f, 24.f, 16.f);
+	Graphics()->QuadsSetSubset(0, 0, 1, 1);
+	Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, -12.f, -8.f, 24.f, 16.f);
+
+	for(int i = 0; i < NUM_EMOTICONS; ++i)
+	{
+		Graphics()->QuadsSetSubset(0, 0, 1, 1);
+		Graphics()->QuadContainerAddSprite(m_WeaponEmoteQuadContainerIndex, 64.f);
+	}
+	Graphics()->QuadContainerUpload(m_WeaponEmoteQuadContainerIndex);
+

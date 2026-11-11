@@ -1,0 +1,18 @@
+Версия MSBuild 18.10.1-1.26427.6+3cd27c13e для .NET Framework
+
+  engine-gfx.vcxproj -> C:\Vertex-20.1\build_new\engine-gfx.dir\Release\engine-gfx.lib
+  1>
+  engine-shared.vcxproj -> C:\Vertex-20.1\build_new\engine-shared.dir\Release\engine-shared.lib
+  1>
+  game-shared.vcxproj -> C:\Vertex-20.1\build_new\game-shared.dir\Release\game-shared.lib
+  glew.vcxproj -> C:\Vertex-20.1\build_new\glew.dir\Release\glew.lib
+  json.vcxproj -> C:\Vertex-20.1\build_new\json.dir\Release\json.lib
+  md5.vcxproj -> C:\Vertex-20.1\build_new\md5.dir\Release\md5.lib
+  rust-bridge-shared.vcxproj -> C:\Vertex-20.1\build_new\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+  1>
+  zlib.vcxproj -> C:\Vertex-20.1\build_new\zlib.dir\Release\zlib.lib
+  steam_api.vcxproj -> C:\Vertex-20.1\build_new\Release\steam_api.dll
+  game-client.vcxproj -> C:\Vertex-20.1\build_new\Release\DDNet.exe
+Версия MSBuild 18.10.1-1.26427.6+3cd27c13e для .NET Framework
+MSBUILD : error MSB1009: файл проекта не существует.
+Ключ: echo.vcxproj

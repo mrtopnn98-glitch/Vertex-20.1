@@ -1,0 +1,151 @@
+2026-11-09 22:57:02 I engine: running on windows-win64-amd64
+2026-11-09 22:57:02 I engine: arch is little endian
+2026-11-09 22:57:02 I engine: operating system version: Windows 10.0.26100.9711
+2026-11-09 22:57:02 I storage: added path '$USERDIR' ('C:/Users/Gorgo/AppData/Roaming/DDNet')
+2026-11-09 22:57:02 I storage: added path '$DATADIR' ('data')
+2026-11-09 22:57:02 I storage: added path '$CURRENTDIR' ('C:/Users/Gorgo/Desktop/Blatan_vertex/Vertex-20.1')
+2026-11-09 22:57:02 I binds: bound f1 = toggle_local_console
+2026-11-09 22:57:02 I binds: bound f2 = toggle_remote_console
+2026-11-09 22:57:02 I binds: bound tab = +scoreboard
+2026-11-09 22:57:02 I binds: bound equals = +statboard
+2026-11-09 22:57:02 I binds: bound f10 = screenshot
+2026-11-09 22:57:02 I binds: bound a = +left
+2026-11-09 22:57:02 I binds: bound d = +right
+2026-11-09 22:57:02 I binds: bound space = +jump
+2026-11-09 22:57:02 I binds: bound mouse1 = +fire
+2026-11-09 22:57:02 I binds: bound mouse2 = +hook
+2026-11-09 22:57:02 I binds: bound lshift = +emote
+2026-11-09 22:57:02 I binds: bound return = +show_chat; chat all
+2026-11-09 22:57:02 I binds: bound right = spectate_next
+2026-11-09 22:57:02 I binds: bound left = spectate_previous
+2026-11-09 22:57:02 I binds: bound rshift = +spectate
+2026-11-09 22:57:02 I binds: bound 1 = +weapon1
+2026-11-09 22:57:02 I binds: bound 2 = +weapon2
+2026-11-09 22:57:02 I binds: bound 3 = +weapon3
+2026-11-09 22:57:02 I binds: bound 4 = +weapon4
+2026-11-09 22:57:02 I binds: bound 5 = +weapon5
+2026-11-09 22:57:02 I binds: bound mousewheelup = +prevweapon
+2026-11-09 22:57:02 I binds: bound mousewheeldown = +nextweapon
+2026-11-09 22:57:02 I binds: bound t = +show_chat; chat all
+2026-11-09 22:57:02 I binds: bound y = +show_chat; chat team
+2026-11-09 22:57:02 I binds: bound u = +show_chat
+2026-11-09 22:57:02 I binds: bound i = +show_chat; chat all /c 
+2026-11-09 22:57:02 I binds: bound f3 = vote yes
+2026-11-09 22:57:02 I binds: bound f4 = vote no
+2026-11-09 22:57:02 I binds: bound k = kill
+2026-11-09 22:57:02 I binds: bound q = say /spec
+2026-11-09 22:57:02 I binds: bound p = say /pause
+2026-11-09 22:57:02 I binds: bound kp_plus = zoom+
+2026-11-09 22:57:02 I binds: bound kp_minus = zoom-
+2026-11-09 22:57:02 I binds: bound kp_multiply = zoom
+2026-11-09 22:57:02 I binds: bound pause = say /pause
+2026-11-09 22:57:02 I binds: bound up = +jump
+2026-11-09 22:57:02 I binds: bound left = +left
+2026-11-09 22:57:02 I binds: bound right = +right
+2026-11-09 22:57:02 I binds: bound leftbracket = +prevweapon
+2026-11-09 22:57:02 I binds: bound rightbracket = +nextweapon
+2026-11-09 22:57:02 I binds: bound c = say /rank
+2026-11-09 22:57:02 I binds: bound v = say /info
+2026-11-09 22:57:02 I binds: bound b = say /top5
+2026-11-09 22:57:02 I binds: bound s = +showhookcoll
+2026-11-09 22:57:02 I binds: bound x = toggle cl_dummy 0 1
+2026-11-09 22:57:02 I binds: bound h = toggle cl_dummy_hammer 0 1
+2026-11-09 22:57:02 I binds: bound slash = +show_chat; chat all /
+2026-11-09 22:57:02 I binds: bound kp_0 = say /emote normal 999999
+2026-11-09 22:57:02 I binds: bound kp_1 = say /emote happy 999999
+2026-11-09 22:57:02 I binds: bound kp_2 = say /emote angry 999999
+2026-11-09 22:57:02 I binds: bound kp_3 = say /emote pain 999999
+2026-11-09 22:57:02 I binds: bound kp_4 = say /emote surprise 999999
+2026-11-09 22:57:02 I binds: bound kp_5 = say /emote blink 999999
+2026-11-09 22:57:02 I binds: bound minus = spectate_previous
+2026-11-09 22:57:02 I binds: bound equals = spectate_next
+2026-11-09 22:57:02 I binds: bound mouse3 = toggle_scoreboard_cursor; +spectate
+2026-11-09 22:57:02 I binds: bound lalt = toggle_scoreboard_cursor
+2026-11-09 22:57:02 I binds: bound w = +jump
+2026-11-09 22:57:02 I console: executing 'settings_ddnet.cfg'
+2026-11-09 22:57:02 I binds: bound a = +left
+2026-11-09 22:57:02 I binds: bound b = say /top5
+2026-11-09 22:57:02 I binds: bound c = toggle cl_dummy_copy_moves 0 1
+2026-11-09 22:57:02 I binds: bound d = +right
+2026-11-09 22:57:02 I binds: bound e = +toggle mrx_hookfly_manual 1 0
+2026-11-09 22:57:02 I binds: bound h = toggle cl_dummy_hammer 0 1
+2026-11-09 22:57:02 I binds: bound i = +show_chat; chat all /c 
+2026-11-09 22:57:02 I binds: bound m = +toggle cl_dummy_hammer 1 0; +left; +hook
+2026-11-09 22:57:02 I binds: bound p = say /pause
+2026-11-09 22:57:02 I binds: bound q = say /spec
+2026-11-09 22:57:02 I binds: bound r = toggle mrx_aimbot_enable 1 0
+2026-11-09 22:57:02 I binds: bound s = +showhookcoll
+2026-11-09 22:57:02 I binds: bound t = +show_chat; chat all
+2026-11-09 22:57:02 I binds: bound u = +show_chat
+2026-11-09 22:57:02 I binds: bound v = +toggle ngg_tas_rewind 1 0
+2026-11-09 22:57:02 I binds: bound w = +toggle cl_dummy_hammer 1 0
+2026-11-09 22:57:02 I binds: bound x = toggle cl_dummy 0 1
+2026-11-09 22:57:02 I binds: bound y = +show_chat; chat team
+2026-11-09 22:57:02 I binds: bound z = toggle mrx_avoid_enable 0 1
+2026-11-09 22:57:02 I binds: bound 1 = +weapon1
+2026-11-09 22:57:02 I binds: bound 2 = +weapon2
+2026-11-09 22:57:02 I binds: bound 3 = +weapon4
+2026-11-09 22:57:02 I binds: bound 4 = +weapon3
+2026-11-09 22:57:02 I binds: bound 5 = +weapon5
+2026-11-09 22:57:02 I binds: bound return = +show_chat; chat all
+2026-11-09 22:57:02 I binds: bound tab = +scoreboard
+2026-11-09 22:57:02 I binds: bound space = +jump
+2026-11-09 22:57:02 I binds: bound minus = spectate_previous
+2026-11-09 22:57:02 I binds: bound equals = spectate_next
+2026-11-09 22:57:02 I binds: bound leftbracket = +prevweapon
+2026-11-09 22:57:02 I binds: bound rightbracket = +nextweapon
+2026-11-09 22:57:02 I binds: bound semicolon = zoom-
+2026-11-09 22:57:02 I binds: bound apostrophe = zoom
+2026-11-09 22:57:02 I binds: bound grave = toggle mrx_movefly 0 1; dummy_reset
+2026-11-09 22:57:02 I binds: bound slash = +toggle cl_mouse_max_distance 2.0 400.00; +toggle inp_mousesens 1 200; +showhookcoll
+2026-11-09 22:57:02 I binds: bound f1 = toggle_local_console
+2026-11-09 22:57:02 I binds: bound f2 = toggle_remote_console
+2026-11-09 22:57:02 I binds: bound f3 = vote yes
+2026-11-09 22:57:02 I binds: bound f4 = vote no
+2026-11-09 22:57:02 I binds: bound f10 = screenshot
+2026-11-09 22:57:02 I binds: bound pause = say /pause
+2026-11-09 22:57:02 I binds: bound pageup = toggle cl_overlay_entities 0 100
+2026-11-09 22:57:02 I binds: bound right = +right
+2026-11-09 22:57:02 I binds: bound left = +left
+2026-11-09 22:57:02 I binds: bound up = +jump
+2026-11-09 22:57:02 I binds: bound kp_plus = zoom+
+2026-11-09 22:57:02 I binds: bound kp_1 = say /emote happy 999999
+2026-11-09 22:57:02 I binds: bound kp_2 = say /emote angry 999999
+2026-11-09 22:57:02 I binds: bound kp_3 = say /emote pain 999999
+2026-11-09 22:57:02 I binds: bound kp_4 = say /emote surprise 999999
+2026-11-09 22:57:02 I binds: bound kp_5 = say /emote blink 999999
+2026-11-09 22:57:02 I binds: bound kp_0 = say /emote normal 999999
+2026-11-09 22:57:02 I binds: bound lctrl = toggle mrx_throw_dummy 1 0
+2026-11-09 22:57:02 I binds: bound lshift = +emote
+2026-11-09 22:57:02 I binds: bound lalt = toggle_scoreboard_cursor
+2026-11-09 22:57:02 I binds: bound rshift = +spectate
+2026-11-09 22:57:02 I binds: bound mouse1 = +fire
+2026-11-09 22:57:02 I binds: bound mouse2 = +hook
+2026-11-09 22:57:02 I binds: bound mouse3 = toggle_scoreboard_cursor; +spectate
+2026-11-09 22:57:02 I binds: bound mouse4 = kill
+2026-11-09 22:57:02 I binds: bound mouse5 = exec 1.cfg
+2026-11-09 22:57:02 I binds: bound mousewheelup = +prevweapon
+2026-11-09 22:57:02 I binds: bound mousewheeldown = +nextweapon
+2026-11-09 22:57:02 I http: libcurl version 8.8.0 (compiled = 8.8.0)
+2026-11-09 22:57:02 I sdl: SDL version 2.32.10 (compiled = 2.32.10)
+2026-11-09 22:57:02 I gfx: Created OpenGL 1.1 context
+2026-11-09 22:57:02 I gfx/opengl: Vendor string: NVIDIA Corporation
+2026-11-09 22:57:02 I gfx/opengl: Version string: 4.6.0 NVIDIA 617.42
+2026-11-09 22:57:02 I gfx: GPU vendor: NVIDIA Corporation
+2026-11-09 22:57:02 I gfx: GPU renderer: NVIDIA GeForce RTX 4060/PCIe/SSE2
+2026-11-09 22:57:02 I gfx: GPU version: 4.6.0 NVIDIA 617.42
+2026-11-09 22:57:02 I localization: loaded 'languages/russian.txt'
+2026-11-09 22:57:02 I sound: Sound init successful using audio driver 'wasapi'
+2026-11-09 22:57:02 I textrender: Freetype version 2.13.2 (compiled = 2.13.2)
+2026-11-09 22:57:02 I joystick: 0 joystick(s) found
+2026-11-09 22:57:02 E serverbrowser: invalid location
+2026-11-09 22:57:03 I http: task done: https://master1.ddnet.org/ddnet/15/servers.json
+2026-11-09 22:57:03 I serverbrowser_http: found master, url='https://master4.ddnet.org/ddnet/15/servers.json' time=193ms age=1s
+2026-11-09 22:57:03 I serverbrowser_http: found master, url='https://master1.ddnet.org/ddnet/15/servers.json' time=51ms age=1s
+2026-11-09 22:57:03 I serverbrowser_http: found master, url='https://master3.ddnet.org/ddnet/15/servers.json' time=111ms age=1s
+2026-11-09 22:57:03 I client: version 20.1.1 on win64 amd64
+2026-11-09 22:57:03 I client: git revision hash: 698392800691f8b4
+2026-11-09 22:57:04 I http: task done: https://info.ddnet.org/info?name=Senior
+2026-11-09 22:57:04 E serverbrowser: invalid location
+2026-11-09 22:57:05 I serverbrowser_http: found master, url='https://master2.ddnet.org/ddnet/15/servers.json' time=787ms age=0s
+2026-11-09 22:57:05 I serverbrowser_http: determined best master, url='https://master1.ddnet.org/ddnet/15/servers.json' time=51ms age=1s

@@ -1,0 +1,1981 @@
+﻿VERTEX NEW AIMBOT INTEGRATION
+
+========== src\game\client\aimbot.h ==========
+/* Vertex client вЂ” Vertex Aim System v2 (simple & working).
+ *
+ * РџРµСЂРµРїРёСЃР°РЅ СЃ РЅСѓР»СЏ РїРѕ С„РёРґР±РµРєСѓ: РЅРёРєР°РєРѕР№ "РґР°Р»СЊРЅРѕСЃС‚Рё", РЅРёРєР°РєРёС… СЂРµР¶РёРјРѕРІ
+ * Silent/Smooth вЂ” С‚РѕР»СЊРєРѕ С‡РµСЃС‚РЅС‹Рµ РїСЂРѕСЃС‚С‹Рµ С„СѓРЅРєС†РёРё:
+ *
+ *  - Р—РћРќРђ Р—РђРҐР’РђРўРђ = FOV (1..360В°) РІРѕРєСЂСѓРі С‚РµРєСѓС‰РµРіРѕ РїСЂРёС†РµР»Р°.
+ *    360В° = Р·Р°С…РІР°С‚ РІРѕ РІСЃРµ СЃС‚РѕСЂРѕРЅС‹ (С…СѓРє/СѓРґР°СЂ "СЃРїРёРЅРѕР№" СЂР°Р±РѕС‚Р°СЋС‚).
+ *    Р Р°РґРёСѓСЃ Р·РѕРЅС‹ СЂР°СЃС‚С‘С‚ РІРјРµСЃС‚Рµ СЃ FOV Рё СЂРёСЃСѓРµС‚СЃСЏ РЅР° СЌРєСЂР°РЅРµ (Draw FOV):
+ *    РµСЃР»Рё С†РµР»СЊ РІ РЅР°СЂРёСЃРѕРІР°РЅРЅРѕР№ Р·РѕРЅРµ вЂ” РѕРЅР° Р±СѓРґРµС‚ РІР·СЏС‚Р°.
+ *    РћС‚РґРµР»СЊРЅРѕР№ РЅР°СЃС‚СЂРѕР№РєРё "РґР°Р»СЊРЅРѕСЃС‚СЊ" Р±РѕР»СЊС€Рµ РќР•Рў.
+ *  - РҐРЈРљ: Р±РµСЂС‘С‚ РєРѕРіРѕ СѓРіРѕРґРЅРѕ (Рё Dummy С‚РѕР¶Рµ). Р Р°Р±РѕС‚Р°РµС‚ РїСЂРё РЅР°Р¶Р°С‚РёРё РєСЂСЋРєР°
+ *    (С‚РёС…Рѕ РїРѕРґСЃС‚Р°РІР»СЏРµС‚ РїСЂРёС†РµР») Рё РІ Р°РІС‚Рѕ-СЂРµР¶РёРјРµ (СЃР°Рј РєСЂСЋРєР°РµС‚ С†РµР»СЊ РІ Р·РѕРЅРµ).
+ *    РџСѓС‚СЊ РєСЂСЋРєР° РїСЂРѕРІРµСЂСЏРµС‚СЃСЏ РЅР° СЃС‚РµРЅСѓ вЂ” РіР»СѓС…РёРµ С†РµР»Рё РЅРµ Р±РµСЂСѓС‚СЃСЏ.
+ *  - РњРћР›РћРў: СЂРµР°Р»СЊРЅРѕ Р±СЊС‘С‚ вЂ” С†РµР»СЊ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІ С„РёР·РёС‡РµСЃРєРѕРј СЂР°РґРёСѓСЃРµ СѓРґР°СЂР°
+ *    (РјРѕР»РѕС‚ РґРѕСЃС‚Р°С‘С‚ РЅР° ~63px, РґР°Р»СЊС€Рµ РЅРµ РїРѕРїР°РґС‘С‚ вЂ” СЌС‚Рѕ С„РёР·РёРєР°, РЅРµ РЅР°СЃС‚СЂРѕР№РєР°).
+ *    360В° = Р±СЊС‘С‚ РІРѕ РІСЃРµ СЃС‚РѕСЂРѕРЅС‹. Р•СЃС‚СЊ Р°РІС‚Рѕ-СѓРґР°СЂ.
+ *  - РџРРЎРўРћР›Р•Рў/Р“Р РђРќРђРўРђ: С‡РµСЃС‚РЅР°СЏ Р±Р°Р»Р»РёСЃС‚РёРєР° С‡РµСЂРµР· CalcPos СЃ РєСЂРёРІРёР·РЅРѕР№ Рё
+ *    СЃРєРѕСЂРѕСЃС‚СЊСЋ СЃРµСЂРІРµСЂРЅС‹С… С‚СЋРЅРёРЅРіРѕРІ + СѓРїСЂРµР¶РґРµРЅРёРµ РїРѕ СЃРєРѕСЂРѕСЃС‚Рё С†РµР»Рё.
+ *  - Р”Р РћР‘РћР’РРљ: РЅР° DDRace-РєР°СЂС‚Р°С… СЌС‚Рѕ Р»СѓС‡ (РєР°Рє Р»Р°Р·РµСЂ) вЂ” РїСЂСЏРјРѕР№ Р°РёРј + РћРўРЎРљРћРљ;
+ *    РЅР° vanilla вЂ” РѕР±С‹С‡РЅС‹Рµ РїСѓР»Рё СЃ Р±Р°Р»Р»РёСЃС‚РёРєРѕР№.
+ *  - Р›РђР—Р•Р : РїСЂСЏРјРѕР№ Р°РёРј + РћРўРЎРљРћРљ ("Р°РёРј РЅР° РѕС‚СЃРєРѕРє"): РїРµСЂРµР±РёСЂР°РµС‚ РЅР°РїСЂР°РІР»РµРЅРёСЏ
+ *    Рё РЅР°С…РѕРґРёС‚ С‚Рѕ, С‡РµР№ РѕС‚СЂР°Р¶С‘РЅРЅС‹Р№ Р»СѓС‡ РїРѕРїР°РґС‘С‚ РІ С†РµР»СЊ (СЃРІРѕР№ FOV Сѓ РѕС‚СЃРєРѕРєР°).
+ *    РћС‚СЂР°Р¶РµРЅРёСЏ СЃС‡РёС‚Р°СЋС‚СЃСЏ СЂРѕРІРЅРѕ РєР°Рє CLaser::DoBounce.
+ *  - ESP РўР РђР•РљРўРћР РР™: РѕС‚ С‚РІРѕРµРіРѕ РїСЂРёС†РµР»Р° РїРѕ С„РёР·РёРєРµ СЂРёСЃСѓРµС‚СЃСЏ РїРѕР»С‘С‚
+ *    РіСЂР°РЅР°С‚С‹ / РґСЂРѕР±Р°С€Р° / Р»Р°Р·РµСЂР° СЃРѕ РІСЃРµРјРё РѕС‚СЃРєРѕРєР°РјРё Рё С‚РѕС‡РєР° РїРѕРїР°РґР°РЅРёСЏ.
+ *  - РџРћР”РЎР’Р•РўРљРђ: РµСЃР»Рё Р°РёРј Р·Р°Р»РѕС‡РµРЅ РЅР° РёРіСЂРѕРєР° (Р·Р°РІРёСЃРёС‚ РѕС‚ FOV С…СѓРєР°) вЂ” РѕРЅ
+ *    РїРѕРґСЃРІРµС‡РёРІР°РµС‚СЃСЏ РІС‹Р±СЂР°РЅРЅС‹Рј С‚РѕР±РѕР№ С†РІРµС‚РѕРј.
+ *
+ * РРЅС‚РµРіСЂР°С†РёСЏ (РІСЃС‘ СѓР¶Рµ РІС€РёС‚Рѕ РІ РїРѕР»РЅС‹Р№ controls.cpp РёР· СЌС‚РѕРіРѕ РЅР°Р±РѕСЂР°):
+ *  - CControls::SnapInput, РџРћРЎР›Р• Avoid Freeze + Auto Aled:
+ *        GameClient()->m_AimBot.Update(GameClient(), Client(), this, &m_aInputData[g_Config.m_ClDummy]);
+ *  - CControls::OnRender (РєРѕРЅРµС†):
+ *        GameClient()->m_AimBot.RenderBinds(GameClient());
+ *  - players.cpp (РјРёСЂРѕРІРѕР№ РѕРІРµСЂР»РµР№ вЂ” СЂСЏРґРѕРј СЃ РѕСЃС‚Р°Р»СЊРЅС‹Рј Vertex ESP):
+ *        GameClient()->m_AimBot.RenderWorld(GameClient());
+ *
+ * РџСЂРёРѕСЂРёС‚РµС‚ РІРІРѕРґР°: Dummy Unfreeze в†’ Avoid Freeze в†’ Auto Aled в†’ Aim.
+ * РђРёРј РІС‹РєР»СЋС‡РµРЅ вЂ” РІРІРѕРґ РІРѕРѕР±С‰Рµ РЅРµ С‚СЂРѕРіР°РµС‚СЃСЏ. РќР°СЃС‚СЂРѕР№РєРё: vx_aim_*.
+ * Debug log tag: "vertex-aim" (vx_aim_debug 1).
+ */
+#ifndef GAME_CLIENT_AIMBOT_H
+#define GAME_CLIENT_AIMBOT_H
+#include <base/vmath.h>
+class CGameClient;
+class IClient;
+class CControls;
+class CNetObj_PlayerInput;
+
+class CAimBot
+{
+public:
+	enum
+	{
+		BIND_NONE = 0,
+		BIND_HOLD = 1, // Р·Р°С…РІР°С‚ РєР»Р°РІРёС€Рё "aim С‚РѕР»СЊРєРѕ РїСЂРё СѓРґРµСЂР¶Р°РЅРёРё"
+	};
+
+	// СЂР°Р· РІ С‚РёРє РёР· CControls::SnapInput (РїРѕСЃР»Рµ Avoid Freeze / Auto Aled)
+	void Update(CGameClient *pGame, IClient *pClient, CControls *pControls, CNetObj_PlayerInput *pSlot);
+	// СЂР°Р· РІ РєР°РґСЂ РёР· CControls::OnRender: Р·Р°С…РІР°С‚ РєР»Р°РІРёС€Рё Р±РёРЅРґР°
+	void RenderBinds(CGameClient *pGame);
+	// РјРёСЂРѕРІРѕР№ РѕРІРµСЂР»РµР№ РёР· players.cpp: Р·РѕРЅС‹ FOV, ESP С‚СЂР°РµРєС‚РѕСЂРёР№, РїРѕРґСЃРІРµС‚РєР° С†РµР»Рё
+	void RenderWorld(CGameClient *pGame);
+	// РїРѕР»РЅС‹Р№ СЃР±СЂРѕСЃ (СЂРµРєРѕРЅРЅРµРєС‚ / СЃРјРµРЅР° РєР°СЂС‚С‹)
+	void Reset();
+
+	int m_BindMode = BIND_NONE;
+
+	// РІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ "СЃР»РѕС‚" РєСЂСЋРєР° РґР»СЏ m_AimWeapon
+	static constexpr int AB_HOOK = 100;
+
+	// Р¶РёРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ (РґР»СЏ РјРµРЅСЋ / СЂРµРЅРґРµСЂР°)
+	bool m_Aiming = false; // РІ СЌС‚РѕРј С‚РёРєРµ Р°РёРј РЅР°РІС‘Р»СЃСЏ Рё РґРµСЂР¶РёС‚ РїСЂРёС†РµР»
+	int m_TargetId = -1; // С†РµР»СЊ РІ Р·РѕРЅРµ (РїРѕРґСЃРІРµС‚РєР°)
+	int m_AimWeapon = -1; // С‡РµРј РЅР°РІРµРґРµРЅС‹ (WEAPON_* РёР»Рё AB_HOOK)
+	vec2 m_AimPoint = vec2(0.0f, 0.0f); // РєСѓРґР° РЅР°РІРµРґС‘РЅ РїСЂРёС†РµР»
+	vec2 m_PredPoint = vec2(0.0f, 0.0f); // РїСЂРµРґСЃРєР°Р·Р°РЅРЅР°СЏ С‚РѕС‡РєР° РїРѕРїР°РґР°РЅРёСЏ
+
+private:
+	// РїР°СЂР°РјРµС‚СЂС‹ Р·РѕРЅС‹ РґР»СЏ СЂРµРЅРґРµСЂР° (РїРёС€СѓС‚СЃСЏ РІ Update РєР°Р¶РґС‹Р№ С‚РёРє)
+	int m_HookFovDeg = 0; // FOV Р·РѕРЅС‹ С…СѓРєР° (0 = С…СѓРє РІС‹РєР»СЋС‡РµРЅ)
+	float m_HookZoneR = 0.0f;
+	int m_WepFovDeg = 0; // FOV Р·РѕРЅС‹ С‚РµРєСѓС‰РµРіРѕ РѕСЂСѓР¶РёСЏ (0 = РЅРµ СЂРёСЃРѕРІР°С‚СЊ)
+	float m_WepZoneR = 0.0f;
+	vec2 m_ZonePos = vec2(0.0f, 0.0f); // С†РµРЅС‚СЂ Р·РѕРЅ (РјРѕСЏ РїРѕР·РёС†РёСЏ)
+	float m_ZoneAng = 0.0f; // РЅР°РїСЂР°РІР»РµРЅРёРµ РїСЂРёС†РµР»Р° РґР»СЏ РєР»РёРЅР° FOV
+	int m_VisUntil = -1000000; // РїРѕРєР° СЂРёСЃРѕРІР°С‚СЊ Р»РёРЅРёСЋ Р°РёРјР°
+	vec2 m_From = vec2(0.0f, 0.0f);
+	bool m_FireOwned = false; // Р°РІС‚Рѕ-РѕРіРѕРЅСЊ: РјС‹ СЃР°РјРё РґРµСЂР¶РёРј СЃС‡С‘С‚С‡РёРє РѕРіРЅСЏ
+	int m_LastWorkTick = -1000000;
+	int64_t m_BindBlockUntil = 0;
+	int64_t m_NextDrawTime = 0;
+	int m_LogGateTick = -1000000;
+};
+#endif
+
+========== src\game\client\aimbot.cpp ==========
+/* Vertex client вЂ” Vertex Aim System v2. Р”РѕРєСѓРјРµРЅС‚Р°С†РёСЏ РјРѕРґСѓР»СЏ вЂ” aimbot.h. */
+#include "aimbot.h"
+
+#include <base/color.h>
+#include <base/dbg.h>
+#include <base/time.h>
+
+#include <engine/client.h>
+#include <engine/graphics.h>
+#include <engine/input.h>
+#include <engine/shared/config.h>
+
+#include <generated/protocol.h>
+
+#include <game/collision.h>
+#include <game/gamecore.h>
+#include <game/mapitems.h>
+#include <game/tuning.h>
+
+#include <game/client/components/controls.h>
+#include <game/client/gameclient.h>
+#include <game/client/prediction/entities/character.h>
+#include <game/client/prediction/gameworld.h>
+
+#include <algorithm>
+#include <cmath>
+#include "components/aled.h"
+static constexpr float AB_BEAM_HIT = 28.0f; // СЂР°РґРёСѓСЃ РїРѕРїР°РґР°РЅРёСЏ Р»СѓС‡Р° РїРѕ С„РёР·РёС‡РµСЃРєРѕРјСѓ СЂР°Р·РјРµСЂСѓ РїРµСЂСЃРѕРЅР°Р¶Р°
+
+
+// ============================================================================
+// РєРѕРЅСЃС‚Р°РЅС‚С‹ (РІР·СЏС‚С‹ РёР· СЂРµР°Р»СЊРЅРѕР№ С„РёР·РёРєРё: prediction/entities/character.cpp,
+// projectile.cpp, laser.cpp)
+// ============================================================================
+static constexpr float AB_PI = 3.14159265f;
+static constexpr float AB_SPAWN = 21.0f; // СЃРЅР°СЂСЏРґ СЂРѕР¶РґР°РµС‚СЃСЏ РІ PhysSize*0.75 РѕС‚ С†РµРЅС‚СЂР°
+static constexpr float AB_HAMMER_HIT = 42.0f; // dist(С†РµР»СЊ, С‚РѕС‡РєР° СѓРґР°СЂР°) < 14+28 (FireWeapon)
+static constexpr float AB_HAMMER_REACH = 63.0f; // 21 + 42 вЂ” РјР°РєСЃРёРјСѓРј РѕС‚ С†РµРЅС‚СЂР° РґРѕ С†РµРЅС‚СЂР°
+static constexpr float AB_GRENADE_BOOM = 100.0f; // РІР·СЂС‹РІ РіСЂР°РЅР°С‚С‹ РґРѕСЃС‚Р°С‘С‚ С†РµР»СЊ Сѓ СЃС‚РµРЅС‹
+static constexpr int AB_CAND_MAX = 8; // СЃРєРѕР»СЊРєРѕ Р»СѓС‡С€РёС… РєР°РЅРґРёРґР°С‚РѕРІ СЃРѕР±РёСЂР°РµРј
+static constexpr int AB_TRAJ_MAX = 160;
+
+// ============================================================================
+// РєРѕРЅС‚РµРєСЃС‚ С‚РёРєР° Рё РєР°РЅРґРёРґР°С‚ РІ С†РµР»Рё
+// ============================================================================
+struct SAbCtx
+{
+        CGameClient *m_pGame = nullptr;
+        CCollision *m_pCol = nullptr;
+        CCharacter *m_pMe = nullptr;
+        int m_LocalId = -1;
+        int m_DummyId = -1;
+        vec2 m_MyPos = vec2(0.0f, 0.0f);
+        vec2 m_MouseDir = vec2(1.0f, 0.0f);
+        float m_CursorAng = 0.0f;
+        const CTuningParams *m_pTun = nullptr;
+        bool m_Vanilla = false;
+};
+struct SAbCand
+{
+        int m_Id = -1;
+        vec2 m_Pos = vec2(0.0f, 0.0f); // С‚РµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ
+        float m_Dev = 0.0f; // РѕС‚РєР»РѕРЅРµРЅРёРµ РѕС‚ РїСЂРёС†РµР»Р° (СЂР°Рґ)
+        float m_Dist = 0.0f;
+};
+
+// ============================================================================
+// РјРµР»РєРёРµ РїРѕРјРѕС‰РЅРёРєРё
+// ============================================================================
+static float AbAngleDev(float A, float B)
+{
+        float D = A - B;
+        while(D > AB_PI)
+                D -= 2.0f * AB_PI;
+        while(D < -AB_PI)
+                D += 2.0f * AB_PI;
+        return std::fabs(D);
+}
+
+// СЂР°РґРёСѓСЃ Р·РѕРЅС‹ РїРѕ FOV: 360В° -> 1500px (~47 С‚Р°Р№Р»РѕРІ), 180В° -> 850, 90В° -> 525
+static float AbZoneR(int FovDeg)
+{
+        return 200.0f + 1300.0f * (std::clamp(FovDeg, 1, 360) / 360.0f);
+}
+
+// СѓРїСЂРµР¶РґРµРЅРёРµ: РїРѕР·РёС†РёСЏ С†РµР»Рё С‡РµСЂРµР· Ticks С‚РёРєРѕРІ (Р»РёРЅРµР№РЅРѕ РїРѕ РµС‘ СЃРєРѕСЂРѕСЃС‚Рё)
+static vec2 AbLead(CCharacter *pT, float Ticks)
+{
+        return pT->m_Pos + pT->Core()->m_Vel * std::clamp(Ticks, 0.0f, 20.0f);
+}
+
+// ============================================================================
+// РІС‹Р±РѕСЂ РєР°РЅРґРёРґР°С‚РѕРІ: СѓРіРѕР» РѕС‚ РїСЂРёС†РµР»Р° <= FOV/2, РґРёСЃС‚Р°РЅС†РёСЏ <= СЂР°РґРёСѓСЃР° Р·РѕРЅС‹.
+// РќРёРєР°РєРѕР№ РѕС‚РґРµР»СЊРЅРѕР№ "РґР°Р»СЊРЅРѕСЃС‚Рё" вЂ” СЂР°РґРёСѓСЃ Р·РѕРЅС‹ СЂР°СЃС‚С‘С‚ РІРјРµСЃС‚Рµ СЃ FOV.
+// ============================================================================
+static bool AbPickTargets(const SAbCtx &Ctx, float FovDeg, float ZoneR, SAbCand *pOut, int Max, int &Num)
+{
+        Num = 0;
+        CGameClient *pGame = Ctx.m_pGame;
+        const bool FullCircle = FovDeg >= 360;
+        const float FovRad = std::clamp(FovDeg, 1.0f, 360.0f) * AB_PI / 360.0f;
+        for(int i = 0; i < MAX_CLIENTS; i++)
+        {
+                if(i == Ctx.m_LocalId)
+                        continue;
+                CCharacter *pT = pGame->m_PredictedWorld.GetCharacterById(i);
+                if(!pT)
+                        continue;
+                if(i == Ctx.m_DummyId && g_Config.m_VxAimNoDummy != 0)
+                        continue;
+                if(g_Config.m_VxAimNoFriends != 0 && pGame->m_aClients[i].m_Friend)
+                        continue;
+                if(g_Config.m_VxAimNoTeam != 0 && Ctx.m_pMe->SameTeam(i))
+                        continue;
+                if(g_Config.m_VxAimNoFrozen != 0 && pT->m_FreezeTime > 0)
+                        continue;
+                if(!pT->CanCollide(Ctx.m_pMe->GetCid()))
+                        continue; // solo / РЅРµРєРѕР»Р»Р°Р№РґРµСЂРЅС‹Р№ вЂ” РєСЂСЋРє РІСЃС‘ СЂР°РІРЅРѕ РЅРµ РІРѕР·СЊРјС‘С‚
+                const vec2 Dv = pT->m_Pos - Ctx.m_MyPos;
+                const float Dist = length(Dv);
+                if(Dist > ZoneR || Dist < 1.0f)
+                        continue;
+                const float Dev = AbAngleDev(std::atan2(Dv.y, Dv.x), Ctx.m_CursorAng);
+                if(!FullCircle && Dev > FovRad)
+                        continue;
+                // Р»СѓС‡С€РёР№ = Р±Р»РёР¶Рµ Рє С†РµРЅС‚СЂСѓ РїСЂРёС†РµР»Р°, РїСЂРё СЂР°РІРµРЅСЃС‚РІРµ вЂ” Р±Р»РёР¶Рµ С‚РµР»РѕРј
+                const float Score = Dev + Dist * 0.0002f;
+                int Slot = Num < Max ? Num : Max - 1;
+                if(Num == Max && Score >= pOut[Slot].m_Dev + pOut[Slot].m_Dist * 0.0002f)
+                        continue;
+                while(Slot > 0 && Score < pOut[Slot - 1].m_Dev + pOut[Slot - 1].m_Dist * 0.0002f)
+                {
+                        pOut[Slot] = pOut[Slot - 1];
+                        Slot--;
+                }
+                pOut[Slot].m_Id = i;
+                pOut[Slot].m_Pos = pT->m_Pos;
+                pOut[Slot].m_Dev = Dev;
+                pOut[Slot].m_Dist = Dist;
+                if(Num < Max)
+                        Num++;
+        }
+        return Num > 0;
+}
+
+// ============================================================================
+// РҐРЈРљ: С†РµР»СЊ + С‡РёСЃС‚С‹Р№ РїСѓС‚СЊ. РџРµСЂРІС‹Р№ РєР°РЅРґРёРґР°С‚ (РїРѕ РїСЂРёС†РµР»Сѓ) СЃ РЅРµР·Р°РіРѕСЂРѕР¶РµРЅРЅС‹Рј
+// РїСѓС‚С‘Рј РїРѕР±РµР¶РґР°РµС‚. Р“Р»СѓС…РёРµ С†РµР»Рё РЅРµ Р±РµСЂС‘Рј вЂ” РєСЂСЋРє РІ СЃС‚РµРЅСѓ РЅРµ РїРѕРґСЃС‚Р°РІР»СЏРµРј.
+// ============================================================================
+static bool AbHookSolve(const SAbCtx *pCtx, const SAbCand *pCands, int Num, bool Pred, vec2 &OutDir, vec2 &OutPoint, int &OutId)
+{
+        const float HookLen = pCtx->m_pTun->m_HookLength;
+        for(int k = 0; k < Num; k++)
+        {
+                CCharacter *pT = pCtx->m_pGame->m_PredictedWorld.GetCharacterById(pCands[k].m_Id);
+                if(!pT)
+                        continue;
+                float Ticks = 1.0f;
+                if(Pred)
+                {
+                        // РєСЂСЋРє Р»РµС‚РёС‚ HookFireSpeed px/С‚РёРє вЂ” СѓРїСЂРµР¶РґР°РµРј РЅР° РІСЂРµРјСЏ РїРѕР»С‘С‚Р°
+                        Ticks = pCands[k].m_Dist / std::max(1.0f, static_cast<float>(pCtx->m_pTun->m_HookFireSpeed)) + 1.0f;
+                        Ticks = std::clamp(Ticks, 1.0f, 8.0f);
+                }
+                const vec2 P = AbLead(pT, Ticks);
+                if(distance(P, pCtx->m_MyPos) > HookLen + 30.0f)
+                        continue;
+                vec2 Dir = P - pCtx->m_MyPos;
+                if(length(Dir) < 1.0f)
+                        continue;
+                Dir = normalize(Dir);
+                vec2 Hit, Before;
+                if(pCtx->m_pCol->IntersectLineTeleHook(pCtx->m_MyPos, P, &Hit, &Before))
+                {
+                        if(distance(pCtx->m_MyPos, Hit) < distance(pCtx->m_MyPos, P) - 26.0f)
+                                continue; // СЃС‚РµРЅР° РјРµР¶РґСѓ РЅР°РјРё Рё С†РµР»СЊСЋ
+                }
+                OutDir = Dir;
+                OutPoint = P;
+                OutId = pCands[k].m_Id;
+                return true;
+        }
+        return false;
+}
+
+// ============================================================================
+// РњРћР›РћРў: Р±СЊС‘С‚ С‚РѕР»СЊРєРѕ С‚Рѕ, С‡С‚Рѕ СЂРµР°Р»СЊРЅРѕ РґРѕСЃС‚Р°С‘С‚ (РґРёСЃС‚Р°РЅС†РёСЏ С†РµРЅС‚СЂР° РґРѕ С†РµРЅС‚СЂР°
+// <= 63px вЂ” СЌС‚Рѕ С„РёР·РёРєР° FireWeapon, РЅРµ РЅР°СЃС‚СЂРѕР№РєР°). 360В° FOV = Р±СЊС‘С‚ СЃРїРёРЅРѕР№.
+// ============================================================================
+static bool AbHammerSolve(const SAbCtx *pCtx, const SAbCand *pCands, int Num, vec2 &OutDir, vec2 &OutPoint)
+{
+        for(int k = 0; k < Num; k++)
+        {
+                CCharacter *pT = pCtx->m_pGame->m_PredictedWorld.GetCharacterById(pCands[k].m_Id);
+                if(!pT)
+                        continue;
+                const vec2 P = AbLead(pT, 1.0f); // СѓРґР°СЂ РїСЂРёРґС‘С‚ РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РёРє
+                vec2 Dir = P - pCtx->m_MyPos;
+                const float Len = length(Dir);
+                if(Len < 1.0f || Len > AB_HAMMER_REACH)
+                        continue;
+                Dir = normalize(Dir);
+                const vec2 ProjStart = pCtx->m_MyPos + Dir * AB_SPAWN;
+                if(distance(P, ProjStart) > AB_HAMMER_HIT)
+                        continue;
+                OutDir = Dir;
+                OutPoint = P;
+                return true;
+        }
+        return false;
+}
+
+// ============================================================================
+// Р±Р°Р»Р»РёСЃС‚РёРєР°: РїРёСЃС‚РѕР»РµС‚ / РіСЂР°РЅР°С‚Р° / vanilla-РґСЂРѕР±Р°С€.
+// РўРѕС‡РЅС‹Р№ СЂР°СЃС‡С‘С‚ РґСѓРіРё С‡РµСЂРµР· С„РѕСЂРјСѓР»Сѓ CalcPos (С‚Р° Р¶Рµ, С‡С‚Рѕ Сѓ РёРіСЂС‹):
+//   dir * (Speed*t) + (0, Curvature/10000 * (Speed*t)^2) = Rel
+// ============================================================================
+struct SAbProj
+{
+        float m_Curv = 0.0f;
+        float m_Speed = 0.0f;
+        int m_Lifetime = 40;
+        bool m_Explosive = false;
+};
+static bool AbProjParams(const SAbCtx *pCtx, int Weapon, SAbProj &W)
+{
+        const CTuningParams *pT = pCtx->m_pTun;
+        if(Weapon == WEAPON_GUN)
+        {
+                W.m_Curv = pT->m_GunCurvature;
+                W.m_Speed = pT->m_GunSpeed;
+                W.m_Lifetime = std::clamp((int)(pT->m_GunLifetime * 50.0f), 5, 100);
+        }
+        else if(Weapon == WEAPON_GRENADE)
+        {
+                W.m_Curv = pT->m_GrenadeCurvature;
+                W.m_Speed = pT->m_GrenadeSpeed;
+                W.m_Lifetime = std::clamp((int)(pT->m_GrenadeLifetime * 50.0f), 5, 100);
+                W.m_Explosive = true;
+        }
+        else if(Weapon == WEAPON_SHOTGUN) // vanilla: РѕР±С‹С‡РЅС‹Рµ РїСѓР»Рё СЃ РєСЂРёРІРёР·РЅРѕР№
+        {
+                W.m_Curv = pT->m_ShotgunCurvature;
+                W.m_Speed = pT->m_ShotgunSpeed;
+                W.m_Lifetime = std::clamp((int)(pT->m_ShotgunLifetime * 50.0f), 5, 20);
+        }
+        else
+                return false;
+        return W.m_Speed > 1.0f;
+}
+// С‡РёСЃР»Рѕ С‚РёРєРѕРІ РїРѕР»С‘С‚Р° РґРѕ С†РµР»Рё
+static float AbFlightTicks(const SAbProj &W, float Dist) { return Dist / W.m_Speed * 50.0f; }
+
+static bool AbBallisticSolve(const SAbCtx *pCtx, const SAbCand *pCands, int Num, const SAbProj &W, vec2 &OutDir, vec2 &OutPoint)
+{
+        for(int k = 0; k < Num; k++)
+        {
+                CCharacter *pT = pCtx->m_pGame->m_PredictedWorld.GetCharacterById(pCands[k].m_Id);
+                if(!pT)
+                        continue;
+                vec2 Dir = normalize(pT->m_Pos - pCtx->m_MyPos);
+                vec2 Pred = pT->m_Pos;
+                bool Solved = false;
+                for(int it = 0; it < 3; it++)
+                {
+                        const float T = distance(pT->m_Pos, pCtx->m_MyPos) / W.m_Speed;
+                        Pred = AbLead(pT, T * 50.0f + 1.0f); // С†РµР»СЊ РІ РјРѕРјРµРЅС‚ РїСЂРёР»С‘С‚Р°
+                        const vec2 Spawn = pCtx->m_MyPos + Dir * AB_SPAWN;
+                        const vec2 Rel = Pred - Spawn;
+                        // РґСѓРіР°: U = |(Rel.x, Rel.y - K*U^2)| вЂ” РёС‚РµСЂР°С†РёРё РґРѕ СЃС…РѕРґРёРјРѕСЃС‚Рё
+                        float U = length(Rel);
+                        for(int j = 0; j < 6; j++)
+                                U = length(vec2(Rel.x, Rel.y - W.m_Curv / 10000.0f * U * U));
+                        const vec2 Need = vec2(Rel.x, Rel.y - W.m_Curv / 10000.0f * U * U);
+                        if(U < 8.0f || length(Need) < 0.001f)
+                                break;
+                        Dir = normalize(Need);
+                        Solved = true;
+                }
+                if(!Solved)
+                        continue;
+                // РїСЂРѕРІРµСЂСЏРµРј РїРѕР»С‘С‚: РїСѓР»СЏ Сѓ СЃС‚РµРЅС‹ СѓРјРёСЂР°РµС‚; РіСЂР°РЅР°С‚Р° РІР·СЂС‹РІР°РµС‚СЃСЏ вЂ” СЃС‚РµРЅР°
+                // РґРѕРїСѓСЃС‚РёРјР°, РµСЃР»Рё С†РµР»СЊ СЂСЏРґРѕРј СЃРѕ РІР·СЂС‹РІРѕРј
+                const int MaxFlight = std::clamp((int)std::round(AbFlightTicks(W, distance(Pred, pCtx->m_MyPos))) + 2, 2, W.m_Lifetime);
+                const vec2 Spawn = pCtx->m_MyPos + Dir * AB_SPAWN;
+                vec2 Prev = Spawn;
+                bool Clear = false;
+                for(int i = 1; i <= MaxFlight; i++)
+                {
+                        const vec2 Cur = CalcPos(Spawn, Dir, W.m_Curv, W.m_Speed, i / 50.0f);
+                        vec2 ColPos, Before;
+                        if(pCtx->m_pCol->IntersectLine(Prev, Cur, &ColPos, &Before))
+                        {
+                                if(W.m_Explosive && distance(ColPos, Pred) <= AB_GRENADE_BOOM)
+                                {
+                                        OutDir = Dir;
+                                        OutPoint = ColPos; // РІР·СЂС‹РІ Сѓ СЃС‚РµРЅС‹ РґРѕСЃС‚Р°С‘С‚ С†РµР»СЊ
+                                        return true;
+                                }
+                                break; // РїСѓР»СЏ РІ СЃС‚РµРЅСѓ вЂ” С†РµР»СЊ РЅРµ Р±РµСЂС‘Рј
+                        }
+                        Prev = Cur;
+                        if(i == MaxFlight)
+                                Clear = true;
+                }
+                if(!Clear)
+                        continue;
+                OutDir = Dir;
+                OutPoint = Pred;
+                return true;
+        }
+        return false;
+}
+
+// ============================================================================
+// Р›РЈР§ (Р»Р°Р·РµСЂ / DDRace-РґСЂРѕР±Р°С€): С‚РѕС‚ Р¶Рµ С…РѕРґ Р»СѓС‡Р°, С‡С‚Рѕ CLaser::DoBounce вЂ”
+// СЃРµРіРјРµРЅС‚С‹, РѕС‚СЂР°Р¶РµРЅРёРµ С‡РµСЂРµР· MovePoint, С‚СЂР°С‚Р° СЌРЅРµСЂРіРёРё РЅР° СЃРµРіРјРµРЅС‚+РѕС‚СЃРєРѕРє.
+// ============================================================================
+struct SAbSeg
+{
+        vec2 m_a, m_b;
+};
+struct SAbBeam
+{
+        SAbSeg m_aSeg[12];
+        int m_Num = 0;
+        bool m_Blocked = false;
+};
+static void AbBeamSim(const SAbCtx *pCtx, const vec2 &From, vec2 Dir, float Energy, float Cost, int MaxBounce, SAbBeam &Out)
+{
+        Dir = normalize(Dir);
+        vec2 Pos = From;
+        int Bounce = 0;
+        Out.m_Num = 0;
+        Out.m_Blocked = false;
+        while(Bounce <= MaxBounce && Out.m_Num < 12 && Energy > 8.0f)
+        {
+                const vec2 To = Pos + Dir * Energy;
+                vec2 ColPos, Before;
+                const int Hit = pCtx->m_pCol->IntersectLineTeleWeapon(Pos, To, &ColPos, &Before);
+                const vec2 SegEnd = Hit ? Before : To;
+                Out.m_aSeg[Out.m_Num].m_a = Pos;
+                Out.m_aSeg[Out.m_Num].m_b = SegEnd;
+                Out.m_Num++;
+                if(!Hit)
+                        break;
+                Out.m_Blocked = true;
+                // РѕС‚СЂР°Р¶РµРЅРёРµ СЂРѕРІРЅРѕ РєР°Рє РІ CLaser::DoBounce
+                vec2 TmpPos = SegEnd;
+                vec2 TmpDir = Dir * 4.0f;
+                pCtx->m_pCol->MovePoint(&TmpPos, &TmpDir, 1.0f, nullptr);
+                const float SegLen = distance(Pos, SegEnd);
+                Energy -= SegLen + Cost;
+                Pos = TmpPos;
+                Dir = normalize(TmpDir);
+                Bounce++;
+        }
+}
+// Р±Р»РёР¶Р°Р№С€РµРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ СЃРµРіРјРµРЅС‚Р° РґРѕ С‚РѕС‡РєРё + СЃР°РјР° С‚РѕС‡РєР°
+static float AbSegDist(const vec2 &A, const vec2 &B, const vec2 &P, vec2 &OutClosest)
+{
+        if(!closest_point_on_line(A, B, P, OutClosest))
+                OutClosest = A;
+        return distance(P, OutClosest);
+}
+
+// РїСЂСЏРјРѕР№ Р»СѓС‡ + (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ) РїРѕРёСЃРє РЅР°РїСЂР°РІР»РµРЅРёСЏ СЃ РѕС‚СЃРєРѕРєРѕРј, С‡РµР№ Р»СѓС‡ РґРѕСЃС‚Р°С‘С‚ С†РµР»СЊ
+static bool AbBeamSolve(const SAbCtx *pCtx, const SAbCand *pCands, int Num, int BounceFovDeg, bool BounceAim,
+        vec2 &OutDir, vec2 &OutPoint, int &OutId, int &OutBounce)
+{
+        const float Reach = pCtx->m_pTun->m_LaserReach;
+        const float Cost = pCtx->m_pTun->m_LaserBounceCost;
+        const int MaxBounce = std::clamp((int)pCtx->m_pTun->m_LaserBounceNum, 0, 5);
+        const int DelayTicks = (int)(50.0f * pCtx->m_pTun->m_LaserBounceDelay / 1000.0f) + 1;
+
+        // 1) РїСЂСЏРјРѕР№ РІС‹СЃС‚СЂРµР» РІ СѓРїСЂРµР¶РґС‘РЅРЅСѓСЋ С†РµР»СЊ
+        for(int k = 0; k < Num; k++)
+        {
+                CCharacter *pT = pCtx->m_pGame->m_PredictedWorld.GetCharacterById(pCands[k].m_Id);
+                if(!pT)
+                        continue;
+                const vec2 Pred = AbLead(pT, 1.0f);
+                vec2 Dir = Pred - pCtx->m_MyPos;
+                if(length(Dir) < 1.0f)
+                        continue;
+                Dir = normalize(Dir);
+                SAbBeam Beam;
+                AbBeamSim(pCtx, pCtx->m_MyPos, Dir, Reach, Cost, 0, Beam);
+                if(!Beam.m_Blocked && Beam.m_Num > 0)
+                {
+                        OutDir = Dir;
+                        OutPoint = Pred;
+                        OutId = pCands[k].m_Id;
+                        OutBounce = 0;
+                        return true;
+                }
+        }
+        if(!BounceAim)
+                return false;
+
+        // 2) Р°РёРј РЅР° РѕС‚СЃРєРѕРє: РїРµСЂРµР±РёСЂР°РµРј РЅР°РїСЂР°РІР»РµРЅРёСЏ РІ FOV РѕС‚СЃРєРѕРєР° Рё РёС‰РµРј Р»СѓС‡,
+        //    С‡РµР№ РѕС‚СЂР°Р¶С‘РЅРЅС‹Р№ СЃРµРіРјРµРЅС‚ РїСЂРѕС…РѕРґРёС‚ С‡РµСЂРµР· С†РµР»СЊ (Р»СѓС‡ РїРѕ-РЅР°СЃС‚РѕСЏС‰РµРјСѓ
+        //    РґРѕРµР·Р¶Р°РµС‚ РґРѕ СЃРµРіРјРµРЅС‚Р° b С‡РµСЂРµР· b * Р·Р°РґРµСЂР¶РєСѓ РѕС‚СЃРєРѕРєР° вЂ” СѓРїСЂРµР¶РґР°РµРј)
+        const bool FullCircle = BounceFovDeg >= 360;
+        const float FovRad = std::clamp(BounceFovDeg, 1, 360) * AB_PI / 360.0f;
+        const int Steps = 120;
+        float BestScore = -1e30f;
+        bool Found = false;
+        for(int s = 0; s < Steps; s++)
+        {
+                float Off;
+                if(FullCircle)
+                        Off = (float)s / Steps * 2.0f * AB_PI;
+                else
+                        Off = ((s + 0.5f) / Steps - 0.5f) * 2.0f * FovRad;
+                const float Ang = pCtx->m_CursorAng + Off;
+                const vec2 Dir(std::cos(Ang), std::sin(Ang));
+                SAbBeam Beam;
+                AbBeamSim(pCtx, pCtx->m_MyPos, Dir, Reach, Cost, MaxBounce, Beam);
+                for(int b = 0; b < Beam.m_Num; b++)
+                {
+                        for(int k = 0; k < Num; k++)
+                        {
+                                CCharacter *pT = pCtx->m_pGame->m_PredictedWorld.GetCharacterById(pCands[k].m_Id);
+                                if(!pT)
+                                        continue;
+                                const vec2 Pred = AbLead(pT, (float)(b * DelayTicks) + 1.0f);
+                                vec2 Closest;
+                                const float D = AbSegDist(Beam.m_aSeg[b].m_a, Beam.m_aSeg[b].m_b, Pred, Closest);
+                                if(D > AB_BEAM_HIT)
+                                        continue;
+                                const float Dev = AbAngleDev(Ang, pCtx->m_CursorAng);
+                                const float Score = 1000.0f - (float)b * 60.0f - Dev * 40.0f - D;
+                                if(Score > BestScore)
+                                {
+                                        BestScore = Score;
+                                        OutDir = Dir;
+                                        OutPoint = Pred;
+                                        OutId = pCands[k].m_Id;
+                                        OutBounce = b;
+                                        Found = true;
+                                }
+                        }
+                }
+        }
+        return Found;
+}
+
+// ============================================================================
+// СЃРёРјСѓР»СЏС†РёСЏ С‚СЂР°РµРєС‚РѕСЂРёРё РѕС‚ РїСЂРёС†РµР»Р° (ESP): РіСЂР°РЅР°С‚Р° / vanilla-РґСЂРѕР±Р°С€
+// ============================================================================
+static void AbSimTrajProj(const SAbCtx *pCtx, const vec2 &From, const vec2 &Dir, const SAbProj &W, vec2 *pPts, int MaxPts, int &Num, vec2 &Impact)
+{
+        Num = 0;
+        vec2 Prev = From;
+        if(Num < MaxPts)
+                pPts[Num++] = From;
+        for(int i = 1; i <= W.m_Lifetime; i++)
+        {
+                const vec2 Cur = CalcPos(From, normalize(Dir), W.m_Curv, W.m_Speed, i / 50.0f);
+                vec2 ColPos, Before;
+                if(pCtx->m_pCol->IntersectLine(Prev, Cur, &ColPos, &Before))
+                {
+                        if(Num < MaxPts)
+                                pPts[Num++] = Before;
+                        Impact = Before;
+                        return;
+                }
+                if(Num < MaxPts)
+                        pPts[Num++] = Cur;
+                Prev = Cur;
+                Impact = Cur;
+        }
+}
+
+// ============================================================================
+// РіР»Р°РІРЅС‹Р№ С‚РёРє
+// ============================================================================
+void CAimBot::Update(CGameClient *pGame, IClient *pClient, CControls *pControls, CNetObj_PlayerInput *pSlot)
+{
+        const bool Debug = g_Config.m_VxAimDebug != 0;
+        const bool Enabled = g_Config.m_VxAimEnable != 0 &&
+                             (g_Config.m_VxAimHoldBind <= 0 || pGame->Input()->KeyIsPressed(g_Config.m_VxAimHoldBind));
+        const bool WasActive = m_Aiming;
+
+        auto Deactivate = [&]() {
+                m_Aiming = false;
+                m_AimWeapon = -1;
+                m_VisUntil = -1000000;
+                if(m_FireOwned)
+                {
+                        // РѕС‚РїСѓСЃРєР°РµРј СЃРІРѕР№ Р°РІС‚Рѕ-РѕРіРѕРЅСЊ, С‡С‚РѕР±С‹ РЅРµ РѕСЃС‚Р°С‚СЊСЃСЏ СЃ Р·Р°Р¶Р°С‚РѕР№ СЃС‚СЂРµР»СЊР±РѕР№
+                        if((pSlot->m_Fire & 1) != 0)
+                                pSlot->m_Fire = (pSlot->m_Fire + 1) & INPUT_STATE_MASK;
+                        m_FireOwned = false;
+                }
+                if(m_TargetId != -1)
+                {
+                        m_TargetId = -1;
+                        pControls->m_VertexAimTargetId = -1;
+                }
+                if(Debug && WasActive)
+                        dbg_msg("vertex-aim", "off");
+        };
+
+        if(!Enabled || pClient->State() != IClient::STATE_ONLINE ||
+                pGame->m_Chat.IsActive() || pGame->m_Menus.IsActive() ||
+                pGame->m_AvoidFreeze.IsBusy() || VertexAutoAled().IsBusy() ||
+                pControls->m_LaserUnfreezeAimActive)
+        {
+                Deactivate();
+                return;
+        }
+        const int LocalId = pGame->m_Snap.m_LocalClientId;
+        if(LocalId < 0 || pGame->m_Snap.m_SpecInfo.m_Active)
+        {
+                Deactivate();
+                return;
+        }
+        CCharacter *pMe = pGame->m_PredictedWorld.GetCharacterById(LocalId);
+        if(!pMe || pMe->m_FreezeTime > 0 || pMe->Core()->m_DeepFrozen)
+        {
+                Deactivate();
+                return;
+        }
+
+        const int NowTick = pClient->GameTick(g_Config.m_ClDummy);
+        if(NowTick < m_LastWorkTick - 50) // СЂРµРєРѕРЅРЅРµРєС‚ / СЃРјРµРЅР° РєР°СЂС‚С‹
+                Reset();
+        if(NowTick == m_LastWorkTick) // СЂР°Р· РІ С‚РёРє
+                return;
+        m_LastWorkTick = NowTick;
+
+        // ---- РєРѕРЅС‚РµРєСЃС‚ ----
+        SAbCtx Ctx;
+        Ctx.m_pGame = pGame;
+        Ctx.m_pCol = pMe->Collision();
+        Ctx.m_pMe = pMe;
+        Ctx.m_LocalId = LocalId;
+        Ctx.m_DummyId = pGame->m_aLocalIds[g_Config.m_ClDummy ^ 1];
+        if(Ctx.m_DummyId == LocalId)
+                Ctx.m_DummyId = -1;
+        Ctx.m_MyPos = pMe->m_Pos;
+        Ctx.m_pTun = &pGame->m_aTuning[g_Config.m_ClDummy];
+        Ctx.m_Vanilla = pGame->m_PredictedWorld.m_WorldConfig.m_IsVanilla;
+        Ctx.m_MouseDir = pControls->m_aMousePos[g_Config.m_ClDummy];
+        if(length(Ctx.m_MouseDir) > 1.0f)
+                Ctx.m_CursorAng = std::atan2(Ctx.m_MouseDir.y, Ctx.m_MouseDir.x);
+
+        // ---- РїР°СЂР°РјРµС‚СЂС‹ Р·РѕРЅ РґР»СЏ СЂРµРЅРґРµСЂР° (СЂРёСЃСѓСЋС‚СЃСЏ РґР°Р¶Рµ Р±РµР· РЅР°Р¶Р°С‚РёР№) ----
+        m_ZonePos = Ctx.m_MyPos;
+        m_ZoneAng = Ctx.m_CursorAng;
+        const int ActiveWeapon = pMe->Core()->m_ActiveWeapon;
+        const bool HookOn = g_Config.m_VxAimHook != 0;
+        const bool WepOn = ActiveWeapon >= WEAPON_HAMMER && ActiveWeapon <= WEAPON_LASER &&
+                           ((ActiveWeapon == WEAPON_HAMMER && g_Config.m_VxAimHammer) ||
+                                   (ActiveWeapon == WEAPON_GUN && g_Config.m_VxAimGun) ||
+                                   (ActiveWeapon == WEAPON_SHOTGUN && g_Config.m_VxAimShotgun) ||
+                                   (ActiveWeapon == WEAPON_GRENADE && g_Config.m_VxAimGrenade) ||
+                                   (ActiveWeapon == WEAPON_LASER && g_Config.m_VxAimLaser));
+        if(HookOn)
+        {
+                m_HookFovDeg = g_Config.m_VxAimHookFov;
+                m_HookZoneR = std::min(AbZoneR(m_HookFovDeg), Ctx.m_pTun->m_HookLength + 30.0f);
+        }
+        else
+                m_HookFovDeg = 0;
+        if(WepOn)
+        {
+                int Fov = 180;
+                switch(ActiveWeapon)
+                {
+                case WEAPON_HAMMER: Fov = g_Config.m_VxAimHammerFov; break;
+                case WEAPON_GUN: Fov = g_Config.m_VxAimGunFov; break;
+                case WEAPON_SHOTGUN: Fov = g_Config.m_VxAimShotgunFov; break;
+                case WEAPON_GRENADE: Fov = g_Config.m_VxAimGrenadeFov; break;
+                case WEAPON_LASER: Fov = g_Config.m_VxAimLaserFov; break;
+                }
+                m_WepFovDeg = Fov;
+                // РјРѕР»РѕС‚ РґРѕСЃС‚Р°С‘С‚ С‚РѕР»СЊРєРѕ РЅР° РґР»РёРЅСѓ СЂСѓРєРё вЂ” Р·РѕРЅР° С‡РµСЃС‚РЅР°СЏ
+                m_WepZoneR = ActiveWeapon == WEAPON_HAMMER ? AB_HAMMER_REACH : AbZoneR(Fov);
+        }
+        else
+                m_WepFovDeg = 0;
+
+        // ---- С†РµР»СЊ РІ Р·РѕРЅРµ С…СѓРєР°: РїРѕРґСЃРІРµС‚РєР° СЂР°Р±РѕС‚Р°РµС‚ РґР°Р¶Рµ Р±РµР· РЅР°Р¶Р°С‚РёР№ ----
+        SAbCand aHookCands[AB_CAND_MAX];
+        int HookNum = 0;
+        if(HookOn)
+                AbPickTargets(Ctx, g_Config.m_VxAimHookFov, m_HookZoneR, aHookCands, AB_CAND_MAX, HookNum);
+        SAbCand aWepCands[AB_CAND_MAX];
+        int WepNum = 0;
+        if(WepOn)
+                AbPickTargets(Ctx, m_WepFovDeg, m_WepZoneR, aWepCands, AB_CAND_MAX, WepNum);
+
+        // РїРѕРґСЃРІРµС‡РёРІР°РµРј С†РµР»СЊ С…СѓРєР° (РѕРЅР° Рё Р±СѓРґРµС‚ "Р·Р°Р»РѕС‡РµРЅР°"), РёРЅР°С‡Рµ вЂ” С†РµР»СЊ РѕСЂСѓР¶РёСЏ
+        m_TargetId = HookNum > 0 ? aHookCands[0].m_Id : (WepNum > 0 ? aWepCands[0].m_Id : -1);
+        pControls->m_VertexAimTargetId = m_TargetId; // СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРѕ СЃС‚Р°СЂС‹Рј ESP
+
+        const bool HookKey = pSlot->m_Hook != 0;
+        const bool FireKey = (pSlot->m_Fire & 1) != 0;
+        const bool WantHook = HookOn && HookNum > 0 && (HookKey || g_Config.m_VxAimHookAuto != 0);
+
+        // ---- СЂРµС€РµРЅРёРµ С…СѓРєР° ----
+        vec2 AimDir = Ctx.m_MouseDir;
+        bool HaveAim = false;
+        int AimWeapon = -1;
+        vec2 PredPoint(0.0f, 0.0f);
+        vec2 AimPoint(0.0f, 0.0f);
+        int AimId = -1;
+        if(WantHook)
+        {
+                vec2 Dir, Point;
+                int Id = -1;
+                if(AbHookSolve(&Ctx, aHookCands, HookNum, true, Dir, Point, Id))
+                {
+                        AimDir = Dir;
+                        AimPoint = Point;
+                        PredPoint = Point;
+                        AimId = Id;
+                        AimWeapon = AB_HOOK;
+                        HaveAim = true;
+                        if(!HookKey)
+                                pSlot->m_Hook = 1; // Р°РІС‚Рѕ-РєСЂСЋРє
+                }
+        }
+
+        // ---- СЂРµС€РµРЅРёРµ РѕСЂСѓР¶РёСЏ (СЃРёР»СЊРЅРµРµ С…СѓРєР°: РЅР°РјРµСЂРµРЅРёРµ СЃС‚СЂРµР»СЏС‚СЊ РІР°Р¶РЅРµРµ) ----
+        bool WantWeapon = false;
+        if(WepOn && WepNum > 0)
+        {
+                if(ActiveWeapon == WEAPON_HAMMER)
+                        WantWeapon = FireKey || g_Config.m_VxAimHammerAuto != 0;
+                else
+                        WantWeapon = FireKey || g_Config.m_VxAimAutoFire != 0;
+        }
+        if(WantWeapon)
+        {
+                vec2 Dir, Point;
+                bool Ok = false;
+                if(ActiveWeapon == WEAPON_HAMMER)
+                        Ok = AbHammerSolve(&Ctx, aWepCands, WepNum, Dir, Point);
+                else if(ActiveWeapon == WEAPON_LASER || (ActiveWeapon == WEAPON_SHOTGUN && !Ctx.m_Vanilla))
+                {
+                        int Bounce = 0;
+                        int Id = -1;
+                        const bool BounceAim = ActiveWeapon == WEAPON_LASER ? g_Config.m_VxAimLaserBounce != 0 : g_Config.m_VxAimShotgunBounce != 0;
+                        const int BounceFov = ActiveWeapon == WEAPON_LASER ? g_Config.m_VxAimLaserBounceFov : g_Config.m_VxAimShotgunBounceFov;
+                        Ok = AbBeamSolve(&Ctx, aWepCands, WepNum, BounceFov, BounceAim, Dir, Point, Id, Bounce);
+                        if(Ok)
+                                AimId = Id;
+                }
+                else
+                {
+                        SAbProj W;
+                        if(AbProjParams(&Ctx, ActiveWeapon, W))
+                                Ok = AbBallisticSolve(&Ctx, aWepCands, WepNum, W, Dir, Point);
+                }
+                if(Ok)
+                {
+                        AimDir = Dir;
+                        AimPoint = Point;
+                        PredPoint = Point;
+                        AimWeapon = ActiveWeapon;
+                        if(AimId < 0 && WepNum > 0)
+                                AimId = aWepCands[0].m_Id;
+                        HaveAim = true;
+                }
+        }
+
+        // ---- РїРёС€РµРј РїСЂРёС†РµР» (С‚РёС…Рѕ: РІРёРґРёРјС‹Р№ РєСѓСЂСЃРѕСЂ РЅРµ РґРІРёРіР°РµРј) ----
+        if(HaveAim)
+        {
+                const float MouseMax = pControls->GetMaxMouseDistance();
+                const vec2 AimVec = AimDir * std::clamp(MouseMax, 100.0f, 900.0f);
+                pSlot->m_TargetX = (int)std::round(AimVec.x);
+                pSlot->m_TargetY = (int)std::round(AimVec.y);
+                m_Aiming = true;
+                m_AimWeapon = AimWeapon;
+                m_AimPoint = AimPoint;
+                m_PredPoint = PredPoint;
+                m_TargetId = AimId;
+                pControls->m_VertexAimTargetId = AimId;
+                m_VisUntil = NowTick + 5;
+                m_From = Ctx.m_MyPos;
+
+                // ---- Р°РІС‚Рѕ-РѕРіРѕРЅСЊ / Р°РІС‚Рѕ-СѓРґР°СЂ: РґРµСЂР¶РёРј СЃС‡С‘С‚С‡РёРє РѕРіРЅСЏ СЃР°РјРё ----
+                const bool WantFire = (AimWeapon == ActiveWeapon) &&
+                                      ((ActiveWeapon == WEAPON_HAMMER && g_Config.m_VxAimHammerAuto != 0) ||
+                                              (ActiveWeapon != WEAPON_HAMMER && g_Config.m_VxAimAutoFire != 0));
+                if(WantFire)
+                {
+                        if((pSlot->m_Fire & 1) == 0)
+                        {
+                                pSlot->m_Fire = (pSlot->m_Fire + 1) & INPUT_STATE_MASK;
+                                m_FireOwned = true;
+                        }
+                }
+                else if(m_FireOwned)
+                {
+                        if((pSlot->m_Fire & 1) != 0)
+                                pSlot->m_Fire = (pSlot->m_Fire + 1) & INPUT_STATE_MASK;
+                        m_FireOwned = false;
+                }
+
+                if(Debug && NowTick - m_LogGateTick >= 50)
+                {
+                        m_LogGateTick = NowTick;
+                        dbg_msg("vertex-aim", "state: tgt=%d w=%d fov=%d", m_TargetId, m_AimWeapon,
+                                AimWeapon == AB_HOOK ? g_Config.m_VxAimHookFov : m_WepFovDeg);
+                }
+        }
+        else
+        {
+                if(m_FireOwned)
+                {
+                        if((pSlot->m_Fire & 1) != 0)
+                                pSlot->m_Fire = (pSlot->m_Fire + 1) & INPUT_STATE_MASK;
+                        m_FireOwned = false;
+                }
+                m_Aiming = false;
+                m_AimWeapon = -1;
+                m_VisUntil = -1000000;
+        }
+}
+
+// ============================================================================
+// РєР»Р°РІРёС€Р° "aim РїСЂРё СѓРґРµСЂР¶Р°РЅРёРё" (СЂР°Р· РІ РєР°РґСЂ РёР· CControls::OnRender)
+// ============================================================================
+void CAimBot::RenderBinds(CGameClient *pGame)
+{
+        IInput *pInput = pGame->Input();
+        const int64_t Now = time_get();
+        if(m_BindMode != BIND_NONE)
+        {
+                if(Now < m_BindBlockUntil)
+                        return;
+                for(int Key = 1; Key <= KEY_MOUSE_9; Key++)
+                {
+                        if(Key == KEY_MOUSE_1 || !pInput->KeyPress(Key))
+                                continue;
+                        g_Config.m_VxAimHoldBind = Key == KEY_ESCAPE ? -1 : Key;
+                        m_BindMode = BIND_NONE;
+                        m_BindBlockUntil = Now + time_freq() / 3;
+                        break;
+                }
+        }
+}
+
+// ============================================================================
+// РјРёСЂРѕРІРѕР№ РѕРІРµСЂР»РµР№ (players.cpp): Р·РѕРЅС‹ FOV, ESP С‚СЂР°РµРєС‚РѕСЂРёР№, РїРѕРґСЃРІРµС‚РєР° С†РµР»Рё
+// ============================================================================
+static void AbColor(unsigned int Packed, float Alpha, float &r, float &g, float &b, float &a)
+{
+        const ColorRGBA C = color_cast<ColorRGBA>(ColorHSLA(Packed));
+        r = C.r;
+        g = C.g;
+        b = C.b;
+        a = C.a * Alpha;
+}
+static void AbDrawCircle(IGraphics *pGraphics, const vec2 &C, float R, int Segments)
+{
+        float Px = C.x + R, Py = C.y;
+        for(int i = 1; i <= Segments; i++)
+        {
+                const float a = (float)i / Segments * 2.0f * AB_PI;
+                const float Nx = C.x + std::cos(a) * R, Ny = C.y + std::sin(a) * R;
+                const IGraphics::CLineItem L(Px, Py, Nx, Ny);
+                pGraphics->LinesDraw(&L, 1);
+                Px = Nx;
+                Py = Ny;
+        }
+}
+// РєР»РёРЅ FOV: РґРІРµ РіСЂР°РЅРёС†С‹ + РґСѓРіР°. Р Р°РґРёСѓСЃ Рё СѓРіРѕР» вЂ” СЂРѕРІРЅРѕ С‚Рѕ, С‡С‚Рѕ Р·Р°С…РІР°С‚С‹РІР°РµС‚ Р°РёРј.
+static void AbDrawWedge(IGraphics *pGraphics, const vec2 &C, float Ang, float FovDeg, float R)
+{
+        if(FovDeg >= 360)
+        {
+                AbDrawCircle(pGraphics, C, R, 48);
+                return;
+        }
+        const float Half = std::clamp(FovDeg, 1.0f, 360.0f) * AB_PI / 360.0f;
+        const float a0 = Ang - Half, a1 = Ang + Half;
+        const IGraphics::CLineItem L1(C.x, C.y, C.x + std::cos(a0) * R, C.y + std::sin(a0) * R);
+        pGraphics->LinesDraw(&L1, 1);
+        const IGraphics::CLineItem L2(C.x, C.y, C.x + std::cos(a1) * R, C.y + std::sin(a1) * R);
+        pGraphics->LinesDraw(&L2, 1);
+        const int Segs = std::clamp((int)(FovDeg / 6), 4, 48);
+        float Pa = a0;
+        for(int i = 1; i <= Segs; i++)
+        {
+                const float a = a0 + (a1 - a0) * i / Segs;
+                const IGraphics::CLineItem L(C.x + std::cos(Pa) * R, C.y + std::sin(Pa) * R, C.x + std::cos(a) * R, C.y + std::sin(a) * R);
+                pGraphics->LinesDraw(&L, 1);
+                Pa = a;
+        }
+}
+static void AbDrawCross(IGraphics *pGraphics, const vec2 &P, float R)
+{
+        const IGraphics::CLineItem aL[2] = {
+                IGraphics::CLineItem(P.x - R, P.y, P.x + R, P.y),
+                IGraphics::CLineItem(P.x, P.y - R, P.x, P.y + R)};
+        pGraphics->LinesDraw(aL, 2);
+}
+
+void CAimBot::RenderWorld(CGameClient *pGame)
+{
+        if(g_Config.m_VxAimEnable == 0)
+                return;
+        if(pGame->Client()->State() != IClient::STATE_ONLINE || pGame->m_Snap.m_SpecInfo.m_Active)
+                return;
+        CCharacter *pMe = pGame->m_PredictedWorld.GetCharacterById(pGame->m_Snap.m_LocalClientId);
+        if(!pMe)
+                return;
+
+        // Р·Р°С‰РёС‚Р° РѕС‚ РґРІРѕР№РЅРѕР№ РѕС‚СЂРёСЃРѕРІРєРё РІ РѕРґРЅРѕРј РєР°РґСЂРµ
+        const int64_t Now = time_get();
+        if(Now < m_NextDrawTime)
+                return;
+        m_NextDrawTime = Now + time_freq() / 250;
+
+        IGraphics *pGraphics = pGame->Graphics();
+        CMapItemGroup *pGameGroup = pGame->Layers()->GameGroup();
+        if(!pGameGroup)
+            return;
+        pGraphics->MapScreen(pGraphics->MapScreenToWorld(
+            pGame->m_Camera.m_Center.x, pGame->m_Camera.m_Center.y,
+            pGameGroup->m_ParallaxX, pGameGroup->m_ParallaxY, 100.0f,
+            pGameGroup->m_OffsetX, pGameGroup->m_OffsetY,
+            pGraphics->ScreenAspect(), pGame->m_Camera.m_Zoom));
+
+        float Fr, Fg, Fb, Fa;
+        AbColor(g_Config.m_VxAimFovColor, 1.0f, Fr, Fg, Fb, Fa);
+
+        // ---- Р·РѕРЅС‹ FOV (СЂРѕРІРЅРѕ С‚Рµ, С‡С‚Рѕ Р·Р°С…РІР°С‚С‹РІР°РµС‚ Р°РёРј) ----
+        pGraphics->TextureClear();
+        pGraphics->LinesBegin();
+        if(g_Config.m_VxAimDrawFov != 0)
+        {
+                if(m_HookFovDeg > 0)
+                {
+                        pGraphics->SetColor(Fr, Fg, Fb, 0.30f);
+                        AbDrawWedge(pGraphics, m_ZonePos, m_ZoneAng, m_HookFovDeg, m_HookZoneR);
+                }
+                if(m_WepFovDeg > 0)
+                {
+                        pGraphics->SetColor(Fr, Fg, Fb, 0.18f);
+                        AbDrawWedge(pGraphics, m_ZonePos, m_ZoneAng, m_WepFovDeg, m_WepZoneR);
+                }
+        }
+        pGraphics->LinesEnd();
+
+        // ---- ESP С‚СЂР°РµРєС‚РѕСЂРёР№ РѕС‚ РїСЂРёС†РµР»Р° (РіСЂР°РЅР°С‚Р° / РґСЂРѕР±Р°С€ / Р»Р°Р·РµСЂ) ----
+        const bool GrenEsp = g_Config.m_VxAimTrajGrenade != 0;
+        const bool ShotEsp = g_Config.m_VxAimTrajShotgun != 0;
+        const bool LaserEsp = g_Config.m_VxAimTrajLaser != 0;
+        if(GrenEsp || ShotEsp || LaserEsp)
+        {
+                SAbCtx Ctx;
+                Ctx.m_pGame = pGame;
+                Ctx.m_pCol = pMe->Collision();
+                Ctx.m_pMe = pMe;
+                Ctx.m_LocalId = pGame->m_Snap.m_LocalClientId;
+                Ctx.m_MyPos = pMe->m_Pos;
+                Ctx.m_pTun = &pGame->m_aTuning[g_Config.m_ClDummy];
+                Ctx.m_Vanilla = pGame->m_PredictedWorld.m_WorldConfig.m_IsVanilla;
+                Ctx.m_MouseDir = vec2(std::cos(m_ZoneAng), std::sin(m_ZoneAng));
+                Ctx.m_CursorAng = m_ZoneAng;
+
+                float Tr, Tg, Tb, Ta;
+                AbColor(g_Config.m_VxAimTrajColor, 1.0f, Tr, Tg, Tb, Ta);
+                pGraphics->TextureClear();
+                pGraphics->LinesBegin();
+
+                vec2 aPts[AB_TRAJ_MAX];
+                int Num = 0;
+                vec2 Impact = Ctx.m_MyPos;
+                if(GrenEsp)
+                {
+                        SAbProj W;
+                        AbProjParams(&Ctx, WEAPON_GRENADE, W);
+                        AbSimTrajProj(&Ctx, Ctx.m_MyPos + Ctx.m_MouseDir * AB_SPAWN, Ctx.m_MouseDir, W, aPts, AB_TRAJ_MAX, Num, Impact);
+                        pGraphics->SetColor(Tr, Tg, Tb, 0.55f);
+                        for(int i = 0; i + 1 < Num; i++)
+                        {
+                                const IGraphics::CLineItem L(aPts[i].x, aPts[i].y, aPts[i + 1].x, aPts[i + 1].y);
+                                pGraphics->LinesDraw(&L, 1);
+                        }
+                        // РєСЂСѓРі РІР·СЂС‹РІР° РІ С‚РѕС‡РєРµ РїРѕРїР°РґР°РЅРёСЏ
+                        pGraphics->SetColor(Tr, Tg, Tb, 0.25f);
+                        AbDrawCircle(pGraphics, Impact, AB_GRENADE_BOOM, 24);
+                }
+                if(ShotEsp || LaserEsp)
+                {
+                        if(ShotEsp && Ctx.m_Vanilla)
+                        {
+                                // vanilla-РґСЂРѕР±Р°С€: РїСѓР»Рё СЃ РєСЂРёРІРёР·РЅРѕР№
+                                SAbProj W;
+                                AbProjParams(&Ctx, WEAPON_SHOTGUN, W);
+                                AbSimTrajProj(&Ctx, Ctx.m_MyPos + Ctx.m_MouseDir * AB_SPAWN, Ctx.m_MouseDir, W, aPts, AB_TRAJ_MAX, Num, Impact);
+                                pGraphics->SetColor(Tr, Tg, Tb, 0.55f);
+                                for(int i = 0; i + 1 < Num; i++)
+                                {
+                                        const IGraphics::CLineItem L(aPts[i].x, aPts[i].y, aPts[i + 1].x, aPts[i + 1].y);
+                                        pGraphics->LinesDraw(&L, 1);
+                                }
+                        }
+                        else
+                        {
+                                // DDRace: РґСЂРѕР±Р°С€ Рё Р»Р°Р·РµСЂ вЂ” Р»СѓС‡ СЃ РѕС‚СЂР°Р¶РµРЅРёСЏРјРё (РєР°Рє CLaser)
+                                const float Reach = Ctx.m_pTun->m_LaserReach;
+                                const float Cost = Ctx.m_pTun->m_LaserBounceCost;
+                                const int MaxB = std::clamp((int)Ctx.m_pTun->m_LaserBounceNum, 0, ShotEsp ? 6 : 5);
+                                SAbBeam Beam;
+                                AbBeamSim(&Ctx, Ctx.m_MyPos, Ctx.m_MouseDir, Reach, Cost, MaxB, Beam);
+                                pGraphics->SetColor(Tr, Tg, Tb, 0.55f);
+                                for(int b = 0; b < Beam.m_Num; b++)
+                                {
+                                        const IGraphics::CLineItem L(Beam.m_aSeg[b].m_a.x, Beam.m_aSeg[b].m_a.y, Beam.m_aSeg[b].m_b.x, Beam.m_aSeg[b].m_b.y);
+                                        pGraphics->LinesDraw(&L, 1);
+                                        if(b > 0) // С‚РѕС‡РєР° РѕС‚СЃРєРѕРєР°
+                                        {
+                                                pGraphics->SetColor(Tr, Tg, Tb, 0.85f);
+                                                AbDrawCross(pGraphics, Beam.m_aSeg[b].m_a, 4.0f);
+                                                pGraphics->SetColor(Tr, Tg, Tb, 0.55f);
+                                        }
+                                }
+                                if(Beam.m_Num > 0)
+                                        Impact = Beam.m_aSeg[Beam.m_Num - 1].m_b;
+                        }
+                }
+                // РјР°СЂРєРµСЂ С‚РѕС‡РєРё РїРѕРїР°РґР°РЅРёСЏ
+                pGraphics->SetColor(1.0f, 0.9f, 0.3f, 0.85f);
+                AbDrawCross(pGraphics, Impact, 7.0f);
+                pGraphics->LinesEnd();
+        }
+
+        // ---- Р»РёРЅРёСЏ Р°РёРјР° + С‚РѕС‡РєР° РїСЂРµРґРёРєС‚Р° (РїРѕСЃР»РµРґРЅРµРµ РЅР°РІРµРґРµРЅРёРµ) ----
+        const int NowTick = pGame->m_PredictedWorld.GameTick();
+        pGraphics->TextureClear();
+        pGraphics->LinesBegin();
+        if(m_VisUntil >= NowTick && m_AimWeapon >= 0)
+        {
+                pGraphics->SetColor(Fr, Fg, Fb, 0.6f);
+                const IGraphics::CLineItem L(m_From.x, m_From.y, m_AimPoint.x, m_AimPoint.y);
+                pGraphics->LinesDraw(&L, 1);
+                pGraphics->SetColor(1.0f, 0.9f, 0.3f, 0.8f);
+                AbDrawCross(pGraphics, m_PredPoint, 6.0f);
+        }
+        pGraphics->LinesEnd();
+
+        // ---- РїРѕРґСЃРІРµС‚РєР° Р·Р°Р»РѕС‡РµРЅРЅРѕР№ С†РµР»Рё РІС‹Р±СЂР°РЅРЅС‹Рј С†РІРµС‚РѕРј ----
+        if(g_Config.m_VxAimHighlight != 0 && m_TargetId >= 0)
+        {
+                CCharacter *pT = pGame->m_PredictedWorld.GetCharacterById(m_TargetId);
+                if(pT)
+                {
+                        float Hr, Hg, Hb, Ha;
+                        AbColor(g_Config.m_VxAimHlColor, 1.0f, Hr, Hg, Hb, Ha);
+                        // РјСЏРіРєРѕРµ СЃРІРµС‡РµРЅРёРµ Р·Р° РёРіСЂРѕРєРѕРј
+                        pGraphics->TextureClear();
+                        pGraphics->QuadsBegin();
+                        const float aR[3] = {66.0f, 50.0f, 34.0f};
+                        const float aA[3] = {0.05f, 0.10f, 0.20f};
+                        for(int i = 0; i < 3; i++)
+                        {
+                                pGraphics->SetColor(Hr, Hg, Hb, Ha * aA[i]);
+                                IGraphics::CQuadItem Q(pT->m_Pos.x - aR[i], pT->m_Pos.y - aR[i], 2.0f * aR[i], 2.0f * aR[i]);
+                                pGraphics->QuadsDrawTL(&Q, 1);
+                        }
+                        pGraphics->QuadsEnd();
+                        // СЂР°РјРєР° РїРѕ С…РёС‚Р±РѕРєСЃСѓ
+                        pGraphics->TextureClear();
+                        pGraphics->LinesBegin();
+                        pGraphics->SetColor(Hr, Hg, Hb, Ha * 0.9f);
+                        const float S = 17.0f;
+                        const IGraphics::CLineItem aL[4] = {
+                                IGraphics::CLineItem(pT->m_Pos.x - S, pT->m_Pos.y - S, pT->m_Pos.x + S, pT->m_Pos.y - S),
+                                IGraphics::CLineItem(pT->m_Pos.x + S, pT->m_Pos.y - S, pT->m_Pos.x + S, pT->m_Pos.y + S),
+                                IGraphics::CLineItem(pT->m_Pos.x + S, pT->m_Pos.y + S, pT->m_Pos.x - S, pT->m_Pos.y + S),
+                                IGraphics::CLineItem(pT->m_Pos.x - S, pT->m_Pos.y + S, pT->m_Pos.x - S, pT->m_Pos.y - S)};
+                        pGraphics->LinesDraw(aL, 4);
+                        pGraphics->LinesEnd();
+                }
+        }
+}
+
+// ============================================================================
+// РїРѕР»РЅС‹Р№ СЃР±СЂРѕСЃ (СЂРµРєРѕРЅРЅРµРєС‚ / СЃРјРµРЅР° РєР°СЂС‚С‹)
+// ============================================================================
+void CAimBot::Reset()
+{
+        m_Aiming = false;
+        m_TargetId = -1;
+        m_AimWeapon = -1;
+        m_VisUntil = -1000000;
+        m_FireOwned = false;
+        m_LastWorkTick = -1000000;
+        m_BindMode = BIND_NONE;
+        m_BindBlockUntil = 0;
+        m_NextDrawTime = 0;
+        m_LogGateTick = -1000000;
+        m_HookFovDeg = 0;
+        m_WepFovDeg = 0;
+}
+
+========== src\game\client\components\aimbot.h ==========
+#ifndef GAME_CLIENT_COMPONENTS_AIMBOT_H
+#define GAME_CLIENT_COMPONENTS_AIMBOT_H
+
+#include <engine/shared/protocol.h>
+#include <game/client/component.h>
+#include <game/client/components/controls.h>
+#include <game/generated/protocol.h>
+
+class CAimbot : public CComponent
+{
+public:
+	// =====================================================================
+	// БЛОК 1: АИМ НА ХУК
+	// =====================================================================
+	bool m_EnableHookAim;
+	float m_HookFov;          // Угол от 1 до 360 градусов
+	int m_TargetPriority;     // 0: К прицелу, 1: Ближайший
+	bool m_PredictMovement;   // Предсказание движения
+	bool m_EdgeScanner;       // Сканер краев хитбокса
+
+	// =====================================================================
+	// БЛОК 2: АИМ НА ГРАНАТОМЕТ
+	// =====================================================================
+	bool m_EnableGrenadeAim;
+	bool m_ShowGrenadeTrajectory;
+
+	// =====================================================================
+	// БЛОК 3: АИМ НА ЛАЗЕР
+	// =====================================================================
+	bool m_EnableLaserAim;
+	bool m_PredictLaserUnfreeze; // Предикт, когда можно анфризнуть
+
+	// =====================================================================
+	// БЛОК 4: АИМ НА ДРОБОВИК
+	// =====================================================================
+	bool m_EnableShotgunAim;
+	bool m_PredictShotgunUnfreeze;
+
+	// =====================================================================
+	// БЛОК 5: АИМ НА МОЛОТОК
+	// =====================================================================
+	bool m_EnableHammerAim;
+	float m_HammerFov;        // Отдельный FOV для молотка
+
+	// =====================================================================
+	// БЛОК 6: ОТОБРАЖЕНИЕ (Draw FOV, ESP Players)
+	// =====================================================================
+	bool m_DrawFov;
+	bool m_HighlightFov;
+	float m_FovColor[4];
+	
+	bool m_DrawEsp;
+	float m_EspColor[4];
+	bool m_GlowTarget;
+
+	CAimbot();
+
+	virtual void OnReset() override;
+	virtual void OnRender() override;
+	
+	// Вызывается из Controls перед отправкой инпута на сервер
+	void ApplyAimbot(CNetObj_PlayerInput *pInput, CControls *pControls, class CGameClient *pGameClient);
+
+private:
+	bool FindTargetInFov(const CNetObj_PlayerInput *pInput, float Fov, vec2 *pOutTargetPos, int *pOutTargetId);
+	bool HasLineOfSight(vec2 FromPos, vec2 ToPos);
+	vec2 PredictTargetPosition(const CNetObj_Character *pChar, float TimeOffset);
+	vec2 GetEdgeAimPos(vec2 LocalPos, vec2 TargetPos);
+	void RenderFovIndicator(class CGameClient *pGameClient, float Fov);
+	void RenderESP(class CGameClient *pGameClient, int TargetId);
+};
+
+#endif
+
+========== src\game\client\components\aimbot.cpp ==========
+﻿#include "aimbot.h"
+#include <game/client/gameclient.h>
+#include <game/client/components/controls.h>
+#include <game/client/render.h>
+#include <game/collision.h>
+#include <math.h>
+
+CAimbot::CAimbot()
+{
+	// Хук
+	m_EnableHookAim = false;
+	m_HookFov = 20.0f; 
+	m_TargetPriority = 0;
+	m_PredictMovement = true;
+	m_EdgeScanner = true;
+
+	// Граната / Лазер / Дробовик
+	m_EnableGrenadeAim = false;
+	m_ShowGrenadeTrajectory = true;
+	m_EnableLaserAim = false;
+	m_PredictLaserUnfreeze = true;
+	m_EnableShotgunAim = false;
+	m_PredictShotgunUnfreeze = true;
+
+	// Молот
+	m_EnableHammerAim = false;
+	m_HammerFov = 45.0f; // У молотка обычно FOV больше
+
+	// Визуал
+	m_DrawFov = true;
+	m_HighlightFov = true;
+	m_FovColor[0] = 1.0f; m_FovColor[1] = 0.5f; m_FovColor[2] = 0.5f; m_FovColor[3] = 1.0f;
+
+	m_DrawEsp = true;
+	m_EspColor[0] = 1.0f; m_EspColor[1] = 0.0f; m_EspColor[2] = 0.0f; m_EspColor[3] = 1.0f; // Красный ESP
+	m_GlowTarget = false;
+}
+
+void CAimbot::OnReset() {}
+
+void CAimbot::OnRender()
+{
+	if(!m_pClient || !m_pClient->m_Snap.m_pLocalCharacter) return;
+	
+	// Отрисовка FOV (треугольника)
+	if(m_DrawFov)
+	{
+		float ActiveFov = m_EnableHookAim ? m_HookFov : (m_EnableHammerAim ? m_HammerFov : m_HookFov);
+		RenderFovIndicator(m_pClient, ActiveFov);
+	}
+
+	// Отрисовка ESP (игроки в FOV)
+	if(m_DrawEsp)
+	{
+		CNetObj_PlayerInput DummyInput;
+		vec2 TargetPos;
+		int TargetId = -1;
+		
+		// Берем текущий угол мыши для поиска
+		vec2 LocalAim = vec2(m_pClient->m_Controls.m_aMousePos[0], m_pClient->m_Controls.m_aMousePos[1]);
+		DummyInput.m_TargetX = (int)(LocalAim.x * 256.0f);
+		DummyInput.m_TargetY = (int)(LocalAim.y * 256.0f);
+		
+		float CurrentFov = m_EnableHookAim ? m_HookFov : (m_EnableHammerAim ? m_HammerFov : m_HookFov);
+		if(FindTargetInFov(&DummyInput, CurrentFov, &TargetPos, &TargetId))
+		{
+			RenderESP(m_pClient, TargetId);
+		}
+	}
+}
+
+// =========================================================================
+// БЛОК ЛОГИКИ: ВЫЗЫВАЕТСЯ ИЗ CControls ПЕРЕД ОТПРАВКОЙ ИНПУТА
+// =========================================================================
+void CAimbot::ApplyAimbot(CNetObj_PlayerInput *pInput, CControls *pControls, CGameClient *pGameClient)
+{
+	vec2 LocalPos = pGameClient->m_LocalCharacterPos;
+	vec2 TargetPos;
+	int TargetId = -1;
+
+	// ==========================================
+	// БЛОК 1: ХУК
+	// ==========================================
+	if(m_EnableHookAim && (pInput->m_Hook & 1))
+	{
+		if(FindTargetInFov(pInput, m_HookFov, &TargetPos, &TargetId))
+		{
+			vec2 AimPos = TargetPos;
+			if(m_PredictMovement && TargetId != -1)
+				AimPos = PredictTargetPosition(&pGameClient->m_Snap.m_aCharacters[TargetId].m_Cur, 0.05f);
+			if(m_EdgeScanner)
+				AimPos = GetEdgeAimPos(LocalPos, AimPos);
+
+			vec2 Dir = normalize(AimPos - LocalPos);
+			pInput->m_TargetX = (int)(Dir.x * 256.0f);
+			pInput->m_TargetY = (int)(Dir.y * 256.0f);
+		}
+	}
+
+	// ==========================================
+	// БЛОК 2: МОЛОТОК
+	// ==========================================
+	if(m_EnableHammerAim && (pInput->m_Fire & 1))
+	{
+		if(FindTargetInFov(pInput, m_HammerFov, &TargetPos, &TargetId))
+		{
+			// Ограничение дальности ТОЛЬКО для молотка (он бьет на ~38 пикселей)
+			if(distance(LocalPos, TargetPos) < 38.0f)
+			{
+				vec2 Dir = normalize(TargetPos - LocalPos);
+				pInput->m_TargetX = (int)(Dir.x * 256.0f);
+				pInput->m_TargetY = (int)(Dir.y * 256.0f);
+			}
+		}
+	}
+
+	// ==========================================
+	// БЛОК 3, 4, 5: ЛАЗЕР, ДРОБОВИК, ГРАНАТА
+	// ==========================================
+	if((m_EnableLaserAim || m_EnableShotgunAim || m_EnableGrenadeAim) && (pInput->m_Fire & 1))
+	{
+		float Fov = m_HookFov; // Используем основной FOV
+		if(FindTargetInFov(pInput, Fov, &TargetPos, &TargetId))
+		{
+			vec2 AimPos = TargetPos;
+			if(m_PredictMovement && TargetId != -1)
+				AimPos = PredictTargetPosition(&pGameClient->m_Snap.m_aCharacters[TargetId].m_Cur, 0.05f);
+
+			vec2 Dir = normalize(AimPos - LocalPos);
+			pInput->m_TargetX = (int)(Dir.x * 256.0f);
+			pInput->m_TargetY = (int)(Dir.y * 256.0f);
+		}
+	}
+}
+
+// =========================================================================
+// БЛОК ПОИСКА ЦЕЛИ (Только по FOV и прямой видимости)
+// =========================================================================
+bool CAimbot::FindTargetInFov(const CNetObj_PlayerInput *pInput, float Fov, vec2 *pOutTargetPos, int *pOutTargetId)
+{
+	float BestMetric = 999999.0f;
+	bool Found = false;
+	
+	vec2 LocalPos(m_pClient->m_LocalCharacterPos.x, m_pClient->m_LocalCharacterPos.y);
+	vec2 AimDir = normalize(vec2(pInput->m_TargetX, pInput->m_TargetY));
+	float AimAngle = atan2f(AimDir.y, AimDir.x);
+
+	for(int i = 0; i < MAX_CLIENTS; i++)
+	{
+		if(i == m_pClient->m_LocalClientID) continue;
+		if(!m_pClient->m_Snap.m_aCharacters[i].m_Active) continue;
+
+		vec2 TargetPos(m_pClient->m_Snap.m_aCharacters[i].m_Cur.m_X, m_pClient->m_Snap.m_aCharacters[i].m_Cur.m_Y);
+		vec2 DirToTarget = normalize(TargetPos - LocalPos);
+		
+		float TargetAngle = atan2f(DirToTarget.y, DirToTarget.x);
+		float AngleDiff = TargetAngle - AimAngle;
+		
+		while (AngleDiff > M_PI) AngleDiff -= 2 * M_PI;
+		while (AngleDiff < -M_PI) AngleDiff += 2 * M_PI;
+		
+		float AngleDeg = abs(AngleDiff * 180.0f / M_PI);
+
+		// Если цель в FOV и нет стен между нами
+		if(AngleDeg <= (Fov / 2.0f) && HasLineOfSight(LocalPos, TargetPos))
+		{
+			// 0 - К прицелу (наименьший угол), 1 - Ближайший (дистанция)
+			float Metric = (m_TargetPriority == 0) ? AngleDeg : distance(LocalPos, TargetPos);
+
+			if(!Found || Metric < BestMetric)
+			{
+				BestMetric = Metric;
+				*pOutTargetPos = TargetPos;
+				*pOutTargetId = i;
+				Found = true;
+			}
+		}
+	}
+	return Found;
+}
+
+bool CAimbot::HasLineOfSight(vec2 FromPos, vec2 ToPos)
+{
+	return m_pClient->Collision()->IntersectLine(FromPos, ToPos, 0, 0, 0) == 0;
+}
+
+vec2 CAimbot::PredictTargetPosition(const CNetObj_Character *pChar, float TimeOffset)
+{
+	vec2 Pos(pChar->m_X, pChar->m_Y);
+	vec2 Vel(pChar->m_VelX / 256.0f, pChar->m_VelY / 256.0f);
+	return Pos + Vel * (TimeOffset * 50.0f);
+}
+
+// Наведение на край хитбокса (Edge Scanner)
+vec2 CAimbot::GetEdgeAimPos(vec2 LocalPos, vec2 TargetPos)
+{
+	// Радиус хитбокса игрока в DDNet около 14 пикселей
+	vec2 Dir = normalize(TargetPos - LocalPos);
+	// Смещаем точку прицеливания чуть в сторону от центра (на край), чтобы лучше зацепить
+	return TargetPos - vec2(Dir.y, -Dir.x) * 12.0f; 
+}
+
+// =========================================================================
+// БЛОК ОТРИСОВКИ FOV (ТРЕУГОЛЬНИК)
+// =========================================================================
+void CAimbot::RenderFovIndicator(CGameClient *pGameClient, float Fov)
+{
+	vec2 Center = pGameClient->m_Camera.m_Center;
+	vec2 Mouse = pGameClient->m_Controls.m_aMousePos[g_Config.m_ClDummy];
+	float AimAngle = atan2f(Mouse.y, Mouse.x);
+
+	float FovRad = Fov * M_PI / 180.0f;
+	float Radius = 400.0f; // Длина линий FOV
+
+	vec2 Dir1 = vec2(cos(AimAngle - FovRad / 2.0f), sin(AimAngle - FovRad / 2.0f)) * Radius;
+	vec2 Dir2 = vec2(cos(AimAngle + FovRad / 2.0f), sin(AimAngle + FovRad / 2.0f)) * Radius;
+
+	Graphics()->TextureSet(-1);
+	Graphics()->LinesBegin();
+	Graphics()->SetColor(m_FovColor[0], m_FovColor[1], m_FovColor[2], m_HighlightFov ? 0.3f : 1.0f);
+
+	IGraphics::CLineItem Lines[3] = {
+		IGraphics::CLineItem(Center.x, Center.y, Center.x + Dir1.x, Center.y + Dir1.y),
+		IGraphics::CLineItem(Center.x, Center.y, Center.x + Dir2.x, Center.y + Dir2.y),
+		IGraphics::CLineItem(Center.x + Dir1.x, Center.y + Dir1.y, Center.x + Dir2.x, Center.y + Dir2.y)
+	};
+	Graphics()->LinesDraw(Lines, 3);
+	Graphics()->LinesEnd();
+}
+
+// =========================================================================
+// БЛОК ESP (ПОДСВЕТКА)
+// =========================================================================
+void CAimbot::RenderESP(CGameClient *pGameClient, int TargetId)
+{
+	if(TargetId == -1) return;
+
+	vec2 CharPos(pGameClient->m_Snap.m_aCharacters[TargetId].m_Cur.m_X, pGameClient->m_Snap.m_aCharacters[TargetId].m_Cur.m_Y);
+	
+	Graphics()->TextureSet(-1);
+	Graphics()->LinesBegin();
+	Graphics()->SetColor(m_EspColor[0], m_EspColor[1], m_EspColor[2], m_EspColor[3]);
+
+	IGraphics::CLineItem Box[4] = {
+		IGraphics::CLineItem(CharPos.x - 14, CharPos.y - 14, CharPos.x + 14, CharPos.y - 14),
+		IGraphics::CLineItem(CharPos.x + 14, CharPos.y - 14, CharPos.x + 14, CharPos.y + 14),
+		IGraphics::CLineItem(CharPos.x + 14, CharPos.y + 14, CharPos.x - 14, CharPos.y + 14),
+		IGraphics::CLineItem(CharPos.x - 14, CharPos.y + 14, CharPos.x - 14, CharPos.y - 14)
+	};
+	Graphics()->LinesDraw(Box, 4);
+	Graphics()->LinesEnd();
+}
+
+========== src\game\client\gameclient.h ==========
+
+  src\game\client\gameclient.h:184:	CSkins7 m_Skins7;
+  src\game\client\gameclient.h:185:	CCountryFlags m_CountryFlags;
+  src\game\client\gameclient.h:186:	CFlow m_Flow;
+  src\game\client\gameclient.h:187:	CHud m_Hud;
+  src\game\client\gameclient.h:188:	CImportantAlert m_ImportantAlert;
+  src\game\client\gameclient.h:189:	CDebugHud m_DebugHud;
+  src\game\client\gameclient.h:190:	CControls m_Controls;
+  src\game\client\gameclient.h:191:	CAvoidFreeze m_AvoidFreeze;
+> src\game\client\gameclient.h:192:	CAimBot m_AimBot;
+  src\game\client\gameclient.h:193:	CEffects m_Effects;
+  src\game\client\gameclient.h:194:	CScoreboard m_Scoreboard;
+  src\game\client\gameclient.h:195:	CStatboard m_Statboard;
+  src\game\client\gameclient.h:196:	CSounds m_Sounds;
+  src\game\client\gameclient.h:197:	CEmoticon m_Emoticon;
+  src\game\client\gameclient.h:198:	CDamageInd m_DamageInd;
+  src\game\client\gameclient.h:199:	CTouchControls m_TouchControls;
+  src\game\client\gameclient.h:200:	CVoting m_Voting;
+  src\game\client\gameclient.h:201:	CSpectator m_Spectator;
+  src\game\client\gameclient.h:202:
+  src\game\client\gameclient.h:203:	CPlayers m_Players;
+  src\game\client\gameclient.h:204:	CNamePlates m_NamePlates;
+  src\game\client\gameclient.h:216:	CRaceDemo m_RaceDemo;
+  src\game\client\gameclient.h:217:	CGhost m_Ghost;
+  src\game\client\gameclient.h:218:
+  src\game\client\gameclient.h:219:	CTooltips m_Tooltips;
+  src\game\client\gameclient.h:220:
+  src\game\client\gameclient.h:221:	CLocalServer m_LocalServer;
+  src\game\client\gameclient.h:222:
+  src\game\client\gameclient.h:223:private:
+> src\game\client\gameclient.h:224:	std::vector<class CComponent *> m_vpAll;
+  src\game\client\gameclient.h:225:	std::vector<class CComponent *> m_vpInput;
+  src\game\client\gameclient.h:226:	CNetObjHandler m_NetObjHandler;
+  src\game\client\gameclient.h:227:	protocol7::CNetObjHandler m_NetObjHandler7;
+  src\game\client\gameclient.h:228:
+  src\game\client\gameclient.h:229:	class IEngine *m_pEngine;
+  src\game\client\gameclient.h:230:	class IInput *m_pInput;
+  src\game\client\gameclient.h:231:	class IGraphics *m_pGraphics;
+  src\game\client\gameclient.h:232:	class ITextRender *m_pTextRender;
+  src\game\client\gameclient.h:233:	class IClient *m_pClient;
+  src\game\client\gameclient.h:234:	class ISound *m_pSound;
+  src\game\client\gameclient.h:235:	class IConfigManager *m_pConfigManager;
+  src\game\client\gameclient.h:236:	class CConfig *m_pConfig;
+  src\game\client\gameclient.h:622:
+  src\game\client\gameclient.h:623:	CRenderTools m_RenderTools;
+  src\game\client\gameclient.h:624:	CRenderMap m_RenderMap;
+  src\game\client\gameclient.h:625:
+  src\game\client\gameclient.h:626:	bool m_BackButtonHandledKeyBind = false;
+  src\game\client\gameclient.h:627:
+  src\game\client\gameclient.h:628:	void OnReset();
+  src\game\client\gameclient.h:629:
+> src\game\client\gameclient.h:630:	size_t ComponentCount() const { return m_vpAll.size(); }
+  src\game\client\gameclient.h:631:
+  src\game\client\gameclient.h:632:	// hooks
+  src\game\client\gameclient.h:633:	void OnConnected() override;
+  src\game\client\gameclient.h:634:	void OnRender() override;
+  src\game\client\gameclient.h:635:	void OnUpdate() override;
+  src\game\client\gameclient.h:636:	void OnDummyDisconnect() override;
+  src\game\client\gameclient.h:637:	virtual void OnRelease();
+  src\game\client\gameclient.h:638:	void OnInit() override;
+> src\game\client\gameclient.h:639:	void OnConsoleInit() override;
+  src\game\client\gameclient.h:640:	void OnStateChange(int NewState, int OldState) override;
+  src\game\client\gameclient.h:641:	template<typename T>
+  src\game\client\gameclient.h:642:	void ApplySkin7InfoFromGameMsg(const T *pMsg, int ClientId, int Conn);
+  src\game\client\gameclient.h:643:	void ApplySkin7InfoFromSnapObj(const protocol7::CNetObj_De_ClientInfo *pObj, int ClientId) override;
+  src\game\client\gameclient.h:644:	int OnDemoRecSnap7(CSnapshot *pFrom, CSnapshotBuffer *pTo, int Conn) override;
+  src\game\client\gameclient.h:645:	void *TranslateGameMsg(int *pMsgId, CUnpacker *pUnpacker, int Conn);
+  src\game\client\gameclient.h:646:	int TranslateSnap(CSnapshotBuffer *pSnapDstSix, CSnapshot *pSnapSrcSeven, int Conn, bool Dummy) override;
+  src\game\client\gameclient.h:647:	void OnMessage(int MsgId, CUnpacker *pUnpacker, int Conn, bool Dummy) override;
+  src\game\client\gameclient.h:648:	void InvalidateSnapshot() override;
+  src\game\client\gameclient.h:649:	void OnNewSnapshot(bool DummySwapped) override;
+  src\game\client\gameclient.h:650:	void OnPredict() override;
+  src\game\client\gameclient.h:651:	void OnActivateEditor() override;
+  src\game\client\gameclient.h:652:	void OnDummySwap() override;
+> src\game\client\gameclient.h:653:	int OnSnapInput(int *pData, bool Dummy, bool Force) override;
+  src\game\client\gameclient.h:654:	void OnShutdown() override;
+  src\game\client\gameclient.h:655:	void OnEnterGame() override;
+  src\game\client\gameclient.h:656:	void OnRconType(bool UsernameReq) override;
+  src\game\client\gameclient.h:657:	void OnRconLine(const char *pLine) override;
+  src\game\client\gameclient.h:658:	virtual void OnGameOver();
+  src\game\client\gameclient.h:659:	virtual void OnStartGame();
+  src\game\client\gameclient.h:660:	virtual void OnStartRound();
+  src\game\client\gameclient.h:661:	virtual void OnFlagGrab(int TeamId);
+  src\game\client\gameclient.h:662:	void OnWindowResize() override;
+  src\game\client\gameclient.h:663:
+  src\game\client\gameclient.h:664:	void InitializeLanguage() override;
+  src\game\client\gameclient.h:665:	bool m_LanguageChanged = false;
+
+
+
+
+========== src\game\client\gameclient.cpp ==========
+
+  src\game\client\gameclient.cpp:95:const char *CGameClient::Version() const { return GAME_VERSION; }
+  src\game\client\gameclient.cpp:96:const char *CGameClient::NetVersion() const { return GAME_NETVERSION; }
+  src\game\client\gameclient.cpp:97:const char *CGameClient::NetVersion7() const { return GAME_NETVERSION7; }
+  src\game\client\gameclient.cpp:98:int CGameClient::DDNetVersion() const { return DDNET_VERSION_NUMBER; }
+  src\game\client\gameclient.cpp:99:const char *CGameClient::DDNetVersionStr() const { return m_aDDNetVersionStr; }
+  src\game\client\gameclient.cpp:100:int CGameClient::ClientVersion7() const { return CLIENT_VERSION7; }
+  src\game\client\gameclient.cpp:101:const char *CGameClient::GetItemName(int Type) const { return m_NetObjHandler.GetObjName(Type); }
+  src\game\client\gameclient.cpp:102:
+> src\game\client\gameclient.cpp:103:void CGameClient::OnConsoleInit()
+  src\game\client\gameclient.cpp:104:{
+  src\game\client\gameclient.cpp:105:	m_pEngine = Kernel()->RequestInterface<IEngine>();
+  src\game\client\gameclient.cpp:106:	m_pClient = Kernel()->RequestInterface<IClient>();
+  src\game\client\gameclient.cpp:107:	m_pTextRender = Kernel()->RequestInterface<ITextRender>();
+  src\game\client\gameclient.cpp:108:	m_pSound = Kernel()->RequestInterface<ISound>();
+  src\game\client\gameclient.cpp:109:	m_pConfigManager = Kernel()->RequestInterface<IConfigManager>();
+  src\game\client\gameclient.cpp:110:	m_pConfig = m_pConfigManager->Values();
+  src\game\client\gameclient.cpp:111:	m_pInput = Kernel()->RequestInterface<IInput>();
+  src\game\client\gameclient.cpp:112:	m_pConsole = Kernel()->RequestInterface<IConsole>();
+  src\game\client\gameclient.cpp:113:	m_pStorage = Kernel()->RequestInterface<IStorage>();
+  src\game\client\gameclient.cpp:114:	m_pDemoPlayer = Kernel()->RequestInterface<IDemoPlayer>();
+  src\game\client\gameclient.cpp:115:	m_pServerBrowser = Kernel()->RequestInterface<IServerBrowser>();
+  src\game\client\gameclient.cpp:120:	m_pDiscord = Kernel()->RequestInterface<IDiscord>();
+  src\game\client\gameclient.cpp:121:#if defined(CONF_AUTOUPDATE)
+  src\game\client\gameclient.cpp:122:	m_pUpdater = Kernel()->RequestInterface<IUpdater>();
+  src\game\client\gameclient.cpp:123:#endif
+  src\game\client\gameclient.cpp:124:	m_pHttp = Kernel()->RequestInterface<IHttp>();
+  src\game\client\gameclient.cpp:125:	m_pMap = CreateMap();
+  src\game\client\gameclient.cpp:126:
+  src\game\client\gameclient.cpp:127:	// make a list of all the systems, make sure to add them in the correct render order
+> src\game\client\gameclient.cpp:128:	m_vpAll.insert(m_vpAll.end(), {&m_Skins,
+  src\game\client\gameclient.cpp:129:					      &m_Skins7,
+  src\game\client\gameclient.cpp:130:					      &m_CountryFlags,
+  src\game\client\gameclient.cpp:131:					      &m_MapImages,
+  src\game\client\gameclient.cpp:132:					      &m_Effects, // doesn't render anything, just updates effects
+  src\game\client\gameclient.cpp:133:					      &m_Binds,
+  src\game\client\gameclient.cpp:134:					      &m_Binds.m_SpecialBinds,
+  src\game\client\gameclient.cpp:135:					      &m_Controls,
+  src\game\client\gameclient.cpp:136:					      &m_Camera,
+  src\game\client\gameclient.cpp:137:					      &m_Sounds,
+  src\game\client\gameclient.cpp:138:					      &m_Voting,
+  src\game\client\gameclient.cpp:139:					      &m_Particles, // doesn't render anything, just updates all the particles
+  src\game\client\gameclient.cpp:140:					      &m_RaceDemo,
+  src\game\client\gameclient.cpp:200:	Console()->Register("kill", "", CFGFLAG_CLIENT, ConKill, this, "Kill yourself to restart");
+  src\game\client\gameclient.cpp:201:	Console()->Register("ready_change", "", CFGFLAG_CLIENT, ConReadyChange7, this, "Change ready state (0.7 only)");
+  src\game\client\gameclient.cpp:202:
+  src\game\client\gameclient.cpp:203:	// register game commands to allow the client prediction to load settings from the map
+  src\game\client\gameclient.cpp:204:	Console()->Register("tune", "s[tuning] ?f[value]", CFGFLAG_GAME, ConTuneParam, this, "Tune variable to value");
+  src\game\client\gameclient.cpp:205:	Console()->Register("tune_zone", "i[zone] s[tuning] f[value]", CFGFLAG_GAME, ConTuneZone, this, "Tune in zone a variable to value");
+  src\game\client\gameclient.cpp:206:	Console()->Register("mapbug", "s[mapbug]", CFGFLAG_GAME, ConMapbug, this, "Enable map compatibility mode using the specified bug (example: grenade-doubleexplosion@ddnet.tw)");
+  src\game\client\gameclient.cpp:207:
+> src\game\client\gameclient.cpp:208:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:209:		pComponent->OnInterfacesInit(this);
+  src\game\client\gameclient.cpp:210:
+  src\game\client\gameclient.cpp:211:	m_LocalServer.OnInterfacesInit(this);
+  src\game\client\gameclient.cpp:212:
+  src\game\client\gameclient.cpp:213:	// let all the other components register their console commands
+> src\game\client\gameclient.cpp:214:	for(auto &pComponent : m_vpAll)
+> src\game\client\gameclient.cpp:215:		pComponent->OnConsoleInit();
+  src\game\client\gameclient.cpp:216:
+  src\game\client\gameclient.cpp:217:	Console()->Chain("cl_languagefile", ConchainLanguageUpdate, this);
+  src\game\client\gameclient.cpp:218:
+  src\game\client\gameclient.cpp:219:	Console()->Chain("player_name", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:220:	Console()->Chain("player_clan", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:221:	Console()->Chain("player_country", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:222:	Console()->Chain("player_use_custom_color", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:223:	Console()->Chain("player_color_body", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:224:	Console()->Chain("player_color_feet", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:225:	Console()->Chain("player_skin", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:226:
+  src\game\client\gameclient.cpp:227:	Console()->Chain("player7_skin", ConchainSpecialInfoupdate, this);
+  src\game\client\gameclient.cpp:384:	char aLoadingMessage[256];
+  src\game\client\gameclient.cpp:385:
+  src\game\client\gameclient.cpp:386:	// init all components
+  src\game\client\gameclient.cpp:387:	int SkippedComps = 1;
+  src\game\client\gameclient.cpp:388:	int CompCounter = 1;
+  src\game\client\gameclient.cpp:389:	const int NumComponents = ComponentCount();
+  src\game\client\gameclient.cpp:390:	for(int i = NumComponents - 1; i >= 0; --i)
+  src\game\client\gameclient.cpp:391:	{
+> src\game\client\gameclient.cpp:392:		m_vpAll[i]->OnInit();
+  src\game\client\gameclient.cpp:393:		// try to render a frame after each component, also flushes GPU uploads
+  src\game\client\gameclient.cpp:394:		if(m_Menus.IsInit())
+  src\game\client\gameclient.cpp:395:		{
+  src\game\client\gameclient.cpp:396:			str_format(aLoadingMessage, std::size(aLoadingMessage), "%s [%d/%d]", CompCounter == NumComponents ? pLoadingMessageComponentsSpecial : pLoadingMessageComponents, CompCounter, NumComponents);
+  src\game\client\gameclient.cpp:397:			m_Menus.RenderLoading(pLoadingDDNetCaption, aLoadingMessage, SkippedComps);
+  src\game\client\gameclient.cpp:398:			SkippedComps = 1;
+  src\game\client\gameclient.cpp:399:		}
+  src\game\client\gameclient.cpp:400:		else
+  src\game\client\gameclient.cpp:401:		{
+  src\game\client\gameclient.cpp:402:			++SkippedComps;
+  src\game\client\gameclient.cpp:403:		}
+  src\game\client\gameclient.cpp:404:		++CompCounter;
+  src\game\client\gameclient.cpp:433:	m_Binds.SetDDRaceBinds(true);
+  src\game\client\gameclient.cpp:434:
+  src\game\client\gameclient.cpp:435:	// Aggressively try to grab window again since some Windows users report
+  src\game\client\gameclient.cpp:436:	// window not being focused after starting client.
+  src\game\client\gameclient.cpp:437:	Graphics()->SetWindowGrab(true);
+  src\game\client\gameclient.cpp:438:
+  src\game\client\gameclient.cpp:439:	CChecksumData *pChecksum = Client()->ChecksumData();
+  src\game\client\gameclient.cpp:440:	pChecksum->m_SizeofGameClient = sizeof(*this);
+> src\game\client\gameclient.cpp:441:	pChecksum->m_NumComponents = m_vpAll.size();
+> src\game\client\gameclient.cpp:442:	for(size_t i = 0; i < m_vpAll.size(); i++)
+  src\game\client\gameclient.cpp:443:	{
+  src\game\client\gameclient.cpp:444:		if(i >= std::size(pChecksum->m_aComponentsChecksum))
+  src\game\client\gameclient.cpp:445:		{
+  src\game\client\gameclient.cpp:446:			break;
+  src\game\client\gameclient.cpp:447:		}
+> src\game\client\gameclient.cpp:448:		int Size = m_vpAll[i]->Sizeof();
+  src\game\client\gameclient.cpp:449:		pChecksum->m_aComponentsChecksum[i] = Size;
+  src\game\client\gameclient.cpp:450:	}
+  src\game\client\gameclient.cpp:451:
+  src\game\client\gameclient.cpp:452:	m_Menus.FinishLoading();
+  src\game\client\gameclient.cpp:453:	log_trace("gameclient", "initialization finished after %.2fms", (time_get() - OnInitStart) * 1000.0f / (float)time_freq());
+  src\game\client\gameclient.cpp:454:	LoadNameColors();
+  src\game\client\gameclient.cpp:455:
+  src\game\client\gameclient.cpp:456:	// Vertex: load the saved license + login/password (the gate is shown on every start)
+  src\game\client\gameclient.cpp:457:	VxGate::Load(this);
+  src\game\client\gameclient.cpp:458:}
+  src\game\client\gameclient.cpp:459:
+  src\game\client\gameclient.cpp:460:void CGameClient::LoadNameColors()
+  src\game\client\gameclient.cpp:527:
+  src\game\client\gameclient.cpp:528:
+  src\game\client\gameclient.cpp:529:	// handle key presses
+  src\game\client\gameclient.cpp:530:	Input()->ConsumeEvents([&](const IInput::CEvent &Event) {
+  src\game\client\gameclient.cpp:531:		OnInput(Event);
+  src\game\client\gameclient.cpp:532:	});
+  src\game\client\gameclient.cpp:533:
+  src\game\client\gameclient.cpp:534:
+> src\game\client\gameclient.cpp:535:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:536:	{
+  src\game\client\gameclient.cpp:537:		pComponent->OnUpdate();
+  src\game\client\gameclient.cpp:538:	}
+  src\game\client\gameclient.cpp:539:
+  src\game\client\gameclient.cpp:540:	m_LocalServer.Update();
+  src\game\client\gameclient.cpp:541:}
+  src\game\client\gameclient.cpp:542:
+  src\game\client\gameclient.cpp:543:void CGameClient::OnInput(const IInput::CEvent &Event)
+  src\game\client\gameclient.cpp:544:{
+  src\game\client\gameclient.cpp:545:	// Vertex login gate: while locked, all input goes to the login screen
+  src\game\client\gameclient.cpp:546:	if(g_VertexLocked)
+  src\game\client\gameclient.cpp:547:	{
+  src\game\client\gameclient.cpp:567:		m_Controls.m_aInputData[PlayerOrDummy].m_Hook = 0;
+  src\game\client\gameclient.cpp:568:	}
+  src\game\client\gameclient.cpp:569:	const int PrevDummyFire = m_DummyInput.m_Fire;
+  src\game\client\gameclient.cpp:570:	m_DummyInput = m_Controls.m_aInputData[!g_Config.m_ClDummy];
+  src\game\client\gameclient.cpp:571:	m_Controls.m_aInputData[g_Config.m_ClDummy].m_Fire = PrevDummyFire;
+  src\game\client\gameclient.cpp:572:	m_IsDummySwapping = 1;
+  src\game\client\gameclient.cpp:573:}
+  src\game\client\gameclient.cpp:574:
+> src\game\client\gameclient.cpp:575:int CGameClient::OnSnapInput(int *pData, bool Dummy, bool Force)
+  src\game\client\gameclient.cpp:576:{
+  src\game\client\gameclient.cpp:577:	if(!Dummy)
+  src\game\client\gameclient.cpp:578:	{
+  src\game\client\gameclient.cpp:579:		// Avoid Freeze must adjust m_Controls.m_aInputData before it is serialized.
+  src\game\client\gameclient.cpp:580:		return m_Controls.SnapInput(pData);
+  src\game\client\gameclient.cpp:581:	}
+  src\game\client\gameclient.cpp:582:	
+  src\game\client\gameclient.cpp:583:	if(m_aLocalIds[!g_Config.m_ClDummy] < 0)
+  src\game\client\gameclient.cpp:584:	{
+  src\game\client\gameclient.cpp:585:		return 0;
+  src\game\client\gameclient.cpp:586:	}
+  src\game\client\gameclient.cpp:587:
+  src\game\client\gameclient.cpp:635:	m_Layers.Init(Map(), false, true);
+  src\game\client\gameclient.cpp:636:	m_Collision.Init(Layers());
+  src\game\client\gameclient.cpp:637:	m_GameWorld.m_Core.InitSwitchers(m_Collision.m_HighestSwitchNumber);
+  src\game\client\gameclient.cpp:638:	m_GameWorld.m_PredictedEvents.clear();
+  src\game\client\gameclient.cpp:639:	m_RaceHelper.Init(this);
+  src\game\client\gameclient.cpp:640:
+  src\game\client\gameclient.cpp:641:	// render loading before going through all components
+  src\game\client\gameclient.cpp:642:	m_Menus.RenderLoading(pConnectCaption, pLoadMapContent, 0);
+> src\game\client\gameclient.cpp:643:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:644:	{
+  src\game\client\gameclient.cpp:645:		pComponent->OnMapLoad();
+  src\game\client\gameclient.cpp:646:		pComponent->OnReset();
+  src\game\client\gameclient.cpp:647:	}
+  src\game\client\gameclient.cpp:648:
+  src\game\client\gameclient.cpp:649:	ConfigManager()->ResetGameSettings();
+  src\game\client\gameclient.cpp:650:	LoadMapSettings();
+  src\game\client\gameclient.cpp:651:
+  src\game\client\gameclient.cpp:652:	if(Client()->State() != IClient::STATE_DEMOPLAYBACK)
+  src\game\client\gameclient.cpp:653:	{
+  src\game\client\gameclient.cpp:654:		Client()->SetLoadingStateDetail(IClient::LOADING_STATE_DETAIL_GETTING_READY);
+  src\game\client\gameclient.cpp:655:		m_Menus.RenderLoading(pConnectCaption, Localize("Sending initial client info"), 0);
+  src\game\client\gameclient.cpp:663:
+  src\game\client\gameclient.cpp:664:		m_LocalServer.RconAuthIfPossible();
+  src\game\client\gameclient.cpp:665:	}
+  src\game\client\gameclient.cpp:666:}
+  src\game\client\gameclient.cpp:667:
+  src\game\client\gameclient.cpp:668:void CGameClient::OnReset()
+  src\game\client\gameclient.cpp:669:{
+  src\game\client\gameclient.cpp:670:	InvalidateSnapshot();
+> src\game\client\gameclient.cpp:671:	m_AimBot.Reset();
+  src\game\client\gameclient.cpp:672:
+  src\game\client\gameclient.cpp:673:	m_EditorMovementDelay = 5;
+  src\game\client\gameclient.cpp:674:
+  src\game\client\gameclient.cpp:675:	m_PredictedTick = -1;
+  src\game\client\gameclient.cpp:676:	std::fill(std::begin(m_aLastNewPredictedTick), std::end(m_aLastNewPredictedTick), -1);
+  src\game\client\gameclient.cpp:677:
+  src\game\client\gameclient.cpp:678:	m_LastRoundStartTick = -1;
+  src\game\client\gameclient.cpp:679:	m_LastRaceTick = -1;
+  src\game\client\gameclient.cpp:680:	m_LastFlagCarrierRed = -4;
+  src\game\client\gameclient.cpp:681:	m_LastFlagCarrierBlue = -4;
+  src\game\client\gameclient.cpp:682:
+  src\game\client\gameclient.cpp:683:	std::fill(std::begin(m_aCheckInfo), std::end(m_aCheckInfo), -1);
+  src\game\client\gameclient.cpp:763:
+  src\game\client\gameclient.cpp:764:	m_MultiViewPersonalZoom = 0.0f;
+  src\game\client\gameclient.cpp:765:	m_MultiViewActivated = false;
+  src\game\client\gameclient.cpp:766:	m_MultiView.m_IsInit = false;
+  src\game\client\gameclient.cpp:767:
+  src\game\client\gameclient.cpp:768:	m_CursorInfo.m_CursorOwnerId = -1;
+  src\game\client\gameclient.cpp:769:	m_CursorInfo.m_NumSamples = 0;
+  src\game\client\gameclient.cpp:770:
+> src\game\client\gameclient.cpp:771:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:772:		pComponent->OnReset();
+  src\game\client\gameclient.cpp:773:
+  src\game\client\gameclient.cpp:774:	Editor()->ResetMentions();
+  src\game\client\gameclient.cpp:775:	Editor()->ResetIngameMoved();
+  src\game\client\gameclient.cpp:776:
+  src\game\client\gameclient.cpp:777:	Collision()->Unload();
+  src\game\client\gameclient.cpp:778:	Layers()->Unload();
+  src\game\client\gameclient.cpp:779:}
+  src\game\client\gameclient.cpp:780:
+  src\game\client\gameclient.cpp:781:void CGameClient::UpdatePositions()
+  src\game\client\gameclient.cpp:782:{
+  src\game\client\gameclient.cpp:783:	// local character position
+  src\game\client\gameclient.cpp:874:	}
+  src\game\client\gameclient.cpp:875:
+  src\game\client\gameclient.cpp:876:	// update camera data prior to CControls::OnRender to allow CControls::m_aTargetPos to compensate using camera data
+  src\game\client\gameclient.cpp:877:	m_Camera.UpdateCamera();
+  src\game\client\gameclient.cpp:878:
+  src\game\client\gameclient.cpp:879:	UpdateSpectatorCursor();
+  src\game\client\gameclient.cpp:880:
+  src\game\client\gameclient.cpp:881:	// render all systems
+> src\game\client\gameclient.cpp:882:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:883:		pComponent->OnRender();
+  src\game\client\gameclient.cpp:884:
+  src\game\client\gameclient.cpp:885:	// Vertex: login gate screen (while locked) or watermark HUD (after login), drawn on top of everything
+  src\game\client\gameclient.cpp:886:	VxGate::Render(this);
+  src\game\client\gameclient.cpp:887:
+  src\game\client\gameclient.cpp:888:	// clear all events/input for this frame
+  src\game\client\gameclient.cpp:889:	Input()->Clear();
+  src\game\client\gameclient.cpp:890:
+  src\game\client\gameclient.cpp:891:	CLineInput::RenderCandidates();
+  src\game\client\gameclient.cpp:892:
+  src\game\client\gameclient.cpp:893:	const bool WasNewTick = m_NewTick;
+  src\game\client\gameclient.cpp:894:
+  src\game\client\gameclient.cpp:1120:		str_append(aClientId, aNumber);
+  src\game\client\gameclient.cpp:1121:	}
+  src\game\client\gameclient.cpp:1122:	str_append(aClientId, ": ");
+  src\game\client\gameclient.cpp:1123:}
+  src\game\client\gameclient.cpp:1124:
+  src\game\client\gameclient.cpp:1125:void CGameClient::OnRelease()
+  src\game\client\gameclient.cpp:1126:{
+  src\game\client\gameclient.cpp:1127:	// release all systems
+> src\game\client\gameclient.cpp:1128:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:1129:		pComponent->OnRelease();
+  src\game\client\gameclient.cpp:1130:}
+  src\game\client\gameclient.cpp:1131:
+  src\game\client\gameclient.cpp:1132:void CGameClient::OnMessage(int MsgId, CUnpacker *pUnpacker, int Conn, bool Dummy)
+  src\game\client\gameclient.cpp:1133:{
+  src\game\client\gameclient.cpp:1134:	// special messages
+  src\game\client\gameclient.cpp:1135:	static_assert((int)NETMSGTYPE_SV_TUNEPARAMS == (int)protocol7::NETMSGTYPE_SV_TUNEPARAMS, "0.6 and 0.7 tune message id do not match");
+  src\game\client\gameclient.cpp:1136:	if(MsgId == NETMSGTYPE_SV_TUNEPARAMS)
+  src\game\client\gameclient.cpp:1137:	{
+  src\game\client\gameclient.cpp:1138:		// unpack the new tuning
+  src\game\client\gameclient.cpp:1139:		CTuningParams NewTuning;
+  src\game\client\gameclient.cpp:1140:
+  src\game\client\gameclient.cpp:1203:			{
+  src\game\client\gameclient.cpp:1204:				m_Chat.OnMessage(MsgId, pRawMsg);
+  src\game\client\gameclient.cpp:1205:			}
+  src\game\client\gameclient.cpp:1206:		}
+  src\game\client\gameclient.cpp:1207:		return; // no need of all that stuff for the dummy
+  src\game\client\gameclient.cpp:1208:	}
+  src\game\client\gameclient.cpp:1209:
+  src\game\client\gameclient.cpp:1210:	// TODO: this should be done smarter
+> src\game\client\gameclient.cpp:1211:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:1212:		pComponent->OnMessage(MsgId, pRawMsg);
+  src\game\client\gameclient.cpp:1213:
+  src\game\client\gameclient.cpp:1214:	if(MsgId == NETMSGTYPE_SV_READYTOENTER)
+  src\game\client\gameclient.cpp:1215:	{
+  src\game\client\gameclient.cpp:1216:		Client()->EnterGame(Conn);
+  src\game\client\gameclient.cpp:1217:	}
+  src\game\client\gameclient.cpp:1218:	else if(MsgId == NETMSGTYPE_SV_EMOTICON)
+  src\game\client\gameclient.cpp:1219:	{
+  src\game\client\gameclient.cpp:1220:		CNetMsg_Sv_Emoticon *pMsg = (CNetMsg_Sv_Emoticon *)pRawMsg;
+  src\game\client\gameclient.cpp:1221:
+  src\game\client\gameclient.cpp:1222:		// apply
+  src\game\client\gameclient.cpp:1223:		m_aClients[pMsg->m_ClientId].m_Emoticon = pMsg->m_Emoticon;
+  src\game\client\gameclient.cpp:1371:
+  src\game\client\gameclient.cpp:1372:void CGameClient::OnStateChange(int NewState, int OldState)
+  src\game\client\gameclient.cpp:1373:{
+  src\game\client\gameclient.cpp:1374:	// reset everything when not already connected (to keep gathered stuff)
+  src\game\client\gameclient.cpp:1375:	if(NewState < IClient::STATE_ONLINE)
+  src\game\client\gameclient.cpp:1376:		OnReset();
+  src\game\client\gameclient.cpp:1377:
+  src\game\client\gameclient.cpp:1378:	// then change the state
+> src\game\client\gameclient.cpp:1379:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:1380:		pComponent->OnStateChange(NewState, OldState);
+  src\game\client\gameclient.cpp:1381:}
+  src\game\client\gameclient.cpp:1382:
+  src\game\client\gameclient.cpp:1383:void CGameClient::OnShutdown()
+  src\game\client\gameclient.cpp:1384:{
+> src\game\client\gameclient.cpp:1385:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:1386:		pComponent->OnShutdown();
+  src\game\client\gameclient.cpp:1387:
+  src\game\client\gameclient.cpp:1388:	m_LocalServer.KillServer();
+  src\game\client\gameclient.cpp:1389:}
+  src\game\client\gameclient.cpp:1390:
+  src\game\client\gameclient.cpp:1391:void CGameClient::OnEnterGame()
+  src\game\client\gameclient.cpp:1392:{
+  src\game\client\gameclient.cpp:1393:}
+  src\game\client\gameclient.cpp:1394:
+  src\game\client\gameclient.cpp:1395:void CGameClient::OnGameOver()
+  src\game\client\gameclient.cpp:1396:{
+  src\game\client\gameclient.cpp:1397:	if(Client()->State() != IClient::STATE_DEMOPLAYBACK && g_Config.m_ClEditor == 0)
+  src\game\client\gameclient.cpp:1421:	if(TeamId == TEAM_RED)
+  src\game\client\gameclient.cpp:1422:		m_aStats[m_Snap.m_pGameDataObj->m_FlagCarrierRed].m_FlagGrabs++;
+  src\game\client\gameclient.cpp:1423:	else
+  src\game\client\gameclient.cpp:1424:		m_aStats[m_Snap.m_pGameDataObj->m_FlagCarrierBlue].m_FlagGrabs++;
+  src\game\client\gameclient.cpp:1425:}
+  src\game\client\gameclient.cpp:1426:
+  src\game\client\gameclient.cpp:1427:void CGameClient::OnWindowResize()
+  src\game\client\gameclient.cpp:1428:{
+> src\game\client\gameclient.cpp:1429:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:1430:		pComponent->OnWindowResize();
+  src\game\client\gameclient.cpp:1431:
+  src\game\client\gameclient.cpp:1432:	Ui()->OnWindowResize();
+  src\game\client\gameclient.cpp:1433:}
+  src\game\client\gameclient.cpp:1434:
+  src\game\client\gameclient.cpp:1435:void CGameClient::OnLanguageChange()
+  src\game\client\gameclient.cpp:1436:{
+  src\game\client\gameclient.cpp:1437:	// The actual language change is delayed because it
+  src\game\client\gameclient.cpp:1438:	// might require clearing the text render font atlas,
+  src\game\client\gameclient.cpp:1439:	// which would invalidate text that is currently drawn.
+  src\game\client\gameclient.cpp:1440:	m_LanguageChanged = true;
+  src\game\client\gameclient.cpp:1441:}
+  src\game\client\gameclient.cpp:2498:
+  src\game\client\gameclient.cpp:2499:	m_LastShowDistanceZoom = ShowDistanceZoom;
+  src\game\client\gameclient.cpp:2500:	m_LastZoom = Zoom;
+  src\game\client\gameclient.cpp:2501:	m_LastScreenAspect = Graphics()->ScreenAspect();
+  src\game\client\gameclient.cpp:2502:	m_LastDeadzone = Deadzone;
+  src\game\client\gameclient.cpp:2503:	m_LastFollowFactor = FollowFactor;
+  src\game\client\gameclient.cpp:2504:	m_LastDummyConnected = Client()->DummyConnected();
+  src\game\client\gameclient.cpp:2505:
+> src\game\client\gameclient.cpp:2506:	for(auto &pComponent : m_vpAll)
+  src\game\client\gameclient.cpp:2507:		pComponent->OnNewSnapshot();
+  src\game\client\gameclient.cpp:2508:
+  src\game\client\gameclient.cpp:2509:	// notify editor when local character moved
+  src\game\client\gameclient.cpp:2510:	UpdateEditorIngameMoved();
+  src\game\client\gameclient.cpp:2511:
+  src\game\client\gameclient.cpp:2512:	// detect air jump for other players
+  src\game\client\gameclient.cpp:2513:	for(int i = 0; i < MAX_CLIENTS; i++)
+  src\game\client\gameclient.cpp:2514:	{
+  src\game\client\gameclient.cpp:2515:		if(m_Snap.m_aCharacters[i].m_Active && (m_Snap.m_aCharacters[i].m_Cur.m_Jumped & 2) && !(m_Snap.m_aCharacters[i].m_Prev.m_Jumped & 2))
+  src\game\client\gameclient.cpp:2516:		{
+  src\game\client\gameclient.cpp:2517:			bool IsDummy = Client()->DummyConnected() && i == m_aLocalIds[!g_Config.m_ClDummy];
+  src\game\client\gameclient.cpp:2518:			bool IsLocalPlayer = i == m_Snap.m_LocalClientId;
+
+
+
+
+========== src\game\client\components\controls.cpp ==========
+
+  src\game\client\components\controls.cpp:1689:void CControls::OnReset()
+  src\game\client\components\controls.cpp:1690:{
+  src\game\client\components\controls.cpp:1691:        ResetInput(0);
+  src\game\client\components\controls.cpp:1692:        ResetInput(1);
+  src\game\client\components\controls.cpp:1693:        std::fill(std::begin(m_aAmmoCount), std::end(m_aAmmoCount), 0);
+  src\game\client\components\controls.cpp:1694:        m_LastSendTime = 0;
+  src\game\client\components\controls.cpp:1695:        GameClient()->m_AvoidFreeze.Reset();
+  src\game\client\components\controls.cpp:1696:        VertexAutoAled().Reset();
+> src\game\client\components\controls.cpp:1697:        GameClient()->m_AimBot.Reset();
+  src\game\client\components\controls.cpp:1698:}
+  src\game\client\components\controls.cpp:1699:
+  src\game\client\components\controls.cpp:1700:void CControls::ResetInput(int Dummy)
+  src\game\client\components\controls.cpp:1701:{
+  src\game\client\components\controls.cpp:1702:        m_aLastData[Dummy].m_Direction = 0;
+  src\game\client\components\controls.cpp:1703:        if((m_aLastData[Dummy].m_Fire & 1) != 0)
+  src\game\client\components\controls.cpp:1704:                m_aLastData[Dummy].m_Fire++;
+  src\game\client\components\controls.cpp:1705:        m_aLastData[Dummy].m_Fire &= INPUT_STATE_MASK;
+  src\game\client\components\controls.cpp:1706:        m_aLastData[Dummy].m_Jump = 0;
+  src\game\client\components\controls.cpp:1707:        m_aInputData[Dummy] = m_aLastData[Dummy];
+  src\game\client\components\controls.cpp:1708:        m_aInputDirectionLeft[Dummy] = 0;
+  src\game\client\components\controls.cpp:1709:        m_aInputDirectionRight[Dummy] = 0;
+  src\game\client\components\controls.cpp:1755:
+  src\game\client\components\controls.cpp:1756:void CControls::ConKeyInputNextPrevWeapon(IConsole::IResult *pResult, void *pUserData)
+  src\game\client\components\controls.cpp:1757:{
+  src\game\client\components\controls.cpp:1758:        CInputSet *pSet = (CInputSet *)pUserData;
+  src\game\client\components\controls.cpp:1759:        ConKeyInputCounter(pResult, pSet);
+  src\game\client\components\controls.cpp:1760:        pSet->m_pControls->m_aInputData[g_Config.m_ClDummy].m_WantedWeapon = 0;
+  src\game\client\components\controls.cpp:1761:}
+  src\game\client\components\controls.cpp:1762:
+> src\game\client\components\controls.cpp:1763:void CControls::OnConsoleInit()
+  src\game\client\components\controls.cpp:1764:{
+  src\game\client\components\controls.cpp:1765:        {
+  src\game\client\components\controls.cpp:1766:                static CInputState s_State = {this, {&m_aInputDirectionLeft[0], &m_aInputDirectionLeft[1]}};
+  src\game\client\components\controls.cpp:1767:                Console()->Register("+left", "", CFGFLAG_CLIENT, ConKeyInputState, &s_State, "Move left");
+  src\game\client\components\controls.cpp:1768:        }
+  src\game\client\components\controls.cpp:1769:        {
+  src\game\client\components\controls.cpp:1770:                static CInputState s_State = {this, {&m_aInputDirectionRight[0], &m_aInputDirectionRight[1]}};
+  src\game\client\components\controls.cpp:1771:                Console()->Register("+right", "", CFGFLAG_CLIENT, ConKeyInputState, &s_State, "Move right");
+  src\game\client\components\controls.cpp:1772:        }
+  src\game\client\components\controls.cpp:1773:        {
+  src\game\client\components\controls.cpp:1774:                static CInputState s_State = {this, {&m_aInputData[0].m_Jump, &m_aInputData[1].m_Jump}};
+  src\game\client\components\controls.cpp:1775:                Console()->Register("+jump", "", CFGFLAG_CLIENT, ConKeyInputState, &s_State, "Jump");
+  src\game\client\components\controls.cpp:1949:                // Vertex Avoid Freeze: auto-save of the local tee (hook / direction / jump takeover before freeze,
+  src\game\client\components\controls.cpp:1950:                // death or tele). Runs after the aim modules so it wins over them; inside Update it steps aside
+  src\game\client\components\controls.cpp:1951:                // while the laser unfreeze bot is aiming or the user hooks himself.
+  src\game\client\components\controls.cpp:1952:                // ====================================================================================================
+  src\game\client\components\controls.cpp:1953:                GameClient()->m_AvoidFreeze.Update(GameClient(), Client(), &m_aInputData[g_Config.m_ClDummy]);
+  src\game\client\components\controls.cpp:1954:                // Vertex Auto Aled: hammer-rescue of nearby frozen tees (after Avoid Freeze)
+  src\game\client\components\controls.cpp:1955:                VertexAutoAled().Update(GameClient(), Client(), &m_aInputData[g_Config.m_ClDummy]);
+  src\game\client\components\controls.cpp:1956:                // Vertex Aim System v2 (see aimbot.cpp)
+> src\game\client\components\controls.cpp:1957:                GameClient()->m_AimBot.Update(GameClient(), Client(), this, &m_aInputData[g_Config.m_ClDummy]);
+  src\game\client\components\controls.cpp:1958:
+  src\game\client\components\controls.cpp:1959:                if(g_Config.m_DbgStress)
+  src\game\client\components\controls.cpp:1960:                {
+  src\game\client\components\controls.cpp:1961:                        float t = Client()->LocalTime();
+  src\game\client\components\controls.cpp:1962:                        mem_zero(&m_aInputData[g_Config.m_ClDummy], sizeof(m_aInputData[0]));
+  src\game\client\components\controls.cpp:1963:                        m_aInputData[g_Config.m_ClDummy].m_Direction = ((int)t / 2) & 1;
+  src\game\client\components\controls.cpp:1964:                        m_aInputData[g_Config.m_ClDummy].m_Jump = ((int)t);
+  src\game\client\components\controls.cpp:1965:                        m_aInputData[g_Config.m_ClDummy].m_Fire = ((int)(t * 10));
+  src\game\client\components\controls.cpp:1966:                        m_aInputData[g_Config.m_ClDummy].m_Hook = ((int)(t * 2)) & 1;
+  src\game\client\components\controls.cpp:1967:                        m_aInputData[g_Config.m_ClDummy].m_WantedWeapon = ((int)t) % NUM_WEAPONS;
+  src\game\client\components\controls.cpp:1968:                        m_aInputData[g_Config.m_ClDummy].m_TargetX = (int)(std::sin(t * 3) * 100.0f);
+  src\game\client\components\controls.cpp:1969:                        m_aInputData[g_Config.m_ClDummy].m_TargetY = (int)(std::cos(t * 3) * 100.0f);
+  src\game\client\components\controls.cpp:2016:                ToggleBind(g_Config.m_VxBindAvoid, &g_Config.m_VxAfEnable, "Avoid");
+  src\game\client\components\controls.cpp:2017:                ToggleBind(g_Config.m_VxBindAim, &g_Config.m_VxAimEnable, "Aim");
+  src\game\client\components\controls.cpp:2018:                ToggleBind(g_Config.m_VxBindUnfreeze, &g_Config.m_ClVertexUnfreezeBot, "Auto Unfreeze");
+  src\game\client\components\controls.cpp:2019:        }
+  src\game\client\components\controls.cpp:2020:
+  src\game\client\components\controls.cpp:2021:        // Vertex Avoid Freeze: key capture for the settings bind rows + track point / path visuals
+  src\game\client\components\controls.cpp:2022:        GameClient()->m_AvoidFreeze.RenderBinds(GameClient());
+  src\game\client\components\controls.cpp:2023:        // Vertex Aim System: захват клавиши бинда (меню -> Клавиши аима)
+> src\game\client\components\controls.cpp:2024:        GameClient()->m_AimBot.RenderBinds(GameClient());
+  src\game\client\components\controls.cpp:2025:
+  src\game\client\components\controls.cpp:2026:        if(g_Config.m_ClAutoswitchWeaponsOutOfAmmo && !GameClient()->m_GameInfo.m_UnlimitedAmmo && GameClient()->m_Snap.m_pLocalCharacter)
+  src\game\client\components\controls.cpp:2027:        {
+  src\game\client\components\controls.cpp:2028:                m_aAmmoCount[std::max(0, GameClient()->m_Snap.m_pLocalCharacter->m_Weapon % NUM_WEAPONS)] = GameClient()->m_Snap.m_pLocalCharacter->m_AmmoCount;
+  src\game\client\components\controls.cpp:2029:                if(m_aInputData[g_Config.m_ClDummy].m_Fire % 2 != 0 &&
+  src\game\client\components\controls.cpp:2030:                        GameClient()->m_Snap.m_pLocalCharacter->m_AmmoCount == 0 &&
+  src\game\client\components\controls.cpp:2031:                        GameClient()->m_Snap.m_pLocalCharacter->m_Weapon != WEAPON_HAMMER &&
+  src\game\client\components\controls.cpp:2032:                        GameClient()->m_Snap.m_pLocalCharacter->m_Weapon != WEAPON_NINJA)
+  src\game\client\components\controls.cpp:2033:                {
+  src\game\client\components\controls.cpp:2034:                        int Weapon;
+  src\game\client\components\controls.cpp:2035:                        for(Weapon = WEAPON_LASER; Weapon > WEAPON_GUN; Weapon--)
+  src\game\client\components\controls.cpp:2036:                        {
+
+
+
+
+========== src\engine\shared\config_variables.h ==========
+

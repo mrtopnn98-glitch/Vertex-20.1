@@ -1,0 +1,184 @@
+Версия MSBuild 17.14.60+43b635718 для .NET Framework
+
+  1>
+  1>
+  md5.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\md5.dir\Release\md5.lib
+  json.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\json.dir\Release\json.lib
+  zlib.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\zlib.dir\Release\zlib.lib
+  1>
+  game-server-without-main.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-server-without-main.dir\Release\game-server-without-main.lib
+  engine-gfx.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-gfx.dir\Release\engine-gfx.lib
+  game-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.dir\Release\game-shared.lib
+  steam_api.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\steam_api.dll
+  engine-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-shared.dir\Release\engine-shared.lib
+  map_replace_area.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_area.exe
+  dummy_map.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dummy_map.exe
+  config_retrieve.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_retrieve.exe
+  stun.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\stun.exe
+  twping.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\twping.exe
+  config_store.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_store.exe
+  uuid.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\uuid.exe
+  packetgen.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\packetgen.exe
+  unicode_confusables.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\unicode_confusables.exe
+  dilate.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dilate.exe
+  map_test.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_test.exe
+  rust-bridge-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+  map_resave.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_resave.exe
+  map_find_env.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_find_env.exe
+  glew.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\glew.dir\Release\glew.lib
+  map_optimize.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_optimize.exe
+  map_diff.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_diff.exe
+  map_extract.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_extract.exe
+  map_replace_image.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_image.exe
+  map_convert_07.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_convert_07.exe
+  crapnet.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\crapnet.exe
+  1>Generating src/generated/checksum.cpp
+  game-server.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\DDNet-Server.exe
+  demo_extract_chat.cpp
+  client.cpp
+  discord.cpp
+  sixup_translate_system.cpp
+  updater.cpp
+  assets.cpp
+  avoidfreeze.cpp
+  aled.cpp
+  background.cpp
+  binds.cpp
+  broadcast.cpp
+  camera.cpp
+  chat.cpp
+  console.cpp
+  controls.cpp
+  damageind.cpp
+  debughud.cpp
+  effects.cpp
+  emoticon.cpp
+  envelope_state.cpp
+  freezebars.cpp
+  hud.cpp
+  important_alert.cpp
+  infomessages.cpp
+  items.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1844,49): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/controls.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1846,67): error C2660: OpenKrx::CClassicAvoid::AdjustInput: функция не принимает 1 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/controls.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\classic_agents.h(86,23):
+       см. объявление "OpenKrx::CClassicAvoid::AdjustInput"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1846,67):
+      при попытке сопоставить список аргументов "(bool)"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1854,123): error C2143: синтаксическая ошибка: отсутствие ")" перед ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/controls.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1850,60): error C2660: OpenKrx::CAvoid::AdjustInput: функция не принимает 1 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/controls.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.h(37,23):
+       см. объявление "OpenKrx::CAvoid::AdjustInput"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.cpp(1850,60):
+      при попытке сопоставить список аргументов "(bool)"
+  
+  key_binder.cpp
+  demo_extract_chat.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\demo_extract_chat.exe
+  local_server.cpp
+  mapimages.cpp
+  maplayers.cpp
+  mapsounds.cpp
+  menu_background.cpp
+  menus.cpp
+  menus_browser.cpp
+  menus_demo.cpp
+  menus_ingame.cpp
+  menus_ingame_touch_controls.cpp
+  menus_settings.cpp
+  menus_settings_appearance.cpp
+  menus_settings_assets.cpp
+  menus_settings_controls.cpp
+  menus_settings_credits.cpp
+  menus_settings_vertex.cpp
+  menus_settings_ddnet.cpp
+  menus_settings_general.cpp
+  menus_settings_graphics.cpp
+  menus_settings_language.cpp
+  menus_settings_player.cpp
+  menus_settings_sound.cpp
+  menus_settings_tee.cpp
+  menus_settings_tee7.cpp
+  menus_start.cpp
+  motd.cpp
+  nameplates.cpp
+  particles.cpp
+  players.cpp
+  race_demo.cpp
+  scoreboard.cpp
+  skins.cpp
+  skins7.cpp
+  sounds.cpp
+  spectator.cpp
+  statboard.cpp
+  tooltips.cpp
+  touch_controls.cpp
+  voting.cpp
+  gameclient.cpp
+  avoid.cpp
+  krx_visuals_pre_tas.cpp
+  classic_agents.cpp
+  rocket_save.cpp
+  simulation.cpp
+  trace.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\classic_agents.cpp(36,40): error C2039: "CreateIsolatedCopy": не является членом "CCollision". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/classic_agents.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.h(34,7):
+       см. объявление "CCollision"
+  
+  lineinput.cpp
+  multiview.cpp
+  race.cpp
+  sixup_translate_connless.cpp
+  sixup_translate_game.cpp
+  sixup_translate_snapshot.cpp
+  ui.cpp
+  ui_listbox.cpp
+  ui_popups.cpp
+  ui_scrollregion.cpp
+  auto_map.cpp
+  editor.cpp
+  editor_actions.cpp
+  editor_history.cpp
+  editor_object.cpp
+  editor_props.cpp
+  editor_server_settings.cpp
+  editor_trackers.cpp
+  editor_ui.cpp
+  envelope_editor.cpp
+  file_browser.cpp
+  font_typer.cpp
+  layer_selector.cpp
+  map_grid.cpp
+  map_object.cpp
+  map_view.cpp
+  envelope_evaluator.cpp
+  layer.cpp
+  layer_front.cpp
+  layer_game.cpp
+  layer_group.cpp
+  layer_quads.cpp
+  layer_sounds.cpp
+  layer_speedup.cpp
+  layer_switch.cpp
+  layer_tele.cpp
+  layer_tiles.cpp
+  layer_tune.cpp
+  map.cpp
+  map_io.cpp
+  popups.cpp
+  prompt.cpp
+  proof_mode.cpp
+  quad_art.cpp
+  quad_knife.cpp
+  quick_actions.cpp
+  references.cpp
+  smooth_value.cpp
+  tile_art.cpp
+  checksum.cpp

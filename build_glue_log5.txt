@@ -1,0 +1,468 @@
+Версия MSBuild 17.14.60+43b635718 для .NET Framework
+
+  md5.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\md5.dir\Release\md5.lib
+  json.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\json.dir\Release\json.lib
+  zlib.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\zlib.dir\Release\zlib.lib
+  1>
+  1>
+  1>
+  game-server-without-main.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-server-without-main.dir\Release\game-server-without-main.lib
+  engine-gfx.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-gfx.dir\Release\engine-gfx.lib
+  game-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.dir\Release\game-shared.lib
+  glew.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\glew.dir\Release\glew.lib
+  rust-bridge-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+  engine-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-shared.dir\Release\engine-shared.lib
+  dilate.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dilate.exe
+  uuid.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\uuid.exe
+  config_store.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_store.exe
+  config_retrieve.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_retrieve.exe
+  twping.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\twping.exe
+  steam_api.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\steam_api.dll
+  map_find_env.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_find_env.exe
+  map_extract.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_extract.exe
+  packetgen.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\packetgen.exe
+  map_test.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_test.exe
+  map_convert_07.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_convert_07.exe
+  map_diff.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_diff.exe
+  map_optimize.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_optimize.exe
+  map_resave.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_resave.exe
+  map_replace_image.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_image.exe
+  map_replace_area.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_area.exe
+  game-server.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\DDNet-Server.exe
+  dummy_map.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dummy_map.exe
+  unicode_confusables.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\unicode_confusables.exe
+  demo_extract_chat.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\demo_extract_chat.exe
+  stun.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\stun.exe
+  crapnet.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\crapnet.exe
+  gameclient.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10): error C2665: "std::vector<CComponent *,std::allocator<CComponent *>>::insert": ни одна перегруженная функция не может преобразовать все типы аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(1319,27):
+      может быть "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::initializer_list<_Ty>)"
+          with
+          [
+              _Ty=CComponent *
+          ]
+          C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10):
+          "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::initializer_list<_Ty>)": невозможно преобразовать аргумент 2 из "initializer list" в "std::initializer_list<_Ty>"
+          with
+          [
+              _Ty=CComponent *
+          ]
+              C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,32):
+              Элемент "1": нет преобразования "OpenKrx::CPreTasVisuals *" в "_Ty"
+          with
+          [
+              _Ty=CComponent *
+          ]
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(1063,27):
+      или       "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Ty &&)"
+          with
+          [
+              _Ty=CComponent *
+          ]
+          C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10):
+          "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Ty &&)": невозможно преобразовать аргумент 2 из "initializer list" в "_Ty &&"
+          with
+          [
+              _Ty=CComponent *
+          ]
+              C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,32):
+              Причина: невозможно преобразовать "initializer list" в "_Ty"
+          with
+          [
+              _Ty=CComponent *
+          ]
+              C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,32):
+              Инициализатор содержит слишком много элементов
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(1059,27):
+      или       "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,const _Ty &)"
+          with
+          [
+              _Ty=CComponent *
+          ]
+          C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10):
+          "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,const _Ty &)": невозможно преобразовать аргумент 2 из "initializer list" в "const _Ty &"
+          with
+          [
+              _Ty=CComponent *
+          ]
+              C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,32):
+              Причина: невозможно преобразовать "initializer list" в "const _Ty"
+          with
+          [
+              _Ty=CComponent *
+          ]
+              C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,32):
+              Инициализатор содержит слишком много элементов
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(1265,27):
+      или       "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)"
+          with
+          [
+              _Ty=CComponent *
+          ]
+          C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10):
+          "std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)": ожидаются аргументы 3 — 2 предоставлены
+          with
+          [
+              _Ty=CComponent *
+          ]
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,10):
+      при попытке сопоставить список аргументов "(std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>, initializer list)"
+          with
+          [
+              _Ty=CComponent *
+          ]
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(132,51): error C2059: синтаксическая ошибка: ; [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(178,12): error C2143: синтаксическая ошибка: отсутствие ";" перед "}" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(178,13): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,2): error C3927: "->": конечный тип возвращаемого значения недопустим после оператора объявления, не относящегося к функции. [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,11): error C3484: синтаксическая ошибка: требуется "->" перед возвращающим типом [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,12): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,12): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "insert" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,36): error C2143: синтаксическая ошибка: отсутствие ";" перед "{" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,36): error C2143: синтаксическая ошибка: отсутствие ")" перед ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(181,36): error C2447: {: отсутствует заголовок функции (возможно, используется формальный список старого типа) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(193,18): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,2): error C2059: синтаксическая ошибка: for [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,22): error C2143: синтаксическая ошибка: отсутствие ")" перед ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,46): error C2143: синтаксическая ошибка: отсутствие ">" перед ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,24): error C7568: Список аргументов отсутствует после предполагаемого шаблона функции "ClientId". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,56): error C2143: синтаксическая ошибка: отсутствие ";" перед "++" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,48): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,56): error C2059: синтаксическая ошибка: ++ [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(196,58): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(197,2): error C2143: синтаксическая ошибка: отсутствие ";" перед "{" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(197,2): error C2447: {: отсутствует заголовок функции (возможно, используется формальный список старого типа) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,88): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,2): error C2084: функция "int Console(void)" уже имеет текст реализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(204,2):
+      см. предыдущее определение "Console"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(205,91): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(206,112): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(209,111): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(210,132): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,13): error C3646: Register: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,21): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,22): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(211,175): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(213,25): error C2065: m_vpAll: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(213,2): error C2059: синтаксическая ошибка: for [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(213,32): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(213,25): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(214,3): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "pComponent" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(216,2): error C3927: "->": конечный тип возвращаемого значения недопустим после оператора объявления, не относящегося к функции. [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(216,15): error C3484: синтаксическая ошибка: требуется "->" перед возвращающим типом [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(216,16): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(216,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(216,16): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "OnInterfacesInit" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,25): error C3312: не найдена вызываемая функция "begin" для типа "int" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,25): error C3312: не найдена вызываемая функция "end" для типа "int" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,2): error C2059: синтаксическая ошибка: for [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,32): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,25): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(219,25): error C2086: int m_vpAll: переопределение [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(213,25):
+       см. объявление "m_vpAll"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(220,3): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "pComponent" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,13): error C3646: Chain: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,18): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,19): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(222,66): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,13): error C3646: Chain: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,18): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,19): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(224,65): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,13): error C3646: Chain: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,18): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,19): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(225,65): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,13): error C3646: Chain: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,18): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,19): error C2059: синтаксическая ошибка: строка [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(226,68): error C2059: синтаксическая ошибка: ) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,13): error C3613: отсутствует тип возвращаемого значения после "->" (предполагается int) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,13): error C3646: Chain: неизвестный спецификатор переопределения [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,2): error C3551: если используется завершающий возвращаемый тип, то начальный возвращаемый тип будет одним спецификатором типа "auto" (не "int") [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,18): error C2059: синтаксическая ошибка: ( [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.cpp(227,18): error C1003: число ошибок превышает 100; остановка компиляции [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/gameclient.cpp")
+  

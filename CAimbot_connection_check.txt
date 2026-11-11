@@ -1,0 +1,505 @@
+﻿
+========== gameclient.h includes ==========
+   1: /* (c) Magnus Auvinen. See licence.txt in the root of the distribution for more information. */
+   2: /* If you are missing that file, acquire a complete release at teeworlds.com.                */
+   3: #ifndef GAME_CLIENT_GAMECLIENT_H
+   4: #define GAME_CLIENT_GAMECLIENT_H
+   5: 
+   6: #include "render.h"
+   7: 
+   8: #include <base/color.h>
+   9: #include <base/types.h>
+  10: #include <base/vmath.h>
+  11: 
+  12: 
+  13: #include <engine/client.h>
+  14: #include <engine/client/enums.h>
+  15: #include <engine/console.h>
+  16: #include <engine/shared/config.h>
+  17: #include <engine/shared/snapshot.h>
+  18: 
+  19: #include <generated/protocol7.h>
+  20: #include <generated/protocolglue.h>
+  21: 
+  22: #include <game/client/prediction/gameworld.h>
+  23: #include <game/client/race.h>
+  24: #include <game/collision.h>
+  25: #include <game/gamecore.h>
+  26: #include <game/layers.h>
+  27: #include <game/map/render_map.h>
+  28: #include <game/mapbugs.h>
+  29: #include <game/teamscore.h>
+  30: 
+  31: // components
+  32: #include "components/aimbot.h"
+  33: #include "components/background.h"
+  34: #include "components/binds.h"
+  35: #include "components/broadcast.h"
+  36: #include "components/camera.h"
+  37: #include "components/censor.h"
+  38: #include "components/chat.h"
+  39: #include "components/console.h"
+  40: #include "components/controls.h"
+  41: #include "components/countryflags.h"
+  42: #include "components/damageind.h"
+  43: #include "components/debughud.h"
+  44: #include "components/effects.h"
+  45: #include "components/emoticon.h"
+  46: #include "components/flow.h"
+  47: #include "components/freezebars.h"
+  48: #include "components/ghost.h"
+  49: #include "components/hud.h"
+  50: #include "components/important_alert.h"
+  51: #include "components/infomessages.h"
+  52: #include "components/items.h"
+  53: #include "components/key_binder.h"
+  54: #include "components/local_server.h"
+  55: #include "components/mapimages.h"
+  56: #include "components/maplayers.h"
+  57: #include "components/mapsounds.h"
+  58: #include "components/menu_background.h"
+  59: #include "components/menus.h"
+  60: #include "components/motd.h"
+  61: #include "components/nameplates.h"
+  62: #include "components/particles.h"
+  63: #include "components/players.h"
+  64: #include "components/race_demo.h"
+  65: #include "components/scoreboard.h"
+  66: #include "components/skins.h"
+  67: #include "components/skins7.h"
+  68: #include "components/sounds.h"
+  69: #include "components/spectator.h"
+  70: #include "components/statboard.h"
+  71: #include "components/tooltips.h"
+  72: #include "components/touch_controls.h"
+  73: #include "components/voting.h"
+  74: #include "avoidfreeze.h"
+  75: #include "aimbot.h"
+  76: 
+  77: #include <memory>
+  78: #include <vector>
+  79: 
+  80: class IMap;
+  81: 
+  82: class CGameInfo
+  83: {
+  84: public:
+  85: 	bool m_FlagStartsRace;
+  86: 	bool m_TimeScore;
+  87: 	bool m_UnlimitedAmmo;
+  88: 	bool m_DDRaceRecordMessage;
+  89: 	bool m_RaceRecordMessage;
+  90: 	bool m_RaceSounds;
+  91: 
+  92: 	bool m_AllowEyeWheel;
+  93: 	bool m_AllowHookColl;
+  94: 	bool m_AllowZoom;
+  95: 
+  96: 	bool m_BugDDRaceGhost;
+  97: 	bool m_BugDDRaceInput;
+  98: 	bool m_BugFNGLaserRange;
+  99: 	bool m_BugVanillaBounce;
+ 100: 
+
+========== gameclient.h components ==========
+ 175: 	CCensor m_Censor;
+ 176: 	CMotd m_Motd;
+ 177: 	CBroadcast m_Broadcast;
+ 178: 	CGameConsole m_GameConsole;
+ 179: 	CBinds m_Binds;
+ 180: 	CKeyBinder m_KeyBinder;
+ 181: 	CParticles m_Particles;
+ 182: 	CMenus m_Menus;
+ 183: 	CSkins m_Skins;
+ 184: 	CSkins7 m_Skins7;
+ 185: 	CCountryFlags m_CountryFlags;
+ 186: 	CFlow m_Flow;
+ 187: 	CHud m_Hud;
+ 188: 	CImportantAlert m_ImportantAlert;
+ 189: 	CDebugHud m_DebugHud;
+ 190: 	CControls m_Controls;
+ 191: 	CAvoidFreeze m_AvoidFreeze;
+ 192: 	CAimBot m_AimBot;
+ 193: 	CEffects m_Effects;
+ 194: 	CScoreboard m_Scoreboard;
+ 195: 	CStatboard m_Statboard;
+ 196: 	CSounds m_Sounds;
+ 197: 	CEmoticon m_Emoticon;
+ 198: 	CDamageInd m_DamageInd;
+ 199: 	CTouchControls m_TouchControls;
+ 200: 	CVoting m_Voting;
+ 201: 	CSpectator m_Spectator;
+ 202: 
+ 203: 	CPlayers m_Players;
+ 204: 	CNamePlates m_NamePlates;
+ 205: 	CFreezeBars m_FreezeBars;
+
+========== gameclient.cpp includes ==========
+   1: /* (c) Magnus Auvinen. See licence.txt in the root of the distribution for more information. */
+   2: /* If you are missing that file, acquire a complete release at teeworlds.com.                */
+   3: 
+   4: #include "gameclient.h"
+   5: 
+   6: #include "components/avoidfreeze.h"
+   7: #include "components/background.h"
+   8: #include "components/binds.h"
+   9: #include "components/broadcast.h"
+  10: #include "components/camera.h"
+  11: #include "components/chat.h"
+  12: #include "components/console.h"
+  13: #include "components/controls.h"
+  14: #include "components/countryflags.h"
+  15: #include "components/damageind.h"
+  16: #include "components/debughud.h"
+  17: #include "components/effects.h"
+  18: #include "components/emoticon.h"
+  19: #include "components/freezebars.h"
+  20: #include "components/ghost.h"
+  21: #include "components/hud.h"
+  22: #include "components/infomessages.h"
+  23: #include "components/items.h"
+  24: #include "components/mapimages.h"
+  25: #include "components/maplayers.h"
+  26: #include "components/mapsounds.h"
+  27: #include "components/menu_background.h"
+  28: #include "components/menus.h"
+  29: #include "components/motd.h"
+  30: #include "components/nameplates.h"
+  31: #include "components/particles.h"
+  32: #include "components/players.h"
+  33: #include "components/race_demo.h"
+  34: #include "components/scoreboard.h"
+  35: #include "components/skins.h"
+  36: #include "components/skins7.h"
+  37: #include "components/sounds.h"
+  38: #include "components/spectator.h"
+  39: #include "components/statboard.h"
+  40: #include "components/voting.h"
+  41: #include "lineinput.h"
+  42: #include "prediction/entities/character.h"
+  43: #include "prediction/entities/projectile.h"
+  44: #include "race.h"
+  45: #include "render.h"
+  46: #include "vertex_gate.h" // Vertex login gate + watermark
+  47: 
+  48: #include <base/dbg.h>
+  49: #include <base/io.h>
+  50: #include <base/log.h>
+  51: #include <base/math.h>
+  52: #include <base/mem.h>
+  53: #include <base/str.h>
+  54: #include <base/time.h>
+  55: #include <base/vmath.h>
+  56: 
+  57: #include <engine/client/checksum.h>
+  58: #include <engine/client/enums.h>
+  59: #include <engine/demo.h>
+  60: #include <engine/discord.h>
+  61: #include <engine/editor.h>
+  62: #include <engine/engine.h>
+  63: #include <engine/favorites.h>
+  64: #include <engine/friends.h>
+  65: #include <engine/graphics.h>
+
+========== gameclient.cpp component registration ==========
+ 125: 	m_pMap = CreateMap();
+ 126: 
+ 127: 	// make a list of all the systems, make sure to add them in the correct render order
+ 128: 	m_vpAll.insert(m_vpAll.end(), {&m_Skins,
+ 129: 					      &m_Skins7,
+ 130: 					      &m_CountryFlags,
+ 131: 					      &m_MapImages,
+ 132: 					      &m_Effects, // doesn't render anything, just updates effects
+ 133: 					      &m_Binds,
+ 134: 					      &m_Binds.m_SpecialBinds,
+ 135: 					      &m_Controls,
+ 136: 					      &m_Camera,
+ 137: 					      &m_Sounds,
+ 138: 					      &m_Voting,
+ 139: 					      &m_Particles, // doesn't render anything, just updates all the particles
+ 140: 					      &m_RaceDemo,
+ 141: 					      &m_MapSounds,
+ 142: 					      &m_Censor,
+ 143: 					      &m_Background, // render instead of m_MapLayersBackground when g_Config.m_ClOverlayEntities == 100
+ 144: 					      &m_MapLayersBackground, // first to render
+ 145: 					      &m_Particles.m_RenderTrail,
+ 146: 					      &m_Particles.m_RenderTrailExtra,
+ 147: 					      &m_Items,
+ 148: 					      &m_Ghost,
+ 149: 					      &m_Players,
+ 150: 					      &m_MapLayersForeground,
+ 151: 					      &m_Particles.m_RenderExplosions,
+ 152: 					      &m_NamePlates,
+ 153: 					      &m_Particles.m_RenderExtra,
+ 154: 					      &m_Particles.m_RenderGeneral,
+ 155: 					      &m_FreezeBars,
+ 156: 					      &m_DamageInd,
+ 157: 					      &m_Hud,
+ 158: 					      &m_Spectator,
+ 159: 					      &m_Emoticon,
+ 160: 					      &m_InfoMessages,
+ 161: 					      &m_Chat,
+ 162: 					      &m_Broadcast,
+ 163: 					      &m_ImportantAlert,
+ 164: 					      &m_DebugHud,
+ 165: 					      &m_TouchControls,
+ 166: 					      &m_Scoreboard,
+ 167: 					      &m_Statboard,
+ 168: 					      &m_Motd,
+ 169: 					      &m_Menus,
+ 170: 					      &m_Tooltips,
+ 171: 					      &m_KeyBinder,
+ 172: 					      &m_GameConsole,
+ 173: 					      &m_MenuBackground});
+ 174: 
+ 175: 	// build the input stack
+ 176: 	m_vpInput.insert(m_vpInput.end(), {&m_KeyBinder, // this will take over all input when we want to bind a key
+ 177: 						  &m_Binds.m_SpecialBinds,
+ 178: 						  &m_GameConsole,
+ 179: 						  &m_Chat, // chat has higher prio, due to that you can quit it by pressing esc
+ 180: 						  &m_Scoreboard,
+ 181: 						  &m_Motd, // for pressing esc to remove it
+ 182: 						  &m_Spectator,
+ 183: 						  &m_Emoticon,
+ 184: 						  &m_ImportantAlert,
+ 185: 						  &m_Menus,
+ 186: 						  &m_Controls,
+ 187: 						  &m_TouchControls,
+ 188: 						  &m_Binds});
+ 189: 
+ 190: 	// initialize client data
+
+========== gameclient.cpp reset ==========
+ 665: 	}
+ 666: }
+ 667: 
+ 668: void CGameClient::OnReset()
+ 669: {
+ 670: 	InvalidateSnapshot();
+ 671: 	m_AimBot.Reset();
+ 672: 
+ 673: 	m_EditorMovementDelay = 5;
+ 674: 
+ 675: 	m_PredictedTick = -1;
+ 676: 	std::fill(std::begin(m_aLastNewPredictedTick), std::end(m_aLastNewPredictedTick), -1);
+ 677: 
+ 678: 	m_LastRoundStartTick = -1;
+ 679: 	m_LastRaceTick = -1;
+ 680: 	m_LastFlagCarrierRed = -4;
+ 681: 	m_LastFlagCarrierBlue = -4;
+ 682: 
+ 683: 	std::fill(std::begin(m_aCheckInfo), std::end(m_aCheckInfo), -1);
+ 684: 
+ 685: 	// m_aDDNetVersionStr is initialized once in OnInit
+ 686: 
+ 687: 	std::fill(std::begin(m_aLastPos), std::end(m_aLastPos), vec2(0.0f, 0.0f));
+ 688: 	std::fill(std::begin(m_aLastActive), std::end(m_aLastActive), false);
+ 689: 
+ 690: 	m_GameOver = false;
+ 691: 	m_GamePaused = false;
+ 692: 
+ 693: 	m_SuppressEvents = false;
+ 694: 	m_NewTick = false;
+ 695: 	m_NewPredictedTick = false;
+ 696: 
+ 697: 	m_aFlagDropTick[TEAM_RED] = 0;
+ 698: 	m_aFlagDropTick[TEAM_BLUE] = 0;
+ 699: 
+ 700: 	m_ServerMode = SERVERMODE_PURE;
+ 701: 	mem_zero(&m_GameInfo, sizeof(m_GameInfo));
+ 702: 
+ 703: 	m_DemoSpecId = SPEC_FOLLOW;
+ 704: 	m_LocalCharacterPos = vec2(0.0f, 0.0f);
+ 705: 
+ 706: 	m_PredictedPrevChar.Reset();
+ 707: 	m_PredictedChar.Reset();
+ 708: 
+ 709: 	// m_Snap was cleared in InvalidateSnapshot
+ 710: 
+ 711: 	std::fill(std::begin(m_aLocalTuneZone), std::end(m_aLocalTuneZone), -1);
+ 712: 	std::fill(std::begin(m_aReceivedTuning), std::end(m_aReceivedTuning), false);
+ 713: 	std::fill(std::begin(m_aExpectingTuningForZone), std::end(m_aExpectingTuningForZone), -1);
+ 714: 	std::fill(std::begin(m_aExpectingTuningSince), std::end(m_aExpectingTuningSince), 0);
+ 715: 	std::fill(std::begin(m_aTuning), std::end(m_aTuning), CTuningParams());
+ 716: 
+ 717: 	m_ActiveRecordings.reset();
+ 718: 
+ 719: 	for(auto &Client : m_aClients)
+ 720: 		Client.Reset();
+ 721: 
+ 722: 	for(auto &Stats : m_aStats)
+ 723: 		Stats.Reset();
+ 724: 
+ 725: 	std::fill(std::begin(m_aNextChangeInfo), std::end(m_aNextChangeInfo), -1);
+ 726: 	std::fill(std::begin(m_aLocalIds), std::end(m_aLocalIds), -1);
+ 727: 	m_DummyInput = {};
+ 728: 	m_HammerInput = {};
+ 729: 	m_DummyFire = 0;
+ 730: 	m_ReceivedDDNetPlayer = false;
+ 731: 	m_ReceivedDDNetPlayerFinishTimes = false;
+ 732: 	m_ReceivedDDNetPlayerFinishTimesMillis = false;
+ 733: 
+ 734: 	m_Teams.Reset();
+ 735: 	m_GameWorld.Clear();
+ 736: 	m_GameWorld.m_WorldConfig.m_InfiniteAmmo = true;
+ 737: 	m_PredictedWorld.CopyWorld(&m_GameWorld);
+ 738: 	m_PrevPredictedWorld.CopyWorld(&m_PredictedWorld);
+ 739: 
+ 740: 	m_vSnapEntities.clear();
+ 741: 
+ 742: 	std::fill(std::begin(m_aDDRaceMsgSent), std::end(m_aDDRaceMsgSent), false);
+ 743: 	std::fill(std::begin(m_aShowOthers), std::end(m_aShowOthers), SHOW_OTHERS_NOT_SET);
+ 744: 	std::fill(std::begin(m_aEnableSpectatorCount), std::end(m_aEnableSpectatorCount), -1);
+ 745: 	std::fill(std::begin(m_aLastUpdateTick), std::end(m_aLastUpdateTick), 0);
+ 746: 
+ 747: 	m_IsDummySwapping = false;
+ 748: 	m_CharOrder.Reset();
+ 749: 	std::fill(std::begin(m_aSwitchStateTeam), std::end(m_aSwitchStateTeam), -1);
+ 750: 
+ 751: 	m_MapBestTimeSeconds = FinishTime::UNSET;
+ 752: 	m_MapBestTimeMillis = 0;
+ 753: 	m_aMapDescription[0] = '\0';
+ 754: 
+ 755: 	// m_MapBugs and m_aTuningList are reset in LoadMapSettings
+ 756: 
+ 757: 	m_LastShowDistanceZoom = 0.0f;
+ 758: 	m_LastZoom = 0.0f;
+ 759: 	m_LastScreenAspect = 0.0f;
+ 760: 	m_LastDeadzone = 0.0f;
+ 761: 	m_LastFollowFactor = 0.0f;
+ 762: 	m_LastDummyConnected = false;
+ 763: 
+ 764: 	m_MultiViewPersonalZoom = 0.0f;
+ 765: 	m_MultiViewActivated = false;
+ 766: 	m_MultiView.m_IsInit = false;
+ 767: 
+ 768: 	m_CursorInfo.m_CursorOwnerId = -1;
+ 769: 	m_CursorInfo.m_NumSamples = 0;
+ 770: 
+ 771: 	for(auto &pComponent : m_vpAll)
+ 772: 		pComponent->OnReset();
+ 773: 
+ 774: 	Editor()->ResetMentions();
+ 775: 	Editor()->ResetIngameMoved();
+ 776: 
+ 777: 	Collision()->Unload();
+ 778: 	Layers()->Unload();
+ 779: }
+ 780: 
+
+========== controls.cpp reset ==========
+1689: void CControls::OnReset()
+1690: {
+1691:         ResetInput(0);
+1692:         ResetInput(1);
+1693:         std::fill(std::begin(m_aAmmoCount), std::end(m_aAmmoCount), 0);
+1694:         m_LastSendTime = 0;
+1695:         GameClient()->m_AvoidFreeze.Reset();
+1696:         VertexAutoAled().Reset();
+1697:         GameClient()->m_AimBot.Reset();
+1698: }
+1699: 
+1700: void CControls::ResetInput(int Dummy)
+
+========== controls.cpp input ==========
+1935:                         if(g_Config.m_ClDummyFire)
+1936:                                 pDummyInput->m_Fire = g_Config.m_ClDummyFire;
+1937:                         else if((pDummyInput->m_Fire & 1) != 0)
+1938:                                 pDummyInput->m_Fire++;
+1939:                         pDummyInput->m_Hook = g_Config.m_ClDummyHook;
+1940:                         m_aInputData[!g_Config.m_ClDummy] = *pDummyInput;
+1941:                 }
+1942: 
+1943:                 // ====================================================================================================
+1944:                 // Dummy Unfreeze v7: the second tee shoots a laser at me and at the players from m_VxDuNames (see VertexDummyUnfreeze above).
+1945:                 // ====================================================================================================
+1946:                 if(g_Config.m_ClVertexDummyUnfreeze || g_Config.m_VxDuEsp)
+1947:                         VertexDummyUnfreeze(GameClient(), Client(), &m_aInputData[!g_Config.m_ClDummy], &GameClient()->m_DummyInput, m_aInputData[g_Config.m_ClDummy]);
+1948:                 // ====================================================================================================
+1949:                 // Vertex Avoid Freeze: auto-save of the local tee (hook / direction / jump takeover before freeze,
+1950:                 // death or tele). Runs after the aim modules so it wins over them; inside Update it steps aside
+1951:                 // while the laser unfreeze bot is aiming or the user hooks himself.
+1952:                 // ====================================================================================================
+1953:                 GameClient()->m_AvoidFreeze.Update(GameClient(), Client(), &m_aInputData[g_Config.m_ClDummy]);
+1954:                 // Vertex Auto Aled: hammer-rescue of nearby frozen tees (after Avoid Freeze)
+1955:                 VertexAutoAled().Update(GameClient(), Client(), &m_aInputData[g_Config.m_ClDummy]);
+1956:                 // Vertex Aim System v2 (see aimbot.cpp)
+1957:                 GameClient()->m_AimBot.Update(GameClient(), Client(), this, &m_aInputData[g_Config.m_ClDummy]);
+1958: 
+1959:                 if(g_Config.m_DbgStress)
+1960:                 {
+1961:                         float t = Client()->LocalTime();
+1962:                         mem_zero(&m_aInputData[g_Config.m_ClDummy], sizeof(m_aInputData[0]));
+1963:                         m_aInputData[g_Config.m_ClDummy].m_Direction = ((int)t / 2) & 1;
+1964:                         m_aInputData[g_Config.m_ClDummy].m_Jump = ((int)t);
+1965:                         m_aInputData[g_Config.m_ClDummy].m_Fire = ((int)(t * 10));
+
+========== controls.cpp render ==========
+2018:                 ToggleBind(g_Config.m_VxBindUnfreeze, &g_Config.m_ClVertexUnfreezeBot, "Auto Unfreeze");
+2019:         }
+2020: 
+2021:         // Vertex Avoid Freeze: key capture for the settings bind rows + track point / path visuals
+2022:         GameClient()->m_AvoidFreeze.RenderBinds(GameClient());
+2023:         // Vertex Aim System: Р·Р°С…РІР°С‚ РєР»Р°РІРёС€Рё Р±РёРЅРґР° (РјРµРЅСЋ -> РљР»Р°РІРёС€Рё Р°РёРјР°)
+2024:         GameClient()->m_AimBot.RenderBinds(GameClient());
+2025: 
+2026:         if(g_Config.m_ClAutoswitchWeaponsOutOfAmmo && !GameClient()->m_GameInfo.m_UnlimitedAmmo && GameClient()->m_Snap.m_pLocalCharacter)
+2027:         {
+2028:                 m_aAmmoCount[std::max(0, GameClient()->m_Snap.m_pLocalCharacter->m_Weapon % NUM_WEAPONS)] = GameClient()->m_Snap.m_pLocalCharacter->m_AmmoCount;
+
+========== players.cpp old AimBot calls ==========
+
+  src\game\client\components\players.cpp:1093:	}
+  src\game\client\components\players.cpp:1094:// Vertex Avoid Freeze: world visuals
+  src\game\client\components\players.cpp:1095:GameClient()->m_AvoidFreeze.RenderWorld(GameClient());
+> src\game\client\components\players.cpp:1096:	GameClient()->m_AimBot.RenderWorld(GameClient());
+  src\game\client\components\players.cpp:1097:	// === end ESP ===
+  src\game\client\components\players.cpp:1098:
+  src\game\client\components\players.cpp:1099:
+
+
+
+
+========== CMake aimbot entries ==========
+
+CMakeLists.txt:1001:set_glob(RUST_BASE GLOB_RECURSE "rs;toml" src/base
+CMakeLists.txt:1019:set_glob(RUST_ENGINE_SHARED GLOB_RECURSE "rs;toml" src/engine/shared
+CMakeLists.txt:1029:set_src(RUST_BRIDGE_SHARED GLOB_RECURSE src/rust-bridge
+CMakeLists.txt:2068:set_glob(DATA GLOB_RECURSE "cfg;frag;json;map;otf;png;rules;ttc;ttf;txt;vert;wv" data ${EXPECTED_DATA})
+CMakeLists.txt:2234:set_src(BASE GLOB_RECURSE src/base
+CMakeLists.txt:2335:set_src(ENGINE_SHARED GLOB_RECURSE src/engine/shared
+CMakeLists.txt:2544:  set_src(STEAMAPI_SRC GLOB_RECURSE src/steam
+CMakeLists.txt:2560:  set_src(ENGINE_CLIENT GLOB_RECURSE src/engine/client
+CMakeLists.txt:2638:  set_src(GAME_CLIENT GLOB_RECURSE src/game/client
+CMakeLists.txt:2640:    aimbot.cpp
+CMakeLists.txt:2808:  set_src(GAME_EDITOR GLOB_RECURSE src/game/editor
+CMakeLists.txt:2900:  set_src(GAME_MAP GLOB_RECURSE src/game/map
+CMakeLists.txt:2925:  set(CLIENT_SRC ${ENGINE_CLIENT} ${PLATFORM_CLIENT} ${GAME_CLIENT} ${GAME_EDITOR} ${GAME_MAP} ${GAME_GENERATED_CLIENT})
+CMakeLists.txt:3107:  set_src(ENGINE_SERVER_WITHOUT_MAIN GLOB_RECURSE src/engine/server
+CMakeLists.txt:3139:  set_src(GAME_SERVER GLOB_RECURSE src/game/server
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:1001:set_glob(RUST_BASE GLOB_RECURSE "rs;toml" src/base
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:1019:set_glob(RUST_ENGINE_SHARED GLOB_RECURSE "rs;toml" src/engine/shared
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:1029:set_src(RUST_BRIDGE_SHARED GLOB_RECURSE src/rust-bridge
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2068:set_glob(DATA GLOB_RECURSE "cfg;frag;json;map;otf;png;rules;ttc;ttf;txt;vert;wv" data ${EXPECTED_DATA})
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2234:set_src(BASE GLOB_RECURSE src/base
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2335:set_src(ENGINE_SHARED GLOB_RECURSE src/engine/shared
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2544:  set_src(STEAMAPI_SRC GLOB_RECURSE src/steam
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2560:  set_src(ENGINE_CLIENT GLOB_RECURSE src/engine/client
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2638:  set_src(GAME_CLIENT GLOB_RECURSE src/game/client
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2806:  set_src(GAME_EDITOR GLOB_RECURSE src/game/editor
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2898:  set_src(GAME_MAP GLOB_RECURSE src/game/map
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:2923:  set(CLIENT_SRC ${ENGINE_CLIENT} ${PLATFORM_CLIENT} ${GAME_CLIENT} ${GAME_EDITOR} ${GAME_MAP} ${GAME_GENERATED_CLIENT})
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:3105:  set_src(ENGINE_SERVER_WITHOUT_MAIN GLOB_RECURSE src/engine/server
+_vertex_aim_backup_20261104_180429\CMakeLists.txt:3137:  set_src(GAME_SERVER GLOB_RECURSE src/game/server
+
+
+
+
+========== incompatible member checks ==========
+
+src\game\client\gameclient.h:361:	vec2 m_LocalCharacterPos;
+src\game\client\gameclient.h:378:		const CNetObj_Character *m_pLocalCharacter;
+src\game\client\gameclient.h:399:		int m_LocalClientId;
+
+
+

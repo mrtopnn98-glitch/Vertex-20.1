@@ -1,0 +1,57 @@
+CMake Warning:
+  Ignoring extra path from command line:
+
+   "Get-Content regen_log.txt -Tail 15"
+
+
+loading initial cache file ommand
+CMake Error: Not a file: C:/Vertex-20.1/ommand
+CMake Error: Error processing file: C:/Vertex-20.1/ommand
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26200.
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- Could NOT find Crypto (missing: CRYPTO_LIBRARY CRYPTO_INCLUDEDIR) 
+-- Could NOT find Git (missing: GIT_EXECUTABLE) 
+-- Could NOT find GTest (missing: GTEST_LIBRARY GTEST_INCLUDE_DIR GTEST_MAIN_LIBRARY) 
+-- ******** DDNet ********
+-- Target OS: windows AMD64
+-- Compiler: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe
+-- Rust version: rustc 1.99.0 (b940084d7 2026-09-28)
+-- Build type: Release
+-- Dependencies:
+--  * Curl not found (using bundled version)
+--  * FFmpeg not found (using bundled version)
+--  * Freetype not found (using bundled version)
+--  * Git not found
+--  * Glew not found (using bundled version)
+--  * GTest not found
+--  * Ogg not found (using bundled version)
+--  * OpenSSL Crypto not found
+--  * Opus not found (using bundled version)
+--  * Opusfile not found (using bundled version)
+--  * PNG not found (using bundled version)
+--  * Python3 found
+--  * SDL2 not found (using bundled version)
+--  * SQLite3 not found (using bundled version)
+--  * Wavpack not found (using bundled version)
+--  * Zlib not found (using bundled version)
+CMake Warning at CMakeLists.txt:789 (message):
+  To automatically download GTest, you have to install Git
+
+
+--  * EGL not found
+CMake Warning (author) at CMakeLists.txt:447 (message):
+  GAME_CLIENT does not contain every file from directory src/game/client
+Call Stack (most recent call first):
+  CMakeLists.txt:475 (set_glob)
+  CMakeLists.txt:2638 (set_src)
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at CMakeLists.txt:464 (message):
+  Entries only present in src/game/client:
+  C:/Vertex-20.1/src/game/client/components/aimbot_menu.cpp;C:/Vertex-20.1/src/game/client/components/avoidfreeze.h;C:/Vertex-20.1/src/game/client/components/vertex_menu.cpp;C:/Vertex-20.1/src/game/client/components/vertex_menu.h;C:/Vertex-20.1/src/game/client/components/vertex_unfreeze.cpp;C:/Vertex-20.1/src/game/client/components/vertex_unfreeze.h;C:/Vertex-20.1/src/game/client/vertex_gate.h
+Call Stack (most recent call first):
+  CMakeLists.txt:475 (set_glob)
+  CMakeLists.txt:2638 (set_src)
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+-- Configuring incomplete, errors occurred!

@@ -1,0 +1,51 @@
+Версия MSBuild 17.14.60+43b635718 для .NET Framework
+
+  1>
+  1>
+  md5.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\md5.dir\Release\md5.lib
+  json.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\json.dir\Release\json.lib
+  zlib.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\zlib.dir\Release\zlib.lib
+  1>
+  game-server-without-main.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-server-without-main.dir\Release\game-server-without-main.lib
+  engine-gfx.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-gfx.dir\Release\engine-gfx.lib
+  game-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.dir\Release\game-shared.lib
+  rust-bridge-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+  steam_api.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\steam_api.dll
+  engine-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-shared.dir\Release\engine-shared.lib
+  glew.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\glew.dir\Release\glew.lib
+  map_replace_area.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_area.exe
+  dummy_map.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dummy_map.exe
+  unicode_confusables.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\unicode_confusables.exe
+  config_store.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_store.exe
+  config_retrieve.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_retrieve.exe
+  map_convert_07.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_convert_07.exe
+  dilate.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dilate.exe
+  map_diff.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_diff.exe
+  map_find_env.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_find_env.exe
+  map_extract.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_extract.exe
+  map_optimize.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_optimize.exe
+  packetgen.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\packetgen.exe
+  twping.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\twping.exe
+  map_resave.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_resave.exe
+  1>Generating src/generated/checksum.cpp
+  stun.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\stun.exe
+  uuid.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\uuid.exe
+  map_test.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_test.exe
+  game-server.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\DDNet-Server.exe
+  crapnet.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\crapnet.exe
+  map_replace_image.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_image.exe
+  demo_extract_chat.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\demo_extract_chat.exe
+  checksum.cpp
+  menus_settings_vertex.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\menus_settings_vertex.cpp(1042,50): error C2039: "m_AvoidDrawPath": не является членом "CConfig". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/menus_settings_vertex.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\engine\shared\config.h(29,7):
+       см. объявление "CConfig"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\menus_settings_vertex.cpp(1042,5): error C2064: результатом вычисления фрагмента не является функция, принимающая 1 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/components/menus_settings_vertex.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\menus_settings_vertex.cpp(1042,5):
+      класс не определяет "operator()" или пользовательский оператор преобразования в указатель на функцию или ссылку на функцию, принимающий подходящее число аргументов
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\menus_settings_vertex.cpp(1042,5):
+      при попытке сопоставить список аргументов "(const char [22])"
+  

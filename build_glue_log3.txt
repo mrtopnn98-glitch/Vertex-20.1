@@ -1,0 +1,326 @@
+Версия MSBuild 17.14.60+43b635718 для .NET Framework
+
+  1>
+  1>
+  md5.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\md5.dir\Release\md5.lib
+  zlib.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\zlib.dir\Release\zlib.lib
+  json.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\json.dir\Release\json.lib
+  1>
+  ddracechat.cpp
+  ddracecommands.cpp
+  character.cpp
+  door.cpp
+  dragger.cpp
+  dragger_beam.cpp
+  gun.cpp
+  laser.cpp
+  light.cpp
+  pickup.cpp
+  plasma.cpp
+  projectile.cpp
+  entity.cpp
+  eventhandler.cpp
+  gamecontext.cpp
+  gamecontroller.cpp
+  ddnet.cpp
+  mod.cpp
+  gameworld.cpp
+  interactions.cpp
+  mutes.cpp
+  player.cpp
+  playermapping.cpp
+  save.cpp
+  score.cpp
+  teams.cpp
+  game-server-without-main.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-server-without-main.dir\Release\game-server-without-main.lib
+  engine-gfx.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-gfx.dir\Release\engine-gfx.lib
+  collision.cpp
+  gamecore.cpp
+  engine-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-shared.dir\Release\engine-shared.lib
+  steam_api.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\steam_api.dll
+  glew.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\glew.dir\Release\glew.lib
+  rust-bridge-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1314,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1314,2): error C2065: tauto: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1314,8): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "pCopy" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1314,8): error C2065: pCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1315,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1315,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1315,4): error C2065: pCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1316,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1316,2): error C2065: tpCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1317,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1317,2): error C2065: tconst: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1317,9): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "size_t" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1318,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1318,2): error C3861: tif: идентификатор не найден [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1319,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1319,2): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "t" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1319,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1320,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1320,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1320,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1320,4): error C2146: синтаксическая ошибка: отсутствие ")" перед идентификатором "tpCopy" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,4): error C2653: tstd: не является именем класса или пространства имен [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,10): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "copy_n" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,34): error C2065: pCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1321,10): error C3861: copy_n: идентификатор не найден [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,4): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "tpCopy" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,4): error C2065: tpCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1322,23): error C2065: pCopy: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1323,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1323,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1323,3): error C2143: синтаксическая ошибка: отсутствие ";" перед "}" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1324,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1324,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1324,6): error C2065: m_pDoor: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1324,17): error C2065: Count: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1325,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1325,2): error C2146: синтаксическая ошибка: отсутствие ";" перед идентификатором "t" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1325,3): error C2143: синтаксическая ошибка: отсутствие ";" перед "{" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1325,3): error C2447: {: отсутствует заголовок функции (возможно, используется формальный список старого типа) [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1326,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1326,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1327,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1327,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1328,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1329,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1329,9): error C2144: синтаксическая ошибка: перед "auto" требуется ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1329,2): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1332,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1332,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1333,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1333,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1333,5): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,5): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1335,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1335,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1336,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1336,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1337,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1337,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1338,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1338,3): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1339,1): error C2018: неизвестный знак "0x60" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,4): error C3878: синтаксическая ошибка: непредвиденный токен "tusing" после "expression" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,73):
+      разбор возобновляется здесь
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,73): error C2760: синтаксическая ошибка: непредвиденный элемент ")". Ожидается ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1330,73): error C3878: синтаксическая ошибка: непредвиденный токен ")" после "expression-statement" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,4): error C3878: синтаксическая ошибка: непредвиденный токен "tif" после "expression" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,26): error C2760: синтаксическая ошибка: непредвиденный элемент ")". Ожидается ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1331,26): error C3878: синтаксическая ошибка: непредвиденный токен ")" после "expression-statement" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1332,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1332,4): error C3878: синтаксическая ошибка: непредвиденный токен "t" после "expression" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1333,20): error C2760: синтаксическая ошибка: непредвиденный элемент ")". Ожидается ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1333,20): error C3878: синтаксическая ошибка: непредвиденный токен ")" после "expression-statement" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,4): error C3878: синтаксическая ошибка: непредвиденный токен "t" после "expression" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,18): error C2760: синтаксическая ошибка: непредвиденный элемент ")". Ожидается ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,18): error C3878: синтаксическая ошибка: непредвиденный токен ")" после "expression-statement" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1335,2): error C2065: t: необъявленный идентификатор [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1335,4): error C3878: синтаксическая ошибка: непредвиденный токен "t" после "expression" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1335,5): error C2760: синтаксическая ошибка: непредвиденный элемент "}". Ожидается ";" [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\collision.cpp(1334,4): error C1003: число ошибок превышает 100; остановка компиляции [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.vcxproj]
+  (компиляция исходного файла "../src/game/collision.cpp")
+  

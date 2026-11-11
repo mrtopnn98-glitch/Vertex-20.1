@@ -1,0 +1,399 @@
+Версия MSBuild 17.14.60+43b635718 для .NET Framework
+
+  1>
+  1>
+  json.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\json.dir\Release\json.lib
+  md5.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\md5.dir\Release\md5.lib
+  zlib.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\zlib.dir\Release\zlib.lib
+  1>
+  authmanager.cpp
+  connection_pool.cpp
+  name_ban.cpp
+  register.cpp
+  server.cpp
+  ddracechat.cpp
+  ddracecommands.cpp
+  character.cpp
+  dragger.cpp
+  dragger_beam.cpp
+  gun.cpp
+  laser.cpp
+  projectile.cpp
+  gamecontext.cpp
+  gamecontroller.cpp
+  ddnet.cpp
+  mod.cpp
+  gameworld.cpp
+  mutes.cpp
+  player.cpp
+  playermapping.cpp
+  save.cpp
+  score.cpp
+  scoreworker.cpp
+  teams.cpp
+  teehistorian.cpp
+  game-server-without-main.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-server-without-main.dir\Release\game-server-without-main.lib
+  engine-gfx.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-gfx.dir\Release\engine-gfx.lib
+  steam_api.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\steam_api.dll
+  collision.cpp
+  gamecore.cpp
+  teamscore.cpp
+  http.cpp
+  rust-bridge-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\rust-bridge-shared.dir\Release\rust-bridge-shared.lib
+  config.cpp
+  console.cpp
+  demo.cpp
+  econ.cpp
+  engine.cpp
+  http_curl.cpp
+  netban.cpp
+  network.cpp
+  network_conn.cpp
+  glew.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\glew.dir\Release\glew.lib
+  network_server.cpp
+  protocol_ex.cpp
+  game-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-shared.dir\Release\game-shared.lib
+  engine-shared.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\engine-shared.dir\Release\engine-shared.lib
+  dummy_map.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dummy_map.exe
+  twping.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\twping.exe
+  map_replace_area.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_area.exe
+  crapnet.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\crapnet.exe
+  map_resave.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_resave.exe
+  demo_extract_chat.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\demo_extract_chat.exe
+  map_find_env.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_find_env.exe
+  map_diff.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_diff.exe
+  config_store.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_store.exe
+  dilate.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\dilate.exe
+  config_retrieve.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\config_retrieve.exe
+  map_test.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_test.exe
+  map_extract.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_extract.exe
+  map_convert_07.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_convert_07.exe
+  main.cpp
+  stun.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\stun.exe
+  packetgen.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\packetgen.exe
+  map_replace_image.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_replace_image.exe
+  1>Generating src/generated/checksum.cpp
+  uuid.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\uuid.exe
+  unicode_confusables.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\unicode_confusables.exe
+  map_optimize.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\map_optimize.exe
+  backend_base.cpp
+  backend_null.cpp
+  backend_opengl.cpp
+  backend_opengl3.cpp
+  backend_sdl.cpp
+  backend_threaded.cpp
+  client.cpp
+  favorites.cpp
+  friends.cpp
+  graphics_threaded.cpp
+  graphics_threaded_sprites.cpp
+  input.cpp
+  serverbrowser.cpp
+  sixup_translate_system.cpp
+  steam.cpp
+  video.cpp
+  aimbot.cpp
+  assets.cpp
+  avoidfreeze.cpp
+  aled.cpp
+  background.cpp
+  binds.cpp
+  broadcast.cpp
+  camera.cpp
+  censor.cpp
+  chat.cpp
+  console.cpp
+  controls.cpp
+  countryflags.cpp
+  damageind.cpp
+  game-server.vcxproj -> C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\Release\DDNet-Server.exe
+  debughud.cpp
+  effects.cpp
+  emoticon.cpp
+  envelope_state.cpp
+  freezebars.cpp
+  hud.cpp
+  important_alert.cpp
+  infomessages.cpp
+  items.cpp
+  key_binder.cpp
+  local_server.cpp
+  mapimages.cpp
+  maplayers.cpp
+  mapsounds.cpp
+  menu_background.cpp
+  menus.cpp
+  menus_browser.cpp
+  menus_demo.cpp
+  menus_ingame.cpp
+  menus_ingame_touch_controls.cpp
+  menus_settings.cpp
+  menus_settings_appearance.cpp
+  menus_settings_assets.cpp
+  menus_settings_controls.cpp
+  menus_settings_credits.cpp
+  menus_settings_vertex.cpp
+  menus_settings_ddnet.cpp
+  menus_settings_general.cpp
+  menus_settings_graphics.cpp
+  menus_settings_language.cpp
+  menus_settings_player.cpp
+  menus_settings_sound.cpp
+  menus_settings_tee.cpp
+  menus_settings_tee7.cpp
+  menus_start.cpp
+  motd.cpp
+  nameplates.cpp
+  particles.cpp
+  players.cpp
+  race_demo.cpp
+  scoreboard.cpp
+  skins.cpp
+  skins7.cpp
+  sounds.cpp
+  spectator.cpp
+  statboard.cpp
+  touch_controls.cpp
+  voting.cpp
+  gameclient.cpp
+  avoid.cpp
+  classic_agents.cpp
+  rocket_save.cpp
+  simulation.cpp
+  trace.cpp
+  lineinput.cpp
+  multiview.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\classic_agents.cpp(8,10): error C1083: Не удается открыть файл включение: game/client/components/krx_misc_pre_tas.h: No such file or directory, [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  character.cpp
+  (компиляция исходного файла "../src/game/client/avoid/classic_agents.cpp")
+  
+  dragger.cpp
+  laser.cpp
+  projectile.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\prediction\entities\character.cpp(503,64): error C2039: "GetWeaponFireDelayMilliseconds": не является членом "CTuningParams". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/prediction/entities/character.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\gamecore.h(41,7):
+       см. объявление "CTuningParams"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\prediction\entities\character.cpp(503,16): error C2737: "FireDelay": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/prediction/entities/character.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\prediction\entities\character.cpp(1734,21): error C2039: "GetWeaponFireDelayMilliseconds": не является членом "CTuningParams". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/prediction/entities/character.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\gamecore.h(41,7):
+       см. объявление "CTuningParams"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\prediction\entities\character.cpp(1733,14): error C2737: "FireDelayTicks": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/prediction/entities/character.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(56,37): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(57,7): error C3536: pLocal: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(97,16): error C2737: "To": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(138,19): error C2039: "m_PreTasVisuals": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+  gameworld.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(199,38): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(200,8): error C3536: pLocal: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(201,27): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(202,15): error C2737: "Velocity": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(203,15): error C2737: "HookPos": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(204,14): error C2737: "HookState": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(209,32): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\avoid.cpp(211,43): error C2039: "m_PhysicalJump": не является членом "CControls". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/avoid.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.h(16,7):
+       см. объявление "CControls"
+  
+  race.cpp
+  render.cpp
+  sixup_translate_connless.cpp
+  sixup_translate_game.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\prediction\gameworld.cpp(32,9): error C2039: "m_IsClientPrediction": не является членом "CWorldCore". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/prediction/gameworld.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\gamecore.h(148,7):
+       см. объявление "CWorldCore"
+  
+  sixup_translate_snapshot.cpp
+  ui.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(28,24): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(267,41): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(268,7): error C3536: pCharacter: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(273,23): error C2660: OpenKrx::CRocketSave::FrozenGate: функция не принимает 3 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.h(132,15):
+       см. объявление "OpenKrx::CRocketSave::FrozenGate"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(273,23):
+      при попытке сопоставить список аргументов "(bool, const bool, int)"
+  
+  ui_listbox.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(429,41): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(430,86): error C3536: pCharacter: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(441,20): error C2660: OpenKrx::CRocketWeaponRestore::Observe: функция не принимает 1 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.h(72,8):
+       см. объявление "OpenKrx::CRocketWeaponRestore::Observe"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(441,20):
+      при попытке сопоставить список аргументов "()"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(462,66): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(465,46): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(500,45): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(508,39): error C2039: "KrxGameWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(519,7): error C3536: pAuthoritative: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(525,37): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\rocket_save.cpp(525,22): error C2530: Source: ссылки должны быть инициализированы [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/rocket_save.cpp")
+  
+  ui_scrollregion.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\simulation.cpp(250,34): error C2039: "KrxPredictedWorld": не является членом "CGameClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/simulation.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\gameclient.h(154,7):
+       см. объявление "CGameClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\simulation.cpp(262,33): error C2039: "FindDragAim": не является членом "CAimbot". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/simulation.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\aimbot.h(16,7):
+       см. объявление "CAimbot"
+  
+  editor.cpp
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(290,47): error C2039: "GetInputTiming": не является членом "IClient". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\engine\client.h(41,7):
+       см. объявление "IClient"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(290,14): error C2737: "InputTiming": необходимо инициализировать объект const [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(291,39): error C3536: InputTiming: не может использоваться до инициализации [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(291,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(291,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [26])"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(292,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(292,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [25])"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(293,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(293,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [26])"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(294,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(294,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [27])"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(295,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(295,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [32])"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(308,47): error C2039: "m_PhysicalJump": не является членом "CControls". [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\components\controls.h(16,7):
+       см. объявление "CControls"
+  
+C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(308,3): error C2660: OpenKrx::`anonymous-namespace'::Int: функция не принимает 2 аргументов [C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\build\game-client.vcxproj]
+  (компиляция исходного файла "../src/game/client/avoid/trace.cpp")
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(32,8):
+       см. объявление "OpenKrx::`anonymous-namespace'::Int"
+      C:\Users\Gorgo\Desktop\Blatan_vertex\Vertex-20.1\src\game\client\avoid\trace.cpp(308,3):
+      при попытке сопоставить список аргументов "(CJsonStringWriter, const char [14])"
+  
+  editor_history.cpp
+  editor_server_settings.cpp
+  envelope_editor.cpp
+  layer_selector.cpp
+  map_view.cpp
+  layer_group.cpp
+  layer_tiles.cpp
+  map_io.cpp
+  popups.cpp
+  quick_actions.cpp
+  smooth_value.cpp
+  render_layer.cpp
+  render_map.cpp
+  checksum.cpp

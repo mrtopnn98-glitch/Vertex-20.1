@@ -1,0 +1,578 @@
+﻿===== ORIGINAL FILE: INCLUDES AND GLOBALS =====
+   1: /* Vertex client — settings tab v3. Glass cards UI rendered with the native DDNet UI. */
+   2: #include "menus.h"
+   3: 
+   4: #include <base/time.h>
+   5: 
+   6: #include <engine/graphics.h>
+   7: #include <engine/shared/config.h>
+   8: #include <engine/textrender.h>
+   9: 
+  10: #include <game/client/gameclient.h>
+  11: #include "aled.h"
+  12: #include <game/client/vertex_gate.h>
+  13: #include <game/client/ui.h>
+  14: #include <game/localization.h>
+  15: 
+  16: #include <algorithm>
+  17: #include <cmath>
+  18: #include <cstdint>
+  19: #include <cstdlib>
+  20: #include <string>
+  21: #include <unordered_map>
+  22: #include <vector>
+  23: 
+  24: static constexpr int VERTEX_TAB_COUNT = 8;
+  25: static constexpr int VX_MAX_CARDS = 24;
+  26: 
+  27: void CMenus::VertexToggleClickGui()
+  28: {
+  29:         if(time_get() < m_VertexBindBlockUntil)
+  30:                 return;
+  31:         if(m_VertexClickGui && m_MenuActive)
+  32:         {
+  33:                 m_VertexClickGui = false;
+  34:                 SetActive(false);
+  35:                 return;
+  36:         }
+  37:         if(m_MenuActive)
+  38:                 return; // regular menu is open, leave it alone
+  39:         m_VertexClickGui = true;
+  40:         SetActive(true);
+  41: }
+  42: 
+  43: // reset the flag when the menu was closed some other way (Esc etc.)
+  44: void CMenus::VertexClickGuiTick()
+  45: {
+  46:         if(m_VertexClickGui && !m_MenuActive)
+  47:                 m_VertexClickGui = false;
+  48: }
+  49: 
+  50: // Click GUI overlay: only the Vertex window floats over the game, without the normal menu bar.
+  51: void CMenus::RenderVertexClickGui(CUIRect Screen)
+  52: {
+  53:         if(!m_VertexBindListening && Input()->KeyPress(KEY_ESCAPE))
+  54:         {
+  55:                 m_VertexClickGui = false;
+  56:                 SetActive(false);
+  57:                 return;
+  58:         }
+  59: 
+  60:         g_Config.m_VxClickGuiScale = std::clamp(g_Config.m_VxClickGuiScale, 40, 120);
+  61:         const float S = g_Config.m_VxClickGuiScale / 100.0f;
+  62:         const float W = std::min(900.0f * S, Screen.w - 10.0f);
+  63:         const float H = std::min(520.0f * S, Screen.h - 10.0f);
+  64: 
+  65:         static bool s_Placed = false;
+  66:         if(!s_Placed)
+  67:         {
+  68:                 s_Placed = true;
+  69:                 m_VertexGuiX = Screen.x + (Screen.w - W) / 2.0f;
+  70:                 m_VertexGuiY = Screen.y + (Screen.h - H) / 2.0f;
+  71:         }
+  72:         m_VertexGuiX = std::max(Screen.x, std::min(m_VertexGuiX, Screen.x + Screen.w - W));
+  73:         m_VertexGuiY = std::max(Screen.y, std::min(m_VertexGuiY, Screen.y + Screen.h - H));
+  74: 
+  75:         CUIRect Area;
+  76:         Area.x = m_VertexGuiX;
+  77:         Area.y = m_VertexGuiY;
+  78:         Area.w = W;
+  79:         Area.h = H;
+  80:         m_VertexOverlay = true;
+  81:         RenderSettingsVertex(Area);
+  82:         m_VertexOverlay = false;
+  83: 
+  84:         // small plus-shaped cursor of the Click GUI (the native arrow must be skipped in CMenus::OnRender while m_VertexClickGui is true)
+  85:         {
+  86:                 const float Mx = Ui()->MouseX(), My = Ui()->MouseY();
+  87:                 const float L = 4.5f, Th = 1.1f, O = 0.6f; // arm length, thickness, outline
+  88:                 CUIRect H1, V1;
+  89:                 H1.x = Mx - L - O;
+  90:                 H1.y = My - Th / 2.0f - O;
+  91:                 H1.w = 2.0f * L + 2.0f * O;
+  92:                 H1.h = Th + 2.0f * O;
+  93:                 V1.x = Mx - Th / 2.0f - O;
+  94:                 V1.y = My - L - O;
+  95:                 V1.w = Th + 2.0f * O;
+  96:                 V1.h = 2.0f * L + 2.0f * O;
+  97:                 H1.Draw(ColorRGBA(0.0f, 0.0f, 0.0f, 0.55f), IGraphics::CORNER_NONE, 0.0f);
+  98:                 V1.Draw(ColorRGBA(0.0f, 0.0f, 0.0f, 0.55f), IGraphics::CORNER_NONE, 0.0f);
+  99:                 H1.x += O;
+ 100:                 H1.w -= 2.0f * O;
+ 101:                 H1.y += O;
+ 102:                 H1.h -= 2.0f * O;
+ 103:                 V1.y += O;
+ 104:                 V1.h -= 2.0f * O;
+ 105:                 V1.x += O;
+ 106:                 V1.w -= 2.0f * O;
+ 107:                 H1.Draw(ColorRGBA(1.0f, 1.0f, 1.0f, 0.95f), IGraphics::CORNER_NONE, 0.0f);
+ 108:                 V1.Draw(ColorRGBA(1.0f, 1.0f, 1.0f, 0.95f), IGraphics::CORNER_NONE, 0.0f);
+ 109:         }
+ 110: }
+ 111: 
+ 112: void CMenus::RenderSettingsVertex(CUIRect MainView)
+ 113: {
+ 114:         const float S = m_VertexOverlay ? std::clamp(g_Config.m_VxClickGuiScale, 40, 120) / 100.0f : 1.0f;
+ 115:         const float F = S * 0.9f * std::clamp(g_Config.m_VxUiFont, 80, 130) / 100.0f; // text scale
+ 116: 
+ 117:         // 0 Aim, 1 Avoid, 2 Misc, 3 Visual, 4 Fly, 5 Settings, 6 Configs, 7 Admin
+ 118:         static const char *s_apTabNames[VERTEX_TAB_COUNT] = {
+ 119:                 "Наведение", "Avoid", "Разное", "Визуал", "Полёт", "Настройки", "Конфиги", "Админ"};
+ 120:         static int s_Tab = 0;
+
+===== ORIGINAL VERTEX RENDERER IMPLEMENTATIONS =====
+1700:         }
+1701: 
+1702:         // ===================== Fly / Configs =====================
+1703:         else
+1704:         {
+1705:                 BeginCard("Скоро", nullptr, nullptr);
+1706:                 Note("Этот раздел ещё в разработке.");
+1707:                 EndCard();
+1708:         }
+1709: 
+1710:         // total height of everything drawn (without scroll offset) -> scroll limit
+1711:         ContentHeight = (std::max(Col[0].y, Col[1].y) - ContentTop) + 10.0f * S;
+1712:         Ui()->ClipDisable();
+1713: }
+1714: 
+1715: // ======================================================================================
+1716: // World effects.
+1717: //  - VertexRenderParticles: screen-space (hud units): rain + particles (9 modes). Call from CHud::OnRender after MapScreenToSize.
+1718: //  - VertexRenderWorld:     world-space: leaves that fall, land on tiles, lie there and get kicked up by the player.
+1719: //                           Call from CHud::OnRender BEFORE MapScreenToSize, after mapping the screen to the game group.
+1720: // ======================================================================================
+1721: struct SVxParticle
+1722: {
+1723:         float m_X, m_Y, m_Vx, m_Vy, m_Rot, m_Vr, m_Size, m_Phase, m_Hue;
+1724:         int m_Shape;
+1725: };
+1726: 
+1727: struct SVxWLeaf
+1728: {
+1729:         vec2 m_Pos, m_Vel;
+1730:         float m_Rot, m_Size, m_Phase, m_Flip, m_FlipSpeed, m_Life, m_Age;
+1731:         int m_Color;
+1732:         bool m_Landed;
+1733: };
+1734: 
+1735: struct SVxDrop
+1736: {
+1737:         float m_X, m_Y, m_Speed, m_Len, m_Alpha;
+1738: };
+1739: 
+1740: static float VxRandF()
+1741: {
+1742:         return (float)rand() / (float)RAND_MAX;
+1743: }
+1744: 
+1745: static ColorRGBA VxHue(float h)
+1746: {
+1747:         h -= std::floor(h);
+1748:         const float f6 = h * 6.0f;
+1749:         const int i = (int)f6 % 6;
+1750:         const float f = f6 - std::floor(f6);
+1751:         const float q = 1.0f - f, t = f;
+1752:         switch(i)
+1753:         {
+1754:         case 0: return ColorRGBA(1.0f, t, 0.0f, 1.0f);
+1755:         case 1: return ColorRGBA(q, 1.0f, 0.0f, 1.0f);
+1756:         case 2: return ColorRGBA(0.0f, 1.0f, t, 1.0f);
+1757:         case 3: return ColorRGBA(0.0f, q, 1.0f, 1.0f);
+1758:         case 4: return ColorRGBA(t, 0.0f, 1.0f, 1.0f);
+1759:         default: return ColorRGBA(1.0f, 0.0f, q, 1.0f);
+1760:         }
+1761: }
+1762: 
+1763: // pointed leaf: two freeform quads + optional darker midrib/stem. Must be called between QuadsBegin/QuadsEnd.
+1764: static void VxDrawLeaf(IGraphics *pGraphics, float cx, float cy, float Rot, float Ln, float Wd, const ColorRGBA &Col, float Alpha, bool Rib)
+1765: {
+1766:         const float ca = std::cos(Rot), sa = std::sin(Rot);
+1767:         const auto Pt = [&](float lx, float ly) { return vec2(cx + lx * ca - ly * sa, cy + lx * sa + ly * ca); };
+1768:         const vec2 A = Pt(-Ln, 0.0f), B = Pt(-Ln * 0.35f, -Wd), C = Pt(Ln * 0.45f, -Wd * 0.8f), D = Pt(Ln, 0.0f);
+1769:         const vec2 E = Pt(-Ln * 0.35f, Wd), F = Pt(Ln * 0.45f, Wd * 0.8f);
+1770:         pGraphics->SetColor(ColorRGBA(Col.r, Col.g, Col.b, Alpha));
+1771:         const IGraphics::CFreeformItem Up(A.x, A.y, B.x, B.y, D.x, D.y, C.x, C.y);
+1772:         const IGraphics::CFreeformItem Lo(A.x, A.y, E.x, E.y, D.x, D.y, F.x, F.y);
+1773:         pGraphics->QuadsDrawFreeform(&Up, 1);
+1774:         pGraphics->QuadsDrawFreeform(&Lo, 1);
+1775:         if(Rib)
+1776:         {
+1777:                 pGraphics->SetColor(ColorRGBA(Col.r * 0.6f, Col.g * 0.6f, Col.b * 0.6f, Alpha));
+1778:                 const float Th = std::max(0.08f, Ln * 0.05f);
+1779:                 const vec2 R0 = Pt(-Ln * 1.3f, -Th), R1 = Pt(Ln * 0.8f, -Th), R2 = Pt(-Ln * 1.3f, Th), R3 = Pt(Ln * 0.8f, Th);
+1780:                 const IGraphics::CFreeformItem RibQ(R0.x, R0.y, R1.x, R1.y, R2.x, R2.y, R3.x, R3.y);
+1781:                 pGraphics->QuadsDrawFreeform(&RibQ, 1);
+1782:         }
+1783: }
+1784: 
+1785: // ---------------- particles (screen space) ----------------
+1786: // Shapes: 0 heart, 1 star, 2 circle, 3 snowflake, 4 bubble, 5 firefly, 6 petal, 7 confetti, 8 mix of all
+1787: static void VxRenderHearts(IGraphics *pGraphics, float Dt, float W, float H)
+1788: {
+1789:         static std::vector<SVxParticle> s_vParticles;
+1790:         const int Want = std::clamp(g_Config.m_VxParticlesCount, 1, 300);
+1791:         while((int)s_vParticles.size() < Want)
+1792:         {
+1793:                 SVxParticle p;
+1794:                 p.m_X = VxRandF();
+1795:                 p.m_Y = VxRandF();
+1796:                 p.m_Vx = (VxRandF() - 0.5f) * 0.01f;
+1797:                 p.m_Vy = 0.012f + VxRandF() * 0.035f;
+1798:                 p.m_Rot = VxRandF() * 6.2831853f;
+1799:                 p.m_Vr = (VxRandF() - 0.5f) * 0.9f;
+1800:                 p.m_Size = 0.6f + VxRandF() * 0.8f;
+1801:                 p.m_Phase = VxRandF() * 6.2831853f;
+1802:                 p.m_Hue = VxRandF();
+1803:                 p.m_Shape = rand();
+1804:                 s_vParticles.push_back(p);
+1805:         }
+1806:         if((int)s_vParticles.size() > Want)
+1807:                 s_vParticles.resize(Want);
+1808: 
+1809:         const float Spd = std::clamp(g_Config.m_VxParticlesSpeed, 10, 200) / 100.0f;
+1810:         const float Sz = std::clamp(g_Config.m_VxParticlesSize, 10, 300) / 100.0f * H * 0.010f;
+1811:         const int Mode = std::clamp(g_Config.m_VxParticlesShape, 0, 8);
+1812:         const ColorRGBA Base = color_cast<ColorRGBA>(ColorHSLA(g_Config.m_VxParticlesColor));
+1813: 
+1814:         pGraphics->TextureClear();
+1815:         pGraphics->QuadsBegin();
+1816:         for(SVxParticle &p : s_vParticles)
+1817:         {
+1818:                 const int Shape = Mode == 8 ? p.m_Shape % 8 : Mode;
+1819:                 const bool Falls = Shape == 3 || Shape == 6 || Shape == 7;
+1820:                 p.m_Phase += Dt * 0.9f * Spd;
+1821: 
+1822:                 float Vx = p.m_Vx + std::sin(p.m_Phase) * 0.006f;
+1823:                 float Vy = Falls ? p.m_Vy * 0.9f : -p.m_Vy;
+1824:                 if(Shape == 5) // firefly: lazy wandering
+1825:                 {
+1826:                         Vx = std::cos(p.m_Phase * 0.7f + p.m_Rot) * 0.02f;
+1827:                         Vy = std::sin(p.m_Phase * 0.8f + p.m_Rot) * 0.02f;
+1828:                 }
+1829:                 p.m_X += Vx * Spd * Dt;
+1830:                 p.m_Y += Vy * Spd * Dt;
+1831:                 p.m_Rot += p.m_Vr * Spd * Dt;
+1832:                 if(p.m_Y < -0.06f)
+1833:                 {
+1834:                         p.m_Y = 1.06f;
+1835:                         p.m_X = VxRandF();
+1836:                 }
+1837:                 if(p.m_Y > 1.06f)
+1838:                 {
+1839:                         p.m_Y = -0.06f;
+1840:                         p.m_X = VxRandF();
+1841:                 }
+1842:                 if(p.m_X < -0.06f)
+1843:                         p.m_X = 1.06f;
+1844:                 if(p.m_X > 1.06f)
+1845:                         p.m_X = -0.06f;
+1846: 
+1847:                 const float Alpha = 0.30f + 0.40f * (0.5f + 0.5f * std::sin(p.m_Phase * 1.3f));
+1848:                 const float cx = p.m_X * W, cy = p.m_Y * H;
+1849:                 const float s = Sz * p.m_Size;
+1850: 
+1851:                 if(Shape == 0) // heart
+1852:                 {
+1853:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, Alpha));
+1854:                         const float a = s * 1.6f;
+1855:                         const float Th = std::sin(p.m_Phase) * 0.35f;
+1856:                         const float k = a * 0.35355339f;
+1857:                         pGraphics->QuadsSetRotation(Th + 0.78539816f);
+1858:                         IGraphics::CQuadItem Q(cx - a / 2.0f, cy - a / 2.0f, a, a);
+1859:                         pGraphics->QuadsDrawTL(&Q, 1);
+1860:                         pGraphics->QuadsSetRotation(0.0f);
+1861:                         for(int Side = -1; Side <= 1; Side += 2)
+1862:                         {
+1863:                                 const float lx = Side * k, ly = -k;
+1864:                                 pGraphics->DrawCircle(cx + lx * std::cos(Th) - ly * std::sin(Th), cy + lx * std::sin(Th) + ly * std::cos(Th), a * 0.5f, 14);
+1865:                         }
+1866:                 }
+1867:                 else if(Shape == 1) // sparkle star
+1868:                 {
+1869:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, Alpha));
+1870:                         for(int k = 0; k < 4; k++)
+1871:                         {
+1872:                                 const float Len = (k % 2 == 0 ? 2.0f : 1.2f) * s;
+1873:                                 pGraphics->QuadsSetRotation(p.m_Rot + k * 0.78539816f);
+1874:                                 IGraphics::CQuadItem Q(cx - Len / 2.0f, cy - s * 0.12f, Len, s * 0.24f);
+1875:                                 pGraphics->QuadsDrawTL(&Q, 1);
+1876:                         }
+1877:                         pGraphics->QuadsSetRotation(0.0f);
+1878:                 }
+1879:                 else if(Shape == 2) // circle
+1880:                 {
+1881:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, Alpha));
+1882:                         pGraphics->DrawCircle(cx, cy, s * 0.5f, 12);
+1883:                 }
+1884:                 else if(Shape == 3) // snowflake: 3 crossing bars
+1885:                 {
+1886:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, Alpha + 0.15f));
+1887:                         for(int k = 0; k < 3; k++)
+1888:                         {
+1889:                                 pGraphics->QuadsSetRotation(p.m_Rot + k * 1.04719755f);
+1890:                                 IGraphics::CQuadItem Q(cx - s, cy - s * 0.09f, s * 2.0f, s * 0.18f);
+1891:                                 pGraphics->QuadsDrawTL(&Q, 1);
+1892:                         }
+1893:                         pGraphics->QuadsSetRotation(0.0f);
+1894:                 }
+1895:                 else if(Shape == 4) // bubble: soft body + highlight
+1896:                 {
+1897:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, Alpha * 0.55f));
+1898:                         pGraphics->DrawCircle(cx, cy, s * 0.75f, 16);
+1899:                         pGraphics->SetColor(ColorRGBA(1.0f, 1.0f, 1.0f, 0.75f));
+1900:                         pGraphics->DrawCircle(cx - s * 0.28f, cy - s * 0.28f, s * 0.15f, 8);
+1901:                 }
+1902:                 else if(Shape == 5) // firefly: pulsing glow
+1903:                 {
+1904:                         const float Pulse = 0.5f + 0.5f * std::sin(p.m_Phase * 1.6f);
+1905:                         const float a = 0.10f + 0.90f * Pulse * Pulse;
+1906:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, a * 0.16f));
+1907:                         pGraphics->DrawCircle(cx, cy, s * 1.3f, 16);
+1908:                         pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, a * 0.35f));
+1909:                         pGraphics->DrawCircle(cx, cy, s * 0.6f, 12);
+1910:                         pGraphics->SetColor(ColorRGBA(1.0f, 1.0f, 0.9f, a));
+1911:                         pGraphics->DrawCircle(cx, cy, s * 0.22f, 8);
+1912:                 }
+1913:                 else if(Shape == 6) // petal
+1914:                 {
+1915:                         const float Fl = std::max(0.2f, std::abs(std::cos(p.m_Phase * 1.7f + p.m_Hue * 6.0f)));
+1916:                         VxDrawLeaf(pGraphics, cx, cy, p.m_Rot, s * 0.9f, s * 0.55f * Fl, Base, std::min(1.0f, Alpha + 0.3f), false);
+1917:                 }
+1918:                 else // confetti: spinning coloured rectangle
+1919:                 {
+1920:                         const ColorRGBA C = VxHue(p.m_Hue);
+1921:                         pGraphics->SetColor(ColorRGBA(C.r, C.g, C.b, std::min(1.0f, Alpha + 0.3f)));
+1922:                         const float Fl = std::max(0.15f, std::abs(std::cos(p.m_Phase * 2.3f + p.m_Rot)));
+1923:                         pGraphics->QuadsSetRotation(p.m_Rot);
+1924:                         IGraphics::CQuadItem Q(cx - s * 0.55f, cy - s * 0.3f * Fl, s * 1.1f, s * 0.6f * Fl);
+1925:                         pGraphics->QuadsDrawTL(&Q, 1);
+1926:                         pGraphics->QuadsSetRotation(0.0f);
+1927:                 }
+1928:         }
+1929:         pGraphics->QuadsSetRotation(0.0f);
+1930:         pGraphics->QuadsEnd();
+1931: }
+1932: 
+1933: // Rain: light / heavy, thin slanted streaks (screen space)
+1934: static void VxRenderRain(IGraphics *pGraphics, float Dt, float W, float H)
+1935: {
+1936:         static std::vector<SVxDrop> s_vDrops;
+1937:         const bool Heavy = g_Config.m_VxRainHeavy != 0;
+1938:         const int Want = Heavy ? 520 : 140;
+1939:         while((int)s_vDrops.size() < Want)
+1940:         {
+1941:                 SVxDrop D;
+1942:                 D.m_X = VxRandF() * 1.4f - 0.2f;
+1943:                 D.m_Y = VxRandF();
+1944:                 D.m_Speed = Heavy ? 1.5f + VxRandF() * 0.8f : 0.8f + VxRandF() * 0.5f;
+1945:                 D.m_Len = Heavy ? 0.035f + VxRandF() * 0.03f : 0.022f + VxRandF() * 0.02f;
+1946:                 D.m_Alpha = 0.35f + VxRandF() * 0.4f;
+1947:                 s_vDrops.push_back(D);
+1948:         }
+1949:         if((int)s_vDrops.size() > Want)
+1950:                 s_vDrops.resize(Want);
+1951: 
+1952:         const float Slant = std::clamp(g_Config.m_VxRainSlant, 0, 100) / 100.0f * 0.45f; // dx/dy
+1953:         const ColorRGBA Base = color_cast<ColorRGBA>(ColorHSLA(g_Config.m_VxRainColor));
+1954:         const float Thick = std::max(0.25f, H * (Heavy ? 0.0016f : 0.0012f));
+1955: 
+1956:         pGraphics->TextureClear();
+1957:         pGraphics->QuadsBegin();
+1958:         for(SVxDrop &D : s_vDrops)
+1959:         {
+1960:                 D.m_Y += D.m_Speed * Dt;
+1961:                 D.m_X += D.m_Speed * Slant * Dt * (H / W);
+1962:                 if(D.m_Y > 1.05f)
+1963:                 {
+1964:                         D.m_Y = -D.m_Len;
+1965:                         D.m_X = VxRandF() * 1.4f - 0.2f;
+1966:                 }
+1967:                 const float hx = D.m_X * W, hy = D.m_Y * H;
+1968:                 const float tx = hx - D.m_Len * H * Slant, ty = hy - D.m_Len * H;
+1969:                 const float dx = hx - tx, dy = hy - ty;
+1970:                 const float Len = std::sqrt(dx * dx + dy * dy);
+1971:                 if(Len < 0.001f)
+1972:                         continue;
+1973:                 const float nx = -dy / Len * Thick * 0.5f, ny = dx / Len * Thick * 0.5f;
+1974:                 pGraphics->SetColor(ColorRGBA(Base.r, Base.g, Base.b, D.m_Alpha));
+1975:                 const IGraphics::CFreeformItem Q(tx - nx, ty - ny, tx + nx, ty + ny, hx - nx, hy - ny, hx + nx, hy + ny);
+1976:                 pGraphics->QuadsDrawFreeform(&Q, 1);
+1977:         }
+1978:         pGraphics->QuadsEnd();
+1979: }
+1980: 
+1981: void VertexRenderParticles(IGraphics *pGraphics, float Dt, float ScreenW, float ScreenH)
+1982: {
+1983:         if(!g_Config.m_VxParticles && !g_Config.m_VxRain)
+1984:                 return;
+1985:         if(ScreenW <= 0.0f || ScreenH <= 0.0f)
+1986:                 return;
+1987:         Dt = std::clamp(Dt, 0.0f, 0.1f);
+1988: 
+1989:         if(g_Config.m_VxRain)
+1990:                 VxRenderRain(pGraphics, Dt, ScreenW, ScreenH);
+1991:         if(g_Config.m_VxParticles)
+1992:                 VxRenderHearts(pGraphics, Dt, ScreenW, ScreenH);
+1993: }
+1994: 
+1995: // ---------------- leaves (world space) ----------------
+1996: // The screen must already be mapped to the game group (so units are map units, a tee is ~28 units wide).
+1997: // Leaves fall with wind + sway + flip, stop on solid tiles (Collision()->CheckPoint), lie there for a while,
+1998: // and are kicked up when the local player runs through them.
+1999: void VertexRenderWorld(IGraphics *pGraphics, CCollision *pCollision, float Dt, vec2 PlayerPos, bool HasPlayer, float ViewX0, float ViewY0, float ViewX1, float ViewY1)
+2000: {
+2001:         if(!g_Config.m_VxLeaves || !pCollision)
+2002:                 return;
+2003:         Dt = std::clamp(Dt, 0.0f, 0.1f);
+2004: 
+2005:         static std::vector<SVxWLeaf> s_vLeaves;
+2006:         static float s_Time = 0.0f;
+2007:         static vec2 s_PrevPlayer = vec2(0.0f, 0.0f);
+2008:         static bool s_HadPlayer = false;
+2009:         s_Time += Dt;
+2010: 
+2011:         static const ColorRGBA s_aPalette[5] = {
+2012:                 ColorRGBA(0.93f, 0.46f, 0.10f, 1.0f), // orange
+2013:                 ColorRGBA(0.80f, 0.20f, 0.10f, 1.0f), // red
+2014:                 ColorRGBA(0.95f, 0.76f, 0.15f, 1.0f), // yellow
+2015:                 ColorRGBA(0.55f, 0.32f, 0.12f, 1.0f), // brown
+2016:                 ColorRGBA(0.85f, 0.55f, 0.10f, 1.0f)}; // amber
+2017: 
+2018:         const float X0 = ViewX0, Y0 = ViewY0, X1 = ViewX1, Y1 = ViewY1;
+2019:         const float VW = X1 - X0, VH = Y1 - Y0;
+2020:         if(VW <= 1.0f || VH <= 1.0f)
+2021:                 return;
+2022:         const float Mx = VW * 0.15f;
+2023: 
+2024:         vec2 PlayerVel = vec2(0.0f, 0.0f);
+2025:         if(HasPlayer && s_HadPlayer && Dt > 0.0001f)
+2026:         {
+2027:                 PlayerVel = (PlayerPos - s_PrevPlayer) / Dt;
+2028:                 PlayerVel.x = std::clamp(PlayerVel.x, -900.0f, 900.0f);
+2029:                 PlayerVel.y = std::clamp(PlayerVel.y, -900.0f, 900.0f);
+2030:         }
+2031:         s_PrevPlayer = PlayerPos;
+2032:         s_HadPlayer = HasPlayer;
+2033: 
+2034:         const auto Respawn = [&](SVxWLeaf &L, bool AnyY) {
+2035:                 for(int Try = 0; Try < 10; Try++)
+2036:                 {
+2037:                         L.m_Pos.x = X0 - Mx + VxRandF() * (VW + 2.0f * Mx);
+2038:                         L.m_Pos.y = AnyY ? Y0 + VxRandF() * VH : Y0 - 10.0f - VxRandF() * 60.0f;
+2039:                         if(!pCollision->CheckPoint(L.m_Pos.x, L.m_Pos.y))
+2040:                                 break;
+2041:                 }
+2042:                 L.m_Vel = vec2(0.0f, 25.0f);
+2043:                 L.m_Rot = VxRandF() * 6.2831853f;
+2044:                 L.m_Size = 0.7f + VxRandF() * 0.7f;
+2045:                 L.m_Phase = VxRandF() * 6.2831853f;
+2046:                 L.m_Flip = VxRandF() * 6.2831853f;
+2047:                 L.m_FlipSpeed = 1.5f + VxRandF() * 3.0f;
+2048:                 L.m_Life = 5.0f + VxRandF() * 10.0f;
+2049:                 L.m_Age = 0.0f;
+2050:                 L.m_Color = rand() % 5;
+2051:                 L.m_Landed = false;
+2052:         };
+2053: 
+2054:         const int Want = std::clamp(g_Config.m_VxLeavesCount, 1, 400);
+2055:         while((int)s_vLeaves.size() < Want)
+2056:         {
+2057:                 SVxWLeaf L;
+2058:                 Respawn(L, true);
+2059:                 s_vLeaves.push_back(L);
+2060:         }
+2061:         if((int)s_vLeaves.size() > Want)
+2062:                 s_vLeaves.resize(Want);
+2063: 
+2064:         const float WindK = std::clamp(g_Config.m_VxLeavesWind, 0, 200) / 100.0f;
+2065:         const float SizeK = std::clamp(g_Config.m_VxLeavesSize, 20, 300) / 100.0f;
+2066:         const float Gust = std::max(0.0f, std::sin(s_Time * 0.23f + 1.3f)) * std::max(0.0f, std::sin(s_Time * 0.61f));
+2067:         const float Wind = (15.0f + 25.0f * std::sin(s_Time * 0.31f) + 15.0f * std::sin(s_Time * 0.97f + 2.0f) + 110.0f * Gust) * WindK;
+2068: 
+2069:         pGraphics->TextureClear();
+2070:         pGraphics->QuadsBegin();
+2071:         for(SVxWLeaf &L : s_vLeaves)
+2072:         {
+2073:                 L.m_Age += Dt;
+2074: 
+2075:                 // kicked up by the player
+2076:                 if(HasPlayer)
+2077:                 {
+2078:                         const vec2 d = L.m_Pos - PlayerPos;
+2079:                         if(d.x * d.x + d.y * d.y < 34.0f * 34.0f && (L.m_Landed || std::abs(PlayerVel.x) + std::abs(PlayerVel.y) > 120.0f))
+2080:                         {
+2081:                                 L.m_Landed = false;
+2082:                                 L.m_Life = 5.0f + VxRandF() * 8.0f;
+2083:                                 L.m_Vel.x = PlayerVel.x * 0.35f + (VxRandF() - 0.5f) * 90.0f;
+2084:                                 L.m_Vel.y = -(50.0f + VxRandF() * 90.0f) + PlayerVel.y * 0.2f;
+2085:                                 L.m_FlipSpeed = 3.0f + VxRandF() * 4.0f;
+2086:                                 L.m_Pos.y -= 2.0f;
+2087:                         }
+2088:                 }
+2089: 
+2090:                 float Fade = 1.0f;
+2091:                 if(L.m_Landed)
+2092:                 {
+2093:                         L.m_Life -= Dt;
+2094:                         Fade = std::clamp(L.m_Life, 0.0f, 1.0f);
+2095:                         if(L.m_Life <= 0.0f)
+2096:                                 Respawn(L, false);
+2097:                 }
+2098:                 else
+2099:                 {
+2100:                         L.m_Phase += Dt * (2.0f + L.m_Size);
+2101:                         L.m_Flip += Dt * L.m_FlipSpeed;
+2102:                         const float Sway = std::sin(L.m_Phase);
+2103:                         const float Flat = std::abs(std::cos(L.m_Flip));
+2104:                         const float TargetVx = Wind * (0.5f + 0.4f * L.m_Size) + Sway * 28.0f;
+2105:                         const float TargetVy = 28.0f + 30.0f * (1.0f - Flat) + 8.0f * L.m_Size;
+2106:                         const float Relax = std::min(1.0f, Dt * 1.8f);
+2107:                         L.m_Vel.x += (TargetVx - L.m_Vel.x) * Relax;
+2108:                         L.m_Vel.y += (TargetVy - L.m_Vel.y) * Relax;
+2109:                         L.m_Rot += Dt * (Sway * 1.4f + L.m_Vel.x * 0.04f);
+2110: 
+2111:                         vec2 New = L.m_Pos + L.m_Vel * Dt;
+2112:                         if(pCollision->CheckPoint(New.x, L.m_Pos.y)) // wall: bounce a little
+2113:                         {
+2114:                                 L.m_Vel.x = -L.m_Vel.x * 0.3f;
+2115:                                 New.x = L.m_Pos.x;
+2116:                         }
+2117:                         if(pCollision->CheckPoint(New.x, New.y + 1.0f))
+2118:                         {
+2119:                                 if(L.m_Vel.y > 0.0f)
+2120:                                 {
+2121:                                         // land on the floor: lie flat, stay a while
+2122:                                         L.m_Landed = true;
+2123:                                         L.m_Vel = vec2(0.0f, 0.0f);
+2124:                                         L.m_Rot = (VxRandF() - 0.5f) * 0.9f + (VxRandF() < 0.5f ? 0.0f : 3.14159265f);
+2125:                                         L.m_Flip = 0.9f;
+2126:                                         L.m_Life = 4.0f + VxRandF() * 10.0f;
+2127:                                         New.y = L.m_Pos.y;
+2128:                                 }
+2129:                                 else
+2130:                                         New.y = L.m_Pos.y; // hit a ceiling
+2131:                         }
+2132:                         L.m_Pos = New;
+2133:                         // stuck inside a tile (e.g. camera jump): push out
+2134:                         for(int i = 0; i < 6 && pCollision->CheckPoint(L.m_Pos.x, L.m_Pos.y); i++)
+2135:                                 L.m_Pos.y -= 1.5f;
+2136:                 }
+2137: 
+2138:                 // left the view: bring it back
+2139:                 if(L.m_Pos.y > Y1 + 40.0f)
+2140:                         Respawn(L, false);
+2141:                 else if(L.m_Pos.x < X0 - 2.0f * Mx || L.m_Pos.x > X1 + 2.0f * Mx || L.m_Pos.y < Y0 - 300.0f)
+2142:                         Respawn(L, true);
+2143: 
+2144:                 const float Fl = L.m_Landed ? 0.6f : std::max(0.12f, std::abs(std::cos(L.m_Flip)));
+2145:                 const float Ln = 2.4f * SizeK * L.m_Size;
+2146:                 const float Wd = 0.85f * SizeK * L.m_Size * Fl;
+2147:                 const float Shade = 0.62f + 0.38f * Fl;
+2148:                 const ColorRGBA &Pal = s_aPalette[L.m_Color];
+2149:                 const ColorRGBA Col(Pal.r * Shade, Pal.g * Shade, Pal.b * Shade, 1.0f);
+2150:                 const float Alpha = 0.95f * Fade * std::min(1.0f, L.m_Age * 2.0f);
+2151:                 VxDrawLeaf(pGraphics, L.m_Pos.x, L.m_Pos.y, L.m_Rot, Ln, Wd, Col, Alpha, true);
+2152:         }
+2153:         pGraphics->QuadsEnd();
+2154: }
